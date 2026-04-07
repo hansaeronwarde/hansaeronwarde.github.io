@@ -2,11 +2,12 @@
 <html lang="en">
 
 <head>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Hans Aeron Warde &mdash; Lead Full-Stack Engineer</title>
   <meta name="description"
-    content="Lead Full-Stack Engineer. I build distributed systems that handle real load — from schema design to production monitoring." />
+    content="Lead Full-Stack Engineer. I lead teams that modernize legacy systems, scale distributed platforms, and reduce operational cost." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
@@ -29,8 +30,8 @@
       --border: rgba(255, 255, 255, 0.1);
       --border-dim: rgba(255, 255, 255, 0.06);
       --text-1: #f5f5f7;
-      --text-2: #86868b;
-      --text-3: rgba(245, 245, 247, 0.24);
+      --text-2: #a1a1a6;
+      --text-3: rgba(245, 245, 247, 0.28);
       --accent: #2997ff;
       --accent-2: #bf5af2;
       --accent-3: #30d158;
@@ -54,6 +55,50 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+
+    }
+
+    /* ── SKIP NAV ── */
+    .skip-nav {
+      position: absolute;
+      top: -100%;
+      left: 16px;
+      z-index: 200;
+      padding: 10px 20px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: top 0.2s;
+    }
+
+    .skip-nav:focus {
+      top: 8px;
+    }
+
+    /* ── FOCUS STYLES ── */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ── REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      html {
+        scroll-behavior: auto;
+      }
     }
 
     /* ── AURORA BACKGROUND ── */
@@ -121,7 +166,6 @@
       }
     }
 
-    /* noise texture overlay */
     body::after {
       content: '';
       position: fixed;
@@ -420,17 +464,17 @@
     }
 
     .photo-wrap:hover .photo-inner {
-      transform: rotateY(-4deg) rotateX(2deg) scale(1.02);
+      transform: rotateY(-3deg) rotateX(1.5deg) scale(1.01);
     }
 
-    /* animated gradient border */
     .photo-border {
       position: absolute;
       inset: -2px;
       border-radius: 30px;
       z-index: 0;
       background: conic-gradient(from var(--angle, 0deg), var(--accent), var(--accent-2), var(--accent-3), var(--accent), var(--accent-2));
-      animation: spin 4s linear infinite;
+      animation: spin 6s linear infinite;
+      opacity: 0.7;
     }
 
     @keyframes spin {
@@ -447,12 +491,12 @@
 
     .photo-glow {
       position: absolute;
-      inset: -60px;
-      background: conic-gradient(from 180deg, rgba(41, 151, 255, 0.15), rgba(191, 90, 242, 0.12), rgba(48, 209, 88, 0.08), rgba(41, 151, 255, 0.15));
-      filter: blur(40px);
+      inset: -40px;
+      background: conic-gradient(from 180deg, rgba(41, 151, 255, 0.1), rgba(191, 90, 242, 0.08), rgba(48, 209, 88, 0.05), rgba(41, 151, 255, 0.1));
+      filter: blur(35px);
       z-index: -1;
       border-radius: 50%;
-      animation: spin 8s linear infinite reverse;
+      animation: spin 10s linear infinite reverse;
     }
 
     .photo-wrap img {
@@ -465,33 +509,32 @@
       display: block;
     }
 
-    /* orbit rings */
     .orbit {
       position: absolute;
       border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      animation: orbit-spin 12s linear infinite;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      animation: orbit-spin 14s linear infinite;
     }
 
     .orbit-1 {
       inset: -30px;
-      animation-duration: 14s;
+      animation-duration: 16s;
     }
 
     .orbit-2 {
       inset: -55px;
       border-color: rgba(41, 151, 255, 0.08);
-      animation-duration: 20s;
+      animation-duration: 22s;
       animation-direction: reverse;
     }
 
     .orbit-dot {
       position: absolute;
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
       background: var(--accent);
-      box-shadow: 0 0 10px var(--accent);
+      box-shadow: 0 0 8px var(--accent);
     }
 
     .orbit-1 .orbit-dot {
@@ -503,7 +546,7 @@
       bottom: 18%;
       left: 4%;
       background: var(--accent-2);
-      box-shadow: 0 0 10px var(--accent-2);
+      box-shadow: 0 0 8px var(--accent-2);
     }
 
     @keyframes orbit-spin {
@@ -688,69 +731,72 @@
     }
 
     /* ── PROJECTS ── */
-    .proj-grid {
+    /* ── CASE STUDIES ── */
+    .case-section {
+      margin-bottom: 20px;
+    }
+
+    .case-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--text-3);
+      margin-bottom: 8px;
+    }
+
+    .case-study code {
+      font-size: 14px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: rgba(41, 151, 255, 0.1);
+      color: var(--accent);
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      white-space: nowrap;
+    }
+
+    .case-results {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 64px;
+      gap: 1px;
+      background: var(--border-dim);
+      border: 1px solid var(--border-dim);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: 24px;
     }
 
-    .proj {
-      position: relative;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-lg);
-      padding: 32px;
-      backdrop-filter: blur(12px);
+    .case-stat {
+      background: var(--bg);
+      padding: 24px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity .55s ease, transform .3s ease, border-color .3s, box-shadow .3s;
-      overflow: hidden;
+      gap: 6px;
+      text-align: center;
     }
 
-    .proj.vis {
-      opacity: 1;
-      transform: translateY(0);
+    .case-num {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
-    /* gradient border glow on hover */
-    .proj::after {
-      content: '';
-      position: absolute;
-      inset: -1px;
-      border-radius: var(--radius-lg);
-      z-index: -1;
-      background: conic-gradient(from var(--angle, 0deg), var(--accent), var(--accent-2), var(--accent-3), var(--accent));
-      opacity: 0;
-      transition: opacity 0.4s;
-      animation: spin 4s linear infinite;
+    .case-stat-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: .08em;
     }
 
-    .proj:hover::after {
-      opacity: 0.5;
-    }
-
-    .proj:hover {
-      transform: translateY(-6px);
-      border-color: transparent;
-      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
-    }
-
-    .proj-name {
-      font-size: 19px;
-      font-weight: 600;
-      letter-spacing: -0.015em;
-      color: var(--text-1);
-    }
-
-    .proj-desc {
-      font-size: 15px;
-      line-height: 1.7;
-      color: #a1a1a6;
-      flex: 1;
+    @media (max-width: 600px) {
+      .case-results {
+        grid-template-columns: 1fr;
+      }
     }
 
     .proj-tags {
@@ -770,8 +816,6 @@
       color: var(--accent);
       transition: background 0.2s, color 0.2s;
     }
-
-
 
     /* ── STACK ── */
     .stack-grid {
@@ -931,7 +975,7 @@
       font-size: 18px;
       line-height: 1.65;
       color: var(--text-2);
-      max-width: 480px;
+      max-width: 520px;
       margin: 0 auto 44px;
       position: relative;
     }
@@ -1035,10 +1079,6 @@
         letter-spacing: -0.04em;
       }
 
-      .orbit-2 {
-        display: none;
-      }
-
       .marquee-track {
         gap: 32px;
       }
@@ -1048,6 +1088,9 @@
 
 <body>
 
+  <!-- Skip Navigation -->
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
   <!-- Aurora background -->
   <div class="aurora" aria-hidden="true">
     <div class="aurora-orb"></div>
@@ -1056,13 +1099,13 @@
   </div>
 
   <!-- Nav -->
-  <nav>
+  <nav aria-label="Main navigation">
     <div class="nav-inner">
       <a href="#top" class="nav-brand">Hans Aeron Warde</a>
       <ul class="nav-links">
-        <li><a href="#what-i-do">What I Do</a></li>
+        <li><a href="#engineering-focus">Focus</a></li>
         <li><a href="#work">Work</a></li>
-        <li><a href="#projects">Projects</a></li>
+        <li><a href="#projects">Case Studies</a></li>
         <li><a href="#stack">Stack</a></li>
         <li><a href="#education">Education</a></li>
         <li><a class="nav-cta" href="#contact">Contact</a></li>
@@ -1070,329 +1113,525 @@
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section class="hero" id="top">
-    <div class="container">
-      <div>
-        <div class="hero-eyebrow">Lead Full-Stack Engineer &middot; Manila, Philippines</div>
-        <h1 class="hero-name">Hans Aeron<br>Warde</h1>
-        <p class="hero-subtitle">I design and build distributed systems that operate reliably at scale — from data
-          modeling and backend architecture to production monitoring.</p>
-        <div class="hero-body">
-          <p>Seven years of experience across fintech, telecom, edtech, and utilities. I've led system modernizations,
-            reduced operational costs by six figures, and guided teams through complex architectural decisions where
-            trade-offs matter.</p>
-          <p>Available for lead engineering roles and architecture consulting.</p>
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="top">
+      <div class="container" id="main-content">
+        <div>
+          <div class="hero-eyebrow">Lead Full-Stack Engineer &middot; Manila, Philippines</div>
+          <h1 class="hero-name">Hans Aeron<br>Warde</h1>
+          <p class="hero-subtitle">I lead teams that modernize legacy systems, scale distributed platforms, and
+            reduce operational cost &mdash; from architecture decisions to production monitoring.</p>
+          <div class="hero-body">
+            <p>Seven years across fintech, telecom, edtech, and utilities. I've taken systems from legacy monoliths
+              to production-grade distributed platforms, cut six figures in operational cost, and led teams through
+              the architectural trade-offs that shape long-term reliability.</p>
+            <p>Available for lead engineering roles and architecture consulting.</p>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="mailto:haeronwarde@gmail.com">Get in touch</a>
+            <a class="btn btn-ghost" href="https://drive.google.com/file/d/1eMGLkV1pskHZZzcdrsOblpHFrxNwIS7J/view"
+              target="_blank" rel="noreferrer">Resume &darr;</a>
+            <a class="btn btn-ghost" href="https://linkedin.com/in/hansaeronwarde" target="_blank"
+              rel="noreferrer">LinkedIn</a>
+            <a class="btn btn-ghost" href="https://github.com/hansaeronwarde" target="_blank"
+              rel="noreferrer">GitHub</a>
+          </div>
         </div>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="mailto:haeronwarde@gmail.com">Get in touch</a>
-          <a class="btn btn-ghost" href="https://linkedin.com/in/hansaeronwarde" target="_blank"
-            rel="noreferrer">LinkedIn</a>
-          <a class="btn btn-ghost" href="https://github.com/hansaeronwarde" target="_blank" rel="noreferrer">GitHub</a>
-        </div>
-      </div>
-      <div class="hero-visual">
-        <div class="photo-wrap">
-          <div class="photo-glow"></div>
-          <div class="orbit orbit-1"><span class="orbit-dot"></span></div>
-          <div class="orbit orbit-2"><span class="orbit-dot"></span></div>
-          <div class="photo-inner">
-            <div class="photo-border"></div>
-            <img src="assets/headshot.jpg" alt="Hans Aeron Warde" />
+        <div class="hero-visual">
+          <div class="photo-wrap">
+            <div class="photo-glow"></div>
+            <div class="orbit orbit-1"><span class="orbit-dot"></span></div>
+            <div class="orbit orbit-2"><span class="orbit-dot"></span></div>
+            <div class="photo-inner">
+              <div class="photo-border"></div>
+              <img src="assets/headshot.jpg" alt="Hans Aeron Warde" />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Marquee -->
-  <div class="marquee" aria-label="Companies I've worked with">
-    <div class="marquee-track">
-      <img src="assets/opentext-logo.svg" alt="OpenText" />
-      <img src="assets/manulife-logo.svg" alt="Manulife" />
-      <img src="assets/snapraise-logo.svg" alt="Snap! Raise" />
-      <img src="assets/circleslife-logo.png" alt="Circles.Life" />
-      <img src="assets/escpartners-logo.png" alt="ESC Partners" />
-      <img src="assets/opentext-logo.svg" alt="OpenText" />
-      <img src="assets/manulife-logo.svg" alt="Manulife" />
-      <img src="assets/snapraise-logo.svg" alt="Snap! Raise" />
-      <img src="assets/circleslife-logo.png" alt="Circles.Life" />
-      <img src="assets/escpartners-logo.png" alt="ESC Partners" />
-    </div>
-  </div>
-
-  <!-- What I Do -->
-  <section id="what-i-do">
-    <div class="container">
-      <p class="section-eyebrow">What I Do</p>
-      <h2 class="section-heading">Solving the hard problems<br>in software delivery.</h2>
-      <p class="section-lead">I focus on the challenges that emerge when systems grow: when scale introduces
-        complexity, release processes become bottlenecks, and infrastructure decisions start impacting the business.
-      </p>
-      <div class="cap-list">
-        <div class="cap-item"><span class="cap-num">01</span>
-          <p class="cap-text">Decompose legacy monoliths into clean, independently deployable services.</p>
-        </div>
-        <div class="cap-item"><span class="cap-num">02</span>
-          <p class="cap-text">Design event-driven systems that remain reliable under real-world concurrency.</p>
-        </div>
-        <div class="cap-item"><span class="cap-num">03</span>
-          <p class="cap-text">Build CI/CD pipelines that enable safe, continuous delivery.</p>
-        </div>
-        <div class="cap-item"><span class="cap-num">04</span>
-          <p class="cap-text">Establish testing standards that hold under production conditions.</p>
-        </div>
-        <div class="cap-item"><span class="cap-num">05</span>
-          <p class="cap-text">Own systems end-to-end — from application code to infrastructure and observability.</p>
-        </div>
+    <!-- Marquee -->
+    <div class="marquee" aria-label="Companies I've worked with">
+      <div class="marquee-track">
+        <img src="assets/opentext-logo.svg" alt="OpenText" />
+        <img src="assets/manulife-logo.svg" alt="Manulife" />
+        <img src="assets/snapraise-logo.svg" alt="Snap! Raise" />
+        <img src="assets/circleslife-logo.png" alt="Circles.Life" />
+        <img src="assets/escpartners-logo.png" alt="ESC Partners" />
+        <img src="assets/opentext-logo.svg" alt="OpenText" />
+        <img src="assets/manulife-logo.svg" alt="Manulife" />
+        <img src="assets/snapraise-logo.svg" alt="Snap! Raise" />
+        <img src="assets/circleslife-logo.png" alt="Circles.Life" />
+        <img src="assets/escpartners-logo.png" alt="ESC Partners" />
       </div>
     </div>
-  </section>
 
-  <!-- Work -->
-  <section id="work">
-    <div class="container">
-      <p class="section-eyebrow">Work</p>
-      <h2 class="section-heading">Where I've delivered impact.</h2>
-      <div class="work-list">
-
-        <div class="work-card">
-          <div class="work-top"><a class="work-co" href="https://www.esc-partners.com/" target="_blank"
-              rel="noreferrer">ESC Partners</a><span class="work-when">May 2023 &ndash; Nov
-              2025</span></div>
-          <p class="work-role">Lead Software Engineer</p>
-          <p class="work-desc">Led the end-to-end delivery of five enterprise utility platforms spanning billing,
-            analytics, and payment orchestration.
-
-            Reduced data processing time from 3 days to 4 hours. Increased release frequency by 70% by replacing manual
-            deployments with automated CI/CD pipelines and comprehensive testing. Designed system architecture, defined
-            APIs, and built infrastructure and observability layers. Led a team of four engineers across the full
-            delivery lifecycle.</p>
+    <!-- Engineering Focus -->
+    <section id="engineering-focus">
+      <div class="container">
+        <p class="section-eyebrow">Engineering Focus</p>
+        <h2 class="section-heading">Solving the hard problems<br>in software delivery.</h2>
+        <p class="section-lead">I focus on the challenges that emerge when systems grow: when scale introduces
+          complexity, release processes become bottlenecks, and infrastructure decisions start impacting the
+          business.</p>
+        <div class="cap-list">
+          <div class="cap-item"><span class="cap-num">01</span>
+            <p class="cap-text">Decompose legacy monoliths into clean, independently deployable services.</p>
+          </div>
+          <div class="cap-item"><span class="cap-num">02</span>
+            <p class="cap-text">Design event-driven systems that remain reliable under real-world concurrency.</p>
+          </div>
+          <div class="cap-item"><span class="cap-num">03</span>
+            <p class="cap-text">Build CI/CD pipelines that enable safe, continuous delivery.</p>
+          </div>
+          <div class="cap-item"><span class="cap-num">04</span>
+            <p class="cap-text">Establish testing standards that hold under production conditions.</p>
+          </div>
+          <div class="cap-item"><span class="cap-num">05</span>
+            <p class="cap-text">Own systems end-to-end — from application code to infrastructure and observability.
+            </p>
+          </div>
         </div>
-
-        <div class="work-card">
-          <div class="work-top"><a class="work-co" href="https://www.circles.life/sg/" target="_blank"
-              rel="noreferrer">Circles.Life</a><span class="work-when">Jul 2022 &ndash; Aug
-              2023</span></div>
-          <p class="work-role">Software Engineer</p>
-          <p class="work-desc">Focused on modernizing a high-volume telecom platform by decomposing a tightly coupled
-            monolith into modular Node.js and Go services. Rebuilt the SIM activation system using an event-driven
-            architecture supporting 100k+ users, reducing
-            activation time by ~40%. Increased test coverage from near-zero to 90% across critical paths.</p>
-        </div>
-
-        <div class="work-card">
-          <div class="work-top"><a class="work-co" href="https://www.snapraise.com/" target="_blank"
-              rel="noreferrer">Snap! Mobile</a><span class="work-when">Jul 2022 &ndash; Mar
-              2023</span></div>
-          <p class="work-role">Software Engineer</p>
-          <p class="work-desc">Improved platform performance and reduced system redundancy.
-            Redesigned SSR/CSR boundaries, eliminated unnecessary render cycles, and introduced a reusable component
-            system. Increased Lighthouse scores from the 40s to the 90s and reduced infrastructure costs by $50k
-            annually.</p>
-        </div>
-
-        <div class="work-card">
-          <div class="work-top"><a class="work-co" href="https://www.manulife.ca/personal.html" target="_blank"
-              rel="noreferrer">Manulife (Canada)</a><span class="work-when">Jun 2021 &ndash;
-              Jul 2022</span></div>
-          <p class="work-role">Software Engineer</p>
-          <p class="work-desc">Built an automated document processing platform for insurance claims using OCR. Replaced
-            a
-            manual intake process with a reliable, audit-ready system, generating $210k in annual savings.
-            Maintained 95%+ test coverage. Built on MERN + TypeScript, deployed on Azure with Terraform-managed
-            infrastructure.</p>
-        </div>
-
-        <div class="work-card">
-          <div class="work-top"><a class="work-co" href="https://www.opentext.com/" target="_blank"
-              rel="noreferrer">OpenText Philippines</a><span class="work-when">May 2019
-              &ndash; Jun 2021</span></div>
-          <p class="work-role">Cloud Applications Consultant</p>
-          <p class="work-desc">Managed 20+ active EDI pipelines, improved SLA compliance by 30%, and reduced escalations
-            through stronger monitoring and operational discipline.</p>
-        </div>
-
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Selected Projects -->
-  <section id="projects">
-    <div class="container">
-      <p class="section-eyebrow">Selected Projects</p>
-      <h2 class="section-heading">Built for production.</h2>
-      <div class="proj-grid">
+    <!-- Work -->
+    <section id="work">
+      <div class="container">
+        <p class="section-eyebrow">Work</p>
+        <h2 class="section-heading">Where I've delivered impact.</h2>
+        <div class="work-list">
 
-        <div class="proj">
-          <p class="proj-name">Utility Management Platform</p>
-          <p class="proj-desc">Enterprise billing, analytics, and payment orchestration system deployed across five
-            production environments. Designed as a multi-service architecture with full observability and automated
-            delivery pipelines.</p>
-          <div class="proj-tags">
-            <span class="tag">Node.js</span><span class="tag">PostgreSQL</span><span class="tag">React</span><span
-              class="tag">AWS</span><span class="tag">Terraform</span><span class="tag">CI/CD</span>
+          <div class="work-card">
+            <div class="work-top"><a class="work-co" href="https://www.esc-partners.com/" target="_blank"
+                rel="noreferrer">ESC Partners</a><span class="work-when">May 2023 &ndash; Nov 2025</span></div>
+            <p class="work-role">Lead Software Engineer</p>
+            <p class="work-desc">Led the end-to-end delivery of five enterprise utility platforms spanning billing,
+              analytics, and payment orchestration. Reduced data processing time from 3 days to 4 hours. Increased
+              release frequency by 70% by replacing manual deployments with automated CI/CD pipelines and
+              comprehensive testing. Designed system architecture, defined APIs, and built infrastructure and
+              observability layers. Led a team of four engineers across the full delivery lifecycle.</p>
+          </div>
+
+          <div class="work-card">
+            <div class="work-top"><a class="work-co" href="https://www.circles.life/sg/" target="_blank"
+                rel="noreferrer">Circles.Life</a><span class="work-when">Jul 2022 &ndash; Aug 2023 &middot;
+                Contract</span></div>
+            <p class="work-role">Software Engineer</p>
+            <p class="work-desc">Focused on modernizing a high-volume telecom platform by decomposing a tightly
+              coupled monolith into modular Node.js and Go services. Rebuilt the SIM activation system using an
+              event-driven architecture supporting 100k+ users, reducing activation time by ~40%. Increased test
+              coverage from near-zero to 90% across critical paths.</p>
+          </div>
+
+          <div class="work-card">
+            <div class="work-top"><a class="work-co" href="https://www.snapraise.com/" target="_blank"
+                rel="noreferrer">Snap! Mobile</a><span class="work-when">Jul 2022 &ndash; Mar 2023 &middot;
+                Contract</span></div>
+            <p class="work-role">Software Engineer</p>
+            <p class="work-desc">Improved platform performance and reduced system redundancy. Redesigned SSR/CSR
+              boundaries, eliminated unnecessary render cycles, and introduced a reusable component system.
+              Increased Lighthouse scores from the 40s to the 90s and reduced infrastructure costs by $50k annually.
+            </p>
+          </div>
+
+          <div class="work-card">
+            <div class="work-top"><a class="work-co" href="https://www.manulife.ca/personal.html" target="_blank"
+                rel="noreferrer">Manulife (Canada)</a><span class="work-when">Jun 2021 &ndash; Jul 2022</span></div>
+            <p class="work-role">Software Engineer</p>
+            <p class="work-desc">Built an automated document processing platform for insurance claims using OCR.
+              Replaced a manual intake process with a reliable, audit-ready system, generating $210k in annual
+              savings. Maintained 95%+ test coverage. Built on MERN + TypeScript, deployed on Azure with
+              Terraform-managed infrastructure.</p>
+          </div>
+
+          <div class="work-card">
+            <div class="work-top"><a class="work-co" href="https://www.opentext.com/" target="_blank"
+                rel="noreferrer">OpenText Philippines</a><span class="work-when">May 2019 &ndash; Jun 2021</span>
+            </div>
+            <p class="work-role">Cloud Applications Consultant</p>
+            <p class="work-desc">Managed 20+ active EDI pipelines, improved SLA compliance by 30%, and reduced
+              escalations through stronger monitoring and operational discipline.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Case Studies -->
+    <section id="projects">
+      <div class="container">
+        <p class="section-eyebrow">Case Studies</p>
+        <h2 class="section-heading">How I solve problems.</h2>
+        <p class="section-lead">Selected projects where I owned architecture, delivery, and production outcomes.</p>
+
+        <!-- Case Study 1: SCIF Middleware -->
+        <div class="case-study work-card" style="margin-top:64px;">
+          <div class="work-top">
+            <span class="work-co">ESC Partners &middot; Utilities</span>
+          </div>
+          <p class="work-role">Delco &harr; Beacon Integration Middleware</p>
+          <p class="work-desc" style="margin-bottom:24px;">Custom middleware replacing Oracle Integration Cloud for
+            utility billing, meter data, and customer record workflows &mdash; at a fraction of the cost.</p>
+
+          <div class="case-section">
+            <p class="case-label">The Problem</p>
+            <p class="work-desc">Delco and Beacon had no integration layer. The options were manual request handling
+              by operations teams, or licensing Oracle Integration Cloud &mdash; expensive and over-engineered for
+              the use case. Meanwhile, requests were synchronous, failed jobs disappeared without visibility, and
+              batch imports followed a completely separate path from real-time requests.</p>
+          </div>
+
+          <div class="case-section">
+            <p class="case-label">The Approach</p>
+            <p class="work-desc">Built a purpose-built event-driven middleware from scratch. Incoming requests were
+              acknowledged immediately and queued for async execution. Workers processed jobs at controlled
+              concurrency (5 parallel) to protect downstream APIs. Used MongoDB as both the primary store and
+              caching layer for request state, giving fast reads on job status without hitting external systems.
+              Every request followed a state machine &mdash;
+              <code>pending &rarr; processing &rarr; completed / failed</code> &mdash; with full lifecycle tracking,
+              retry handling for transient failures, and polling for long-running external jobs. Built a file
+              processing pipeline for batch CSV imports: download, parse, validate, transform, upload, and cleanup.
+            </p>
+          </div>
+
+          <div class="case-section">
+            <p class="case-label">Key Decisions</p>
+            <p class="work-desc">Custom middleware over Oracle IC &mdash; lower cost, full control, purpose-built
+              for the actual workflow. FIFO queue with controlled parallelism to prevent cascading failures. MongoDB
+              for dual-purpose storage and caching. Polling over blocking to keep workers productive during external
+              waits. Unified pipeline for both real-time and batch workflows.</p>
+          </div>
+
+          <div class="case-results">
+            <div class="case-stat">
+              <span class="case-num">72hrs &rarr; 4hrs</span>
+              <span class="case-stat-label">Processing time</span>
+            </div>
+            <div class="case-stat">
+              <span class="case-num">Zero</span>
+              <span class="case-stat-label">Silent failures</span>
+            </div>
+            <div class="case-stat">
+              <span class="case-num">Full</span>
+              <span class="case-stat-label">Lifecycle visibility</span>
+            </div>
+          </div>
+
+          <div class="proj-tags" style="margin-top:24px;">
+            <span class="tag">Node.js</span><span class="tag">MongoDB</span><span class="tag">Event-driven</span><span
+              class="tag">AWS</span><span class="tag">Queue
+              Architecture</span><span class="tag">Batch Processing</span>
           </div>
         </div>
 
-        <div class="proj">
-          <p class="proj-name">Telecom Activation Engine</p>
-          <p class="proj-desc">Event-driven backend supporting 100k+ concurrent users. Migrated from a monolith to
-            independently deployable services in Go and Node.js.</p>
-          <div class="proj-tags">
+        <!-- Case Study 2: Telecom Activation & Delivery -->
+        <div class="case-study work-card" style="margin-top:12px;">
+          <div class="work-top">
+            <span class="work-co">Circles.Life &middot; Telecom</span>
+          </div>
+          <p class="work-role">End-to-End SIM Activation &amp; Delivery Engine</p>
+          <p class="work-desc" style="margin-bottom:24px;">Event-driven backend handling 100k+ concurrent users
+            across the full lifecycle &mdash; from SIM purchase through activation to last-mile delivery.</p>
+
+          <div class="case-section">
+            <p class="case-label">The Problem</p>
+            <p class="work-desc">The activation system was buried inside a tightly coupled monolith. Deployments
+              were risky, test coverage was near-zero, and the system couldn't handle traffic spikes without
+              degrading the entire platform. Delivery was disconnected &mdash; there was no integration between
+              activation and logistics, leaving the customer experience fragmented across purchase, activation, and
+              fulfillment.</p>
+          </div>
+
+          <div class="case-section">
+            <p class="case-label">The Approach</p>
+            <p class="work-desc">Decomposed the monolith into independently deployable Go and Node.js services
+              behind an event-driven architecture. Isolated the activation flow so it could scale, fail, and deploy
+              independently. Extended the system end-to-end by integrating with third-party logistics providers for
+              last-mile delivery &mdash; including rider fulfillment services operating in markets like Pakistan.
+              Built comprehensive test coverage across critical paths.</p>
+          </div>
+
+          <div class="case-results">
+            <div class="case-stat">
+              <span class="case-num">~40%</span>
+              <span class="case-stat-label">Faster activation</span>
+            </div>
+            <div class="case-stat">
+              <span class="case-num">0 &rarr; 90%</span>
+              <span class="case-stat-label">Test coverage</span>
+            </div>
+            <div class="case-stat">
+              <span class="case-num">100k+</span>
+              <span class="case-stat-label">Concurrent users</span>
+            </div>
+          </div>
+
+          <div class="proj-tags" style="margin-top:24px;">
             <span class="tag">Go</span><span class="tag">Node.js</span><span class="tag">Event-driven</span><span
-              class="tag">PostgreSQL</span><span class="tag">Redis</span>
+              class="tag">PostgreSQL</span><span class="tag">Redis</span><span class="tag">Logistics
+              Integration</span>
           </div>
         </div>
 
-        <div class="proj">
-          <p class="proj-name">Intelligent Capture System</p>
-          <p class="proj-desc">Automated document intake, extraction, and routing platform for insurance workflows with
-            compliance-grade reliability and full audit trails.</p>
-          <div class="proj-tags">
-            <span class="tag">Node.js</span><span class="tag">TypeScript</span><span class="tag">MongoDB</span><span
+        <!-- Case Study 3: Intelligent Capture -->
+        <div class="case-study work-card" style="margin-top:12px;">
+          <div class="work-top">
+            <span class="work-co">Manulife &middot; Insurance</span>
+          </div>
+          <p class="work-role">Intelligent Document Capture System</p>
+          <p class="work-desc" style="margin-bottom:24px;">OCR-powered document intake platform for insurance
+            claims, starting with dental &mdash; built on Azure Cognitive Services with a custom-trained extraction
+            model.</p>
+
+          <div class="case-section">
+            <p class="case-label">The Problem</p>
+            <p class="work-desc">Insurance claims were manually encoded by operations teams &mdash; every document
+              was read, interpreted, and keyed in by hand. The process was slow, error-prone, expensive, and didn't
+              scale. There was no audit trail and no consistency in how claims were routed.</p>
+          </div>
+
+          <div class="case-section">
+            <p class="case-label">The Approach</p>
+            <p class="work-desc">Created and trained a custom OCR model in Azure Cognitive Services to extract
+              structured data from claim documents, initially focused on dental claims. Built an application layer
+              where encoders validated and corrected OCR output rather than encoding from scratch &mdash; shifting
+              their role from data entry to quality assurance. Designed rule-based routing with full audit trails
+              for compliance. Maintained 95%+ test coverage across the system.</p>
+          </div>
+
+          <div class="case-results">
+            <div class="case-stat">
+              <span class="case-num">$210k</span>
+              <span class="case-stat-label">Annual savings</span>
+            </div>
+            <div class="case-stat">
+              <span class="case-num">95%+</span>
+              <span class="case-stat-label">Test coverage</span>
+            </div>
+            <div class="case-stat">
+              <span class="case-num">Full</span>
+              <span class="case-stat-label">Audit compliance</span>
+            </div>
+          </div>
+
+          <div class="proj-tags" style="margin-top:24px;">
+            <span class="tag">React</span><span class="tag">Node.js</span><span class="tag">TypeScript</span><span
+              class="tag">MongoDB</span><span class="tag">Azure Cognitive Services</span><span
               class="tag">Azure</span><span class="tag">Terraform</span>
           </div>
         </div>
 
-      </div>
-    </div>
-  </section>
+        <!-- Case Study 4: Utility Campaign Manager -->
+        <div class="case-study work-card" style="margin-top:12px;">
+          <div class="work-top">
+            <span class="work-co">ESC Partners &middot; Utilities</span>
+          </div>
+          <p class="work-role">Utility Campaign &amp; Notification Manager</p>
+          <p class="work-desc" style="margin-bottom:24px;">Multi-channel notification platform unifying SMS, IVR, and
+            email delivery for utility campaigns &mdash; replacing fragmented vendor workflows with a single
+            orchestration
+            layer serving 50,000+ customers.</p>
 
-  <!-- Tech Stack -->
-  <section id="stack">
-    <div class="container">
-      <p class="section-eyebrow">Tech Stack</p>
-      <h2 class="section-heading">Tools I trust<br>in production.</h2>
-      <div class="stack-grid fade">
-        <div class="stack-cell">
-          <p class="stack-lbl">Languages</p>
-          <div class="stack-row"><span class="stack-itm">TypeScript</span><span class="stack-itm">JavaScript
-            </span><span class="stack-itm">Go</span></div>
-        </div>
-        <div class="stack-cell">
-          <p class="stack-lbl">Frontend</p>
-          <div class="stack-row"><span class="stack-itm">React</span><span class="stack-itm">Next.js</span><span
-              class="stack-itm">React Native</span><span class="stack-itm">Tailwind CSS</span></div>
-        </div>
-        <div class="stack-cell">
-          <p class="stack-lbl">Backend</p>
-          <div class="stack-row"><span class="stack-itm">Node.js</span><span class="stack-itm">Express</span><span
-              class="stack-itm">GraphQL</span><span class="stack-itm">REST</span><span class="stack-itm">Prisma</span>
+          <div class="case-section">
+            <p class="case-label">The Problem</p>
+            <p class="work-desc">Utilities managed notifications through separate vendors for SMS, IVR, and email.
+              Campaigns required coordinating across disconnected systems with no unified tracking, shared templates, or
+              centralized audit trail, and scheduling, delivery status, and campaign history were scattered. As the
+              client
+              base grew across Alex Renew, MVU, and Delco — with Delco alone serving 50,000+ water customers — this
+              fragmented setup could not scale.</p>
+
+          </div>
+
+          <div class="case-section">
+            <p class="case-label">The Approach</p>
+            <p class="work-desc">Built a unified campaign manager allowing utility operators to configure and launch
+              multi-channel notifications from a single interface, selecting SMS, IVR, email, or combinations, defining
+              audiences, and scheduling delivery. Integrated Twilio for SMS/IVR and AWS SES for email, abstracting
+              vendor
+              differences behind a consistent delivery layer. Added a Mustache-based dynamic templating system for
+              personalized content, scheduling for future campaigns, and full audit logging for sent, failed, and
+              pending
+              notifications across all channels.</p>
+
+          </div>
+
+          <div class="case-study-extra">
+            <div class="case-section">
+              <p class="case-label">Key Decisions</p>
+              <p class="work-desc">Implemented a single orchestration layer instead of managing separate vendor tools
+                for
+                each channel. Used Mustache for lightweight, logic-less templating capable of high-volume
+                personalization.
+                Channel selection was left to operators, as utilities know their customers' preferred contact methods.
+              </p>
+            </div>
+          </div>
+
+          <div class="case-results">
+            <div class="case-stat">
+              <span class="case-num">50,000+</span>
+              <span class="case-stat-label">Customers reached</span>
+            </div>
+            <div class="case-stat">
+              <span class="case-num">3</span>
+              <span class="case-stat-label">Channels supported</span>
+            </div>
+            <div class="case-stat">
+              <span class="case-num">Full</span>
+              <span class="case-stat-label">Audit &amp; tracking</span>
+            </div>
+          </div>
+
+          <div class="proj-tags" style="margin-top:24px;">
+            <span class="tag">React</span><span class="tag">Node.js</span><span class="tag">Twilio</span><span
+              class="tag">AWS SES</span><span class="tag">Mustache</span><span class="tag">MongoDB</span><span
+              class="tag">Scheduling</span><span class="tag">Multi-channel</span>
           </div>
         </div>
-        <div class="stack-cell">
-          <p class="stack-lbl">Data</p>
-          <div class="stack-row"><span class="stack-itm">PostgreSQL</span><span class="stack-itm">MongoDB</span><span
-              class="stack-itm">Redis</span></div>
-        </div>
-        <div class="stack-cell">
-          <p class="stack-lbl">Cloud &amp; Infrastructure</p>
-          <div class="stack-row"><span class="stack-itm">AWS</span><span class="stack-itm">Azure</span><span
-              class="stack-itm">Terraform</span><span class="stack-itm">Docker</span></div>
-        </div>
-        <div class="stack-cell">
-          <p class="stack-lbl">Testing &amp; Quality</p>
-          <div class="stack-row"><span class="stack-itm">Jest</span><span class="stack-itm">Vitest</span><span
-              class="stack-itm">Cypress</span><span class="stack-itm">Playwright</span><span
-              class="stack-itm">TDD</span><span class="stack-itm">E2E</span></div>
-        </div>
-        <div class="stack-cell wide">
-          <p class="stack-lbl">Architecture</p>
-          <div class="stack-row"><span class="stack-itm">Microservices</span><span
-              class="stack-itm">Serverless</span><span class="stack-itm">Event-driven systems</span><span
-              class="stack-itm">CI/CD (Jenkins, GitHub Actions)</span></div>
+
+      </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section id="stack">
+      <div class="container">
+        <p class="section-eyebrow">Tech Stack</p>
+        <h2 class="section-heading">Tools I trust<br>in production.</h2>
+        <div class="stack-grid fade">
+          <div class="stack-cell">
+            <p class="stack-lbl">Languages</p>
+            <div class="stack-row"><span class="stack-itm">TypeScript</span><span
+                class="stack-itm">JavaScript</span><span class="stack-itm">Go</span></div>
+          </div>
+          <div class="stack-cell">
+            <p class="stack-lbl">Frontend</p>
+            <div class="stack-row"><span class="stack-itm">React</span><span class="stack-itm">Next.js</span><span
+                class="stack-itm">React Native</span><span class="stack-itm">Tailwind CSS</span></div>
+          </div>
+          <div class="stack-cell">
+            <p class="stack-lbl">Backend</p>
+            <div class="stack-row"><span class="stack-itm">Node.js</span><span class="stack-itm">Express</span><span
+                class="stack-itm">GraphQL</span><span class="stack-itm">REST</span><span class="stack-itm">Prisma</span>
+            </div>
+          </div>
+          <div class="stack-cell">
+            <p class="stack-lbl">Data</p>
+            <div class="stack-row"><span class="stack-itm">PostgreSQL</span><span class="stack-itm">MongoDB</span><span
+                class="stack-itm">Redis</span></div>
+          </div>
+          <div class="stack-cell">
+            <p class="stack-lbl">Cloud &amp; Infrastructure</p>
+            <div class="stack-row"><span class="stack-itm">Amazon Web Services (AWS)</span><span
+                class="stack-itm">Microsoft Azure</span><span class="stack-itm">Terraform</span><span
+                class="stack-itm">Docker</span></div>
+          </div>
+          <div class="stack-cell">
+            <p class="stack-lbl">Testing &amp; Quality</p>
+            <div class="stack-row"><span class="stack-itm">Jest</span><span class="stack-itm">Vitest</span><span
+                class="stack-itm">Cypress</span><span class="stack-itm">Playwright</span><span
+                class="stack-itm">Test-driven Development</span><span class="stack-itm">End-to-End Testing</span></div>
+          </div>
+          <div class="stack-cell wide">
+            <p class="stack-lbl">Architecture</p>
+            <div class="stack-row"><span class="stack-itm">Microservices</span><span
+                class="stack-itm">Serverless</span><span class="stack-itm">Event-driven systems</span><span
+                class="stack-itm">CI/CD (Jenkins, GitHub Actions)</span></div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Certifications -->
-  <section id="certs">
-    <div class="container">
-      <p class="section-eyebrow">Certifications</p>
-      <h2 class="section-heading">Verified expertise.</h2>
-      <div class="cert-list">
-        <a class="cert" href="https://www.credly.com/badges/a1195bba-7dc9-4c60-936b-e768f1b76abb/linked_in_profile"
-          target="_blank" rel="noreferrer"><span class="cert-who">Microsoft Azure</span><span
-            class="cert-what">Fundamentals</span><span class="cert-yr">2021</span></a>
-        <a class="cert" href="https://www.credly.com/badges/dd9f7de5-4782-4c77-bc62-3ffa407cc7a6/linked_in_profile"
-          target="_blank" rel="noreferrer"><span class="cert-who">Microsoft Azure</span><span
-            class="cert-what">Developer
-            Associate</span><span class="cert-yr">2022</span></a>
-        <a class="cert" href="https://www.credly.com/badges/50525cc4-a574-4a8a-9472-e53ce6e5f2a6/linked_in_profile"
-          target="_blank" rel="noreferrer"><span class="cert-who">Microsoft Azure</span><span class="cert-what">DevOps
-            Engineer
-            Expert</span><span class="cert-yr">2022</span></a>
-        <a class="cert" href="https://www.credly.com/badges/08866e47-1eb3-418a-aa1c-9697304f689b" target="_blank"
-          rel="noreferrer"><span class="cert-who">AWS</span><span class="cert-what">Solutions Architect
-            Associate</span><span class="cert-yr">2023</span></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Education -->
-  <section id="education">
-    <div class="container">
-      <p class="section-eyebrow">Education</p>
-      <h2 class="section-heading">Where it started.</h2>
-      <div class="cert-list fade">
-        <a class="cert" href="https://www.pup.edu.ph/" target="_blank" rel="noreferrer">
-          <span class="cert-who">PUP Manila</span>
-          <span class="cert-what">B.S. Computer Science specialized in Information Systems Development &mdash; Ranked
-            8th in batch &middot; Best Undergraduate Thesis
-            &middot; Academic and Leadership Excellence Awards</span>
-          <span class="cert-yr">2019</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact">
-    <div class="container">
-      <div class="contact-box">
-        <p class="section-eyebrow">Contact</p>
-        <h2>Let&rsquo;s work together.</h2>
-        <p class="contact-lead">If you&rsquo;re working on a system that needs to scale, ship faster, or be rebuilt
-          properly &mdash; send me a message. I respond within 24 hours.</p>
-        <div class="contact-btns">
-          <a class="btn btn-primary" href="mailto:haeronwarde@gmail.com">haeronwarde@gmail.com</a>
-          <a class="btn btn-ghost" href="https://linkedin.com/in/hansaeronwarde" target="_blank"
-            rel="noreferrer">LinkedIn</a>
-          <a class="btn btn-ghost" href="https://github.com/hansaeronwarde" target="_blank" rel="noreferrer">GitHub</a>
+    <!-- Certifications -->
+    <section id="certs">
+      <div class="container">
+        <p class="section-eyebrow">Certifications</p>
+        <h2 class="section-heading">Verified expertise.</h2>
+        <div class="cert-list">
+          <a class="cert" href=" https://www.credly.com/badges/08866e47-1eb3-418a-aa1c-9697304f689b" target="_blank"
+            rel="noreferrer"><span class="cert-who">Microsoft Azure</span><span
+              class="cert-what">Fundamentals</span><span class="cert-yr">2021</span></a>
+          <a class="cert" href="https://www.credly.com/badges/50525cc4-a574-4a8a-9472-e53ce6e5f2a6/linked_in_profile"
+            target="_blank" rel="noreferrer"><span class="cert-who">Microsoft Azure</span><span
+              class="cert-what">Developer Associate</span><span class="cert-yr">2022</span></a>
+          <a class="cert" href="https://www.credly.com/badges/dd9f7de5-4782-4c77-bc62-3ffa407cc7a6/linked_in_profile"
+            target="_blank" rel="noreferrer"><span class="cert-who">Microsoft Azure</span><span class="cert-what">DevOps
+              Engineer Expert</span><span class="cert-yr">2022</span></a>
+          <a class="cert" href="https://www.credly.com/badges/a1195bba-7dc9-4c60-936b-e768f1b76abb/linked_in_profile"
+            target="_blank" rel="noreferrer"><span class="cert-who">AWS</span><span class="cert-what">Solutions
+              Architect
+              Associate</span><span class="cert-yr">2023</span></a>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <footer>
-    <div class="container">
-      <p>Hans Aeron Warde &middot; Manila, Philippines</p>
-      <p>&copy; 2026</p>
-    </div>
-  </footer>
+    <!-- Education -->
+    <section id="education">
+      <div class="container">
+        <p class="section-eyebrow">Education</p>
+        <h2 class="section-heading">Where it started.</h2>
+        <div class="cert-list fade">
+          <a class="cert" href="https://www.pup.edu.ph/" target="_blank" rel="noreferrer">
+            <span class="cert-who">PUP Manila</span>
+            <span class="cert-what">B.S. Computer Science specialized in Information Systems Development &mdash;
+              Ranked 8th in batch &middot; Best Undergraduate Thesis &middot; Academic and Leadership Excellence
+              Awards</span>
+            <span class="cert-yr">2019</span>
+          </a>
+        </div>
+      </div>
+    </section>
 
+    <!-- Contact -->
+    <section id="contact">
+      <div class="container">
+        <div class="contact-box">
+          <p class="section-eyebrow">Contact</p>
+          <h2>Building something that needs to scale?</h2>
+          <p class="contact-lead">I take on lead engineering roles and architecture consulting for teams dealing
+            with legacy modernization, scaling bottlenecks, or unreliable delivery pipelines. I respond within 24
+            hours.</p>
+          <div class="contact-btns">
+            <a class="btn btn-primary" href="mailto:haeronwarde@gmail.com">haeronwarde@gmail.com</a>
+            <a class="btn btn-ghost" href="https://drive.google.com/file/d/1eMGLkV1pskHZZzcdrsOblpHFrxNwIS7J/view"
+              target="_blank" rel="noreferrer">Resume &darr;</a>
+            <a class="btn btn-ghost" href="https://linkedin.com/in/hansaeronwarde" target="_blank"
+              rel="noreferrer">LinkedIn</a>
+            <a class="btn btn-ghost" href="https://github.com/hansaeronwarde" target="_blank"
+              rel="noreferrer">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p>Hans Aeron Warde &middot; Manila, Philippines</p>
+        <p>&copy; 2026</p>
+      </div>
+    </footer>
+
+  </main>
   <script>
-    /* Scroll-triggered animations */
     const io = new IntersectionObserver(
       (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('vis'); }),
       { threshold: 0.08, rootMargin: '0px 0px -6% 0px' }
     );
-    document.querySelectorAll('.cap-item,.work-card,.proj,.cert-list,.contact-box,.fade')
+    document.querySelectorAll('.cap-item,.work-card,.case-study,.cert-list,.contact-box,.fade')
       .forEach((el) => io.observe(el));
 
-    /* Stagger delays */
     document.querySelectorAll('.cap-item').forEach((el, i) => { el.style.transitionDelay = (i * 0.07) + 's'; });
     document.querySelectorAll('.work-card').forEach((el, i) => { el.style.transitionDelay = (i * 0.06) + 's'; });
     document.querySelectorAll('.proj').forEach((el, i) => { el.style.transitionDelay = (i * 0.09) + 's'; });
 
-    /* Subtle mouse parallax on photo */
     const wrap = document.querySelector('.photo-wrap');
     if (wrap) {
       document.addEventListener('mousemove', (e) => {
-        const x = (e.clientX / window.innerWidth - 0.5) * 8;
-        const y = (e.clientY / window.innerHeight - 0.5) * 6;
+        const x = (e.clientX / window.innerWidth - 0.5) * 6;
+        const y = (e.clientY / window.innerHeight - 0.5) * 4;
         wrap.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
       });
     }
