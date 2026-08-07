@@ -5,6 +5,7 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script>document.documentElement.classList.add('js')</script>
   <title>Hans Aeron Warde &mdash; Lead Full-Stack Engineer</title>
   <meta name="description"
     content="Lead Full-Stack Engineer. I lead teams that modernize legacy systems, scale distributed platforms, and reduce operational cost." />
@@ -31,7 +32,7 @@
       --border-dim: rgba(255, 255, 255, 0.06);
       --text-1: #f5f5f7;
       --text-2: #a1a1a6;
-      --text-3: rgba(245, 245, 247, 0.28);
+      --text-3: rgba(245, 245, 247, 0.55);
       --accent: #2997ff;
       --accent-2: #bf5af2;
       --accent-3: #30d158;
@@ -235,7 +236,7 @@
       font-weight: 500;
       padding: 7px 20px;
       border-radius: 980px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      background: linear-gradient(135deg, #0a6cd6, #8e30c9);
       color: #fff;
       transition: transform 0.2s, box-shadow 0.2s;
     }
@@ -311,7 +312,7 @@
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      background: linear-gradient(135deg, #0a6cd6, #8e30c9);
       color: #fff;
       border: none;
     }
@@ -593,6 +594,33 @@
       to {
         transform: translateX(-50%);
       }
+    }
+
+    /* WCAG 2.2.2: user-operable pause for looping animations */
+    .marquee-toggle {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      z-index: 2;
+      min-width: 24px;
+      min-height: 24px;
+      padding: 3px 12px;
+      font: inherit;
+      font-size: 12px;
+      color: var(--text-2);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 980px;
+      cursor: pointer;
+    }
+
+    .anim-paused .marquee-track,
+    .anim-paused .aurora-orb,
+    .anim-paused .photo-border,
+    .anim-paused .photo-glow,
+    .anim-paused .orbit,
+    .anim-paused .contact-box::before {
+      animation-play-state: paused;
     }
 
     /* ── CAPABILITIES ── */
@@ -1021,6 +1049,16 @@
       transform: translateY(0);
     }
 
+    /* no-JS fallback: reveal elements must not stay invisible */
+    html:not(.js) .cap-item,
+    html:not(.js) .work-card,
+    html:not(.js) .cert-list,
+    html:not(.js) .contact-box,
+    html:not(.js) .fade {
+      opacity: 1;
+      transform: none;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 960px) {
       .hero .container {
@@ -1153,7 +1191,8 @@
     </section>
 
     <!-- Marquee -->
-    <div class="marquee" aria-label="Companies I've worked with">
+    <div class="marquee" role="region" aria-label="Companies I've worked with">
+      <button class="marquee-toggle" type="button" aria-pressed="false">Pause motion</button>
       <div class="marquee-track">
         <img src="assets/opentext-logo.svg" alt="OpenText" />
         <img src="assets/manulife-logo.svg" alt="Manulife" />
@@ -1551,7 +1590,7 @@
         <p class="section-eyebrow">Certifications</p>
         <h2 class="section-heading">Verified expertise.</h2>
         <div class="cert-list">
-          <a class="cert" href=" https://www.credly.com/badges/08866e47-1eb3-418a-aa1c-9697304f689b" target="_blank"
+          <a class="cert" href="https://www.credly.com/badges/08866e47-1eb3-418a-aa1c-9697304f689b" target="_blank"
             rel="noreferrer"><span class="cert-who">Microsoft Azure</span><span
               class="cert-what">Fundamentals</span><span class="cert-yr">2021</span></a>
           <a class="cert" href="https://www.credly.com/badges/50525cc4-a574-4a8a-9472-e53ce6e5f2a6/linked_in_profile"
@@ -1627,14 +1666,23 @@
     document.querySelectorAll('.work-card').forEach((el, i) => { el.style.transitionDelay = (i * 0.06) + 's'; });
     document.querySelectorAll('.proj').forEach((el, i) => { el.style.transitionDelay = (i * 0.09) + 's'; });
 
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     const wrap = document.querySelector('.photo-wrap');
-    if (wrap) {
+    if (wrap && !reduceMotion && matchMedia('(pointer: fine)').matches) {
       document.addEventListener('mousemove', (e) => {
         const x = (e.clientX / window.innerWidth - 0.5) * 6;
         const y = (e.clientY / window.innerHeight - 0.5) * 4;
         wrap.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
       });
     }
+
+    const mqToggle = document.querySelector('.marquee-toggle');
+    mqToggle.addEventListener('click', () => {
+      const paused = document.body.classList.toggle('anim-paused');
+      mqToggle.setAttribute('aria-pressed', String(paused));
+      mqToggle.textContent = paused ? 'Play motion' : 'Pause motion';
+    });
   </script>
 </body>
 
