@@ -9,10 +9,22 @@
   <title>Hans Aeron Warde &mdash; Lead Full-Stack Engineer</title>
   <meta name="description"
     content="Lead Full-Stack Engineer. I lead teams that modernize legacy systems, scale distributed platforms, and reduce operational cost." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Hans Aeron Warde — Lead Full-Stack Engineer" />
+  <meta property="og:description"
+    content="I lead teams that modernize legacy systems, scale distributed platforms, and reduce operational cost." />
+  <meta property="og:url" content="https://hansaeronwarde.github.io/" />
+  <meta property="og:image" content="https://hansaeronwarde.github.io/assets/headshot.jpg" />
+  <meta name="twitter:card" content="summary" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet" />
+  <!-- async font load: paint in system fallback first, swap to Inter when ready (LCP) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"
+    media="print" onload="this.media='all'" />
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet" />
+  </noscript>
   <style>
     *,
     *::before,
@@ -114,7 +126,7 @@
     .aurora-orb {
       position: absolute;
       border-radius: 50%;
-      filter: blur(100px);
+      /* soft falloff via gradient, not filter: blur() — huge blurred layers wreck mobile LCP/INP */
       opacity: 0.12;
       animation: drift 20s ease-in-out infinite alternate;
     }
@@ -363,7 +375,7 @@
       color: var(--text-2);
       margin-bottom: 32px;
       opacity: 0;
-      animation: fadeUp 0.8s ease forwards 0.2s;
+      animation: fadeUp 0.5s ease forwards 0.05s;
     }
 
     .hero-eyebrow::before {
@@ -380,13 +392,13 @@
       font-weight: 800;
       letter-spacing: -0.05em;
       line-height: 0.9;
-      background: linear-gradient(145deg, #ffffff 0%, rgba(245, 245, 247, 0.65) 50%, rgba(41, 151, 255, 0.5) 100%);
+      background: linear-gradient(145deg, #ffffff 0%, rgba(245, 245, 247, 0.75) 50%, rgba(120, 190, 255, 0.85) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       margin-bottom: 28px;
       opacity: 0;
-      animation: fadeUp 0.8s ease forwards 0.35s;
+      animation: fadeUp 0.5s ease forwards 0.1s;
     }
 
     .hero-subtitle {
@@ -398,7 +410,7 @@
       margin-bottom: 36px;
       max-width: 520px;
       opacity: 0;
-      animation: fadeUp 0.8s ease forwards 0.5s;
+      animation: fadeUp 0.5s ease forwards 0.2s;
     }
 
     .hero-body {
@@ -407,7 +419,7 @@
       gap: 14px;
       margin-bottom: 44px;
       opacity: 0;
-      animation: fadeUp 0.8s ease forwards 0.6s;
+      animation: fadeUp 0.5s ease forwards 0.25s;
     }
 
     .hero-body p {
@@ -427,7 +439,7 @@
       flex-wrap: wrap;
       gap: 10px;
       opacity: 0;
-      animation: fadeUp 0.8s ease forwards 0.7s;
+      animation: fadeUp 0.5s ease forwards 0.3s;
     }
 
     @keyframes fadeUp {
@@ -448,7 +460,7 @@
       justify-content: center;
       align-items: center;
       opacity: 0;
-      animation: fadeUp 1s ease forwards 0.5s;
+      animation: fadeUp 0.6s ease forwards 0.2s;
     }
 
     .photo-wrap {
@@ -1088,7 +1100,14 @@
         padding: 0 20px;
       }
 
-      .nav-links li:not(:last-child) {
+      .nav-links {
+        gap: 12px;
+      }
+
+      /* keep Work, Case Studies, Contact; hide Focus, Stack, Education */
+      .nav-links li:nth-child(1),
+      .nav-links li:nth-child(4),
+      .nav-links li:nth-child(5) {
         display: none;
       }
 
@@ -1670,11 +1689,16 @@
 
     const wrap = document.querySelector('.photo-wrap');
     if (wrap && !reduceMotion && matchMedia('(pointer: fine)').matches) {
+      let tiltFrame = null;
       document.addEventListener('mousemove', (e) => {
-        const x = (e.clientX / window.innerWidth - 0.5) * 6;
-        const y = (e.clientY / window.innerHeight - 0.5) * 4;
-        wrap.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
-      });
+        if (tiltFrame) return;
+        tiltFrame = requestAnimationFrame(() => {
+          tiltFrame = null;
+          const x = (e.clientX / window.innerWidth - 0.5) * 6;
+          const y = (e.clientY / window.innerHeight - 0.5) * 4;
+          wrap.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
+        });
+      }, { passive: true });
     }
 
     const mqToggle = document.querySelector('.marquee-toggle');
