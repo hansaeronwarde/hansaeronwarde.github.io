@@ -243,6 +243,10 @@
       color: var(--text-1);
     }
 
+    .nav-short {
+      display: none;
+    }
+
     .nav-links .nav-cta {
       font-size: 14px;
       font-weight: 500;
@@ -768,6 +772,7 @@
       font-size: 16px;
       line-height: 1.8;
       color: var(--text-2);
+      max-width: 68ch;
     }
 
     /* ── PROJECTS ── */
@@ -1104,11 +1109,16 @@
         gap: 12px;
       }
 
-      /* keep Work, Case Studies, Contact; hide Focus, Stack, Education */
+      /* keep Work, Cases, Contact; hide Focus, Stack, Education */
       .nav-links li:nth-child(1),
       .nav-links li:nth-child(4),
-      .nav-links li:nth-child(5) {
+      .nav-links li:nth-child(5),
+      .nav-full {
         display: none;
+      }
+
+      .nav-short {
+        display: inline;
       }
 
       section {
@@ -1162,7 +1172,7 @@
       <ul class="nav-links">
         <li><a href="#engineering-focus">Focus</a></li>
         <li><a href="#work">Work</a></li>
-        <li><a href="#projects">Case Studies</a></li>
+        <li><a href="#projects"><span class="nav-full">Case Studies</span><span class="nav-short">Cases</span></a></li>
         <li><a href="#stack">Stack</a></li>
         <li><a href="#education">Education</a></li>
         <li><a class="nav-cta" href="#contact">Contact</a></li>
@@ -1210,7 +1220,7 @@
     </section>
 
     <!-- Marquee -->
-    <div class="marquee" role="region" aria-label="Companies I've worked with">
+    <section class="marquee" aria-label="Companies I've worked with">
       <button class="marquee-toggle" type="button" aria-pressed="false">Pause motion</button>
       <div class="marquee-track">
         <img src="assets/opentext-logo.svg" alt="OpenText" />
@@ -1224,7 +1234,7 @@
         <img src="assets/circleslife-logo.png" alt="Circles.Life" />
         <img src="assets/escpartners-logo.png" alt="ESC Partners" />
       </div>
-    </div>
+    </section>
 
     <!-- Engineering Focus -->
     <section id="engineering-focus">
