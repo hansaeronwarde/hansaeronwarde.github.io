@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hansaeronwarde.github.io/sitemap.xml
