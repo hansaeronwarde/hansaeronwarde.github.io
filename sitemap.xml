@@ -2,4 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://hansaeronwarde.github.io/</loc></url>
   <url><loc>https://hansaeronwarde.github.io/cases.html</loc></url>
+  <url><loc>https://hansaeronwarde.github.io/work/integration-middleware.html</loc></url>
+  <url><loc>https://hansaeronwarde.github.io/work/sim-activation.html</loc></url>
+  <url><loc>https://hansaeronwarde.github.io/work/claims-intake.html</loc></url>
+  <url><loc>https://hansaeronwarde.github.io/work/campaign-delivery.html</loc></url>
+  <url><loc>https://hansaeronwarde.github.io/notes/bounded-concurrency.html</loc></url>
+  <url><loc>https://hansaeronwarde.github.io/notes/human-judgment.html</loc></url>
+  <url><loc>https://hansaeronwarde.github.io/notes/independent-failure.html</loc></url>
+  <url><loc>https://hansaeronwarde.github.io/notes/legacy-rebuild.html</loc></url>
 </urlset>

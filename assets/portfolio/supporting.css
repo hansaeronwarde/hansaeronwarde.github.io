@@ -790,7 +790,6 @@
     padding: 14px 10px 16px;
   }
   .service-end .checkbox {
-    font-size: var(--type-link);
     align-items: start;
     gap: 8px;
   }

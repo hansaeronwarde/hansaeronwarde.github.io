@@ -117,34 +117,35 @@
     el.classList.add("settle");
   };
 
-  /* Telecom */
-  let order = new S.Order();
-  let telTimer = null;
-  function telRender(changed = []) {
-    $("tel-source").textContent =
-      `SYNTHETIC STUDY / ORDER ${order.id} / TICK ${pad(order.tick)}`;
-    for (const lane of ["activation", "fulfillment"]) {
-      const v = views.telLane(order, lane);
-      const el = $(`tel-${lane}`);
-      const word = el.querySelector("[data-word]");
-      el.dataset.state = v.state;
-      el.querySelector(".service-track").style.setProperty("--p", v.p);
-      el.querySelectorAll("[data-stop]").forEach((stop) => {
-        const at = stop.dataset.stop === v.state ||
-          (v.state === "waiting" && stop.dataset.stop === (v.p ? "processing" : "pending"));
-        stop.toggleAttribute("data-current", at);
-      });
-      if (word.textContent !== v.word) {
-        word.textContent = v.word;
-        if (changed.length) settle(word);
+  // Each case page holds only its own study.
+  if ($("tel-lanes")) {
+    let order = new S.Order();
+    let telTimer = null;
+    function telRender(changed = []) {
+      $("tel-source").textContent =
+        `SYNTHETIC STUDY / ORDER ${order.id} / TICK ${pad(order.tick)}`;
+      for (const lane of ["activation", "fulfillment"]) {
+        const v = views.telLane(order, lane);
+        const el = $(`tel-${lane}`);
+        const word = el.querySelector("[data-word]");
+        el.dataset.state = v.state;
+        el.querySelector(".service-track").style.setProperty("--p", v.p);
+        el.querySelectorAll("[data-stop]").forEach((stop) => {
+          const at = stop.dataset.stop === v.state ||
+            (v.state === "waiting" && stop.dataset.stop === (v.p ? "processing" : "pending"));
+          stop.toggleAttribute("data-current", at);
+        });
+        if (word.textContent !== v.word) {
+          word.textContent = v.word;
+          if (changed.length) settle(word);
+        }
+        el.querySelector("[data-detail]").textContent = v.detail;
       }
-      el.querySelector("[data-detail]").textContent = v.detail;
-    }
-    $("tel-record").innerHTML = views.telRecord(order);
-    $("tel-count").textContent = views.events(order.history.length);
-    // aria-disabled, not disabled: a focused button that disables itself drops focus to <body>.
-    $("tel-step").setAttribute("aria-disabled", String(order.done));
-    $("tel-run").setAttribute("aria-disabled", String(order.done));
+      $("tel-record").innerHTML = views.telRecord(order);
+      $("tel-count").textContent = views.events(order.history.length);
+      // aria-disabled, not disabled: a focused button that disables itself drops focus to <body>.
+      $("tel-step").setAttribute("aria-disabled", String(order.done));
+      $("tel-run").setAttribute("aria-disabled", String(order.done));
   }
   function telPause() {
     clearInterval(telTimer);
@@ -226,41 +227,44 @@
           : `${provider} Fulfillment will wait; activation continues.`,
     );
   });
+  $("tel-provider").checked = true;
+  telRender();
+  }
 
-  /* Claims */
-  let claim = new S.Claim();
-  function clmRender() {
-    const routed = claim.state === "routed";
-    const review = $("clm-review");
-    review.dataset.state = claim.state;
-    review.dataset.error = claim.error || "";
-    $("clm-source").textContent =
-      `SYNTHETIC STUDY / CLAIM ${claim.id} / ${routed ? "ROUTED" : "IN REVIEW"}`;
-    $("clm-state").textContent = routed ? "Routed" : "In review";
-    $("clm-detail").textContent = routed
-      ? `Approved as ${claim.reviewed}. ${claim.reviewed !== claim.extracted ? "The correction is in the record." : "Approved unchanged."}`
-      : "One character in the amount is ambiguous.";
-    const input = $("clm-amount");
-    const error = $("clm-error");
-    if (claim.error) {
-      error.hidden = false;
-      error.innerHTML = `<span class="sr-only">Error: </span>${S.messages[claim.error]}`;
-      input.setAttribute("aria-invalid", "true");
-      input.setAttribute("aria-describedby", "clm-hint clm-error");
-    } else {
-      error.hidden = true;
-      input.removeAttribute("aria-invalid");
-      input.setAttribute("aria-describedby", "clm-hint");
-    }
-    $("clm-form").hidden = routed;
-    $("clm-diff").hidden = !routed;
-    if (routed) {
-      const dd = $("clm-diff").querySelectorAll("dd");
-      [dd[0].innerHTML, dd[1].innerHTML] = views.clmDiff(claim.extracted, claim.reviewed);
-    }
-    $("clm-record").innerHTML = views.clmRecord(claim);
-    $("clm-count").textContent = views.events(claim.history.length);
-    clmConnector();
+  if ($("clm-review")) {
+    let claim = new S.Claim();
+    function clmRender() {
+      const routed = claim.state === "routed";
+      const review = $("clm-review");
+      review.dataset.state = claim.state;
+      review.dataset.error = claim.error || "";
+      $("clm-source").textContent =
+        `SYNTHETIC STUDY / CLAIM ${claim.id} / ${routed ? "ROUTED" : "IN REVIEW"}`;
+      $("clm-state").textContent = routed ? "Routed" : "In review";
+      $("clm-detail").textContent = routed
+        ? `Approved as ${claim.reviewed}. ${claim.reviewed !== claim.extracted ? "The correction is in the record." : "Approved unchanged."}`
+        : "One character in the amount is ambiguous.";
+      const input = $("clm-amount");
+      const error = $("clm-error");
+      if (claim.error) {
+        error.hidden = false;
+        error.innerHTML = `<span class="sr-only">Error: </span>${S.messages[claim.error]}`;
+        input.setAttribute("aria-invalid", "true");
+        input.setAttribute("aria-describedby", "clm-hint clm-error");
+      } else {
+        error.hidden = true;
+        input.removeAttribute("aria-invalid");
+        input.setAttribute("aria-describedby", "clm-hint");
+      }
+      $("clm-form").hidden = routed;
+      $("clm-diff").hidden = !routed;
+      if (routed) {
+        const dd = $("clm-diff").querySelectorAll("dd");
+        [dd[0].innerHTML, dd[1].innerHTML] = views.clmDiff(claim.extracted, claim.reviewed);
+      }
+      $("clm-record").innerHTML = views.clmRecord(claim);
+      $("clm-count").textContent = views.events(claim.history.length);
+      clmConnector();
   }
   function clmConnector() {
     const review = $("clm-review");
@@ -316,37 +320,40 @@
   // Also fires when a hidden case panel is revealed: measured at 0×0, the line would stay hidden.
   new ResizeObserver(clmConnector).observe($("clm-review"));
   document.fonts?.ready.then(clmConnector);
+  $("clm-amount").value = claim.value;
+  clmRender();
+  }
 
-  /* Campaigns */
-  let campaign = new S.Campaign();
-  function cmpRender(drawn = []) {
-    const sent = campaign.sent;
-    const failed = S.CHANNELS.filter((c) => campaign.channels[c].state === "failed").length;
-    $("cmp-branches").dataset.sent = String(sent);
-    $("cmp-source").textContent =
-      `SYNTHETIC STUDY / CAMPAIGN ${campaign.id} / ${sent ? "SENT" : "NOT SENT"}${failed ? ` / ${failed} FAILED` : ""}`;
-    for (const ch of S.CHANNELS) {
-      const r = campaign.channels[ch];
-      const el = $(`cmp-${ch}`);
-      el.dataset.state = r.state;
-      if (drawn.includes(ch)) settle(el);
-      const word = el.querySelector("[data-word]");
-      word.textContent = cap(r.state);
-      el.querySelector("[data-attempts]").innerHTML = views.cmpAttempts(r);
-      const box = el.querySelector("[data-select]");
-      box.checked = r.selected;
-      box.disabled = sent;
-      const retry = el.querySelector("[data-retry]");
-      if (retry) retry.hidden = r.state !== "failed";
-    }
-    const blocked = campaign.blocked;
-    const send = $("cmp-send");
-    send.setAttribute("aria-disabled", String(Boolean(blocked)));
-    send.hidden = blocked === "sent";
-    $("cmp-reason").textContent = views.cmpReason(campaign);
-    $("cmp-reason").dataset.tone = blocked === "no_channels" ? "warn" : "";
-    $("cmp-record").innerHTML = views.cmpRecord(campaign);
-    $("cmp-count").textContent = views.events(campaign.history.length);
+  if ($("cmp-branches")) {
+    let campaign = new S.Campaign();
+    function cmpRender(drawn = []) {
+      const sent = campaign.sent;
+      const failed = S.CHANNELS.filter((c) => campaign.channels[c].state === "failed").length;
+      $("cmp-branches").dataset.sent = String(sent);
+      $("cmp-source").textContent =
+        `SYNTHETIC STUDY / CAMPAIGN ${campaign.id} / ${sent ? "SENT" : "NOT SENT"}${failed ? ` / ${failed} FAILED` : ""}`;
+      for (const ch of S.CHANNELS) {
+        const r = campaign.channels[ch];
+        const el = $(`cmp-${ch}`);
+        el.dataset.state = r.state;
+        if (drawn.includes(ch)) settle(el);
+        const word = el.querySelector("[data-word]");
+        word.textContent = cap(r.state);
+        el.querySelector("[data-attempts]").innerHTML = views.cmpAttempts(r);
+        const box = el.querySelector("[data-select]");
+        box.checked = r.selected;
+        box.disabled = sent;
+        const retry = el.querySelector("[data-retry]");
+        if (retry) retry.hidden = r.state !== "failed";
+      }
+      const blocked = campaign.blocked;
+      const send = $("cmp-send");
+      send.setAttribute("aria-disabled", String(Boolean(blocked)));
+      send.hidden = blocked === "sent";
+      $("cmp-reason").textContent = views.cmpReason(campaign);
+      $("cmp-reason").dataset.tone = blocked === "no_channels" ? "warn" : "";
+      $("cmp-record").innerHTML = views.cmpRecord(campaign);
+      $("cmp-count").textContent = views.events(campaign.history.length);
   }
   const focusOutcome = (ch) => {
     const word = $(`cmp-${ch}`).querySelector("[data-word]");
@@ -396,14 +403,11 @@
     cmpRender();
     say("cmp-status", "Campaign reset. All three channels selected.");
   });
+  $("cmp-provider").checked = true;
+  cmpRender();
+  }
 
   icons();
-  $("tel-provider").checked = true;
-  $("cmp-provider").checked = true;
-  $("clm-amount").value = claim.value;
-  telRender();
-  clmRender();
-  cmpRender();
   // Revealed last: if setup throws, the no-JS records stay instead of dead controls.
   document.querySelectorAll("[data-enhance]").forEach((el) => (el.hidden = false));
   document.querySelectorAll("[data-nojs]").forEach((el) => (el.hidden = true));

@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Claims intake &#8211; Hans Aeron Warde</title>
+    <meta
+      name="description"
+      content="Claims intake at Manulife's Canadian division: a custom-trained OCR model proposes each field, an encoder approves it, and every change is in the audit trail. $210k a year saved in labor."
+    />
+    <meta name="theme-color" content="#f7f7f4" />
+    <link rel="canonical" href="https://hansaeronwarde.github.io/work/claims-intake.html" />
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="../assets/portfolio/fonts/Antonio-Variable.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="../assets/portfolio/fonts/Switzer-Variable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="../assets/portfolio/study.css" />
+    <link rel="stylesheet" href="../assets/portfolio/supporting.css" />
+    <link rel="stylesheet" href="../components.css" />
+    <link rel="stylesheet" href="case.css" />
+    <script defer src="../assets/portfolio/vendor/lucide.min.js"></script>
+    <script defer src="../assets/portfolio/studies.js"></script>
+    <script defer src="../assets/portfolio/studies-ui.js"></script>
+  </head>
+  <body class="case-page">
+    <a class="skip" href="#case">Skip to case</a>
+    <header id="navigation" class="paper">
+      <a class="signature" href="../index.html" aria-label="haw. Hans Aeron Warde, home"
+        >haw.<span class="mark" aria-hidden="true"
+          ><i></i><i></i><i></i><i></i><i></i></span
+      ></a>
+      <span class="header-note">SYSTEMS / RECORDS / PEOPLE</span>
+      <nav aria-label="Primary">
+        <a href="../cases.html">Work</a>
+        <a href="../index.html#resume">R&#233;sum&#233;</a>
+        <a href="mailto:haeronwarde@gmail.com?subject=Claims%20intake" aria-label="Email Hans"
+          >Email <i data-lucide="arrow-up-right" aria-hidden="true"></i
+        ></a>
+      </nav>
+    </header>
+
+    <main id="case">
+      <article aria-labelledby="case-title">
+        <div class="masthead">
+          <div class="section-rule">
+            <span>03 / 04 / MANULIFE, CANADIAN DIVISION</span><span>INSURANCE / CLAIMS INTAKE</span>
+          </div>
+          <div class="masthead-body">
+            <h1 id="case-title">Make room<br />for judgment.</h1>
+            <div class="masthead-side">
+              <p class="masthead-lead">
+                Claims intake. An OCR platform that turns paper insurance
+                claims, starting with dental, into structured data. Built for
+                Manulife&#x27;s Canadian division on Azure, with a
+                custom-trained extraction model.
+              </p>
+              <dl class="facts">
+                <div><dt>Role</dt><dd>Software Engineer / architecture &amp; build</dd></div>
+                <div>
+                  <dt>Period</dt>
+                  <dd>
+                    <time datetime="2021-06">Jun 2021</time> &#8211;
+                    <time datetime="2022-07">Jul 2022</time> &#183; Makati City
+                  </dd>
+                </div>
+                <div>
+                  <dt>Stack</dt>
+                  <dd>React / Node.js / TypeScript / MongoDB / Azure Cognitive Services / Azure / Terraform</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </div>
+
+        <section class="field" aria-labelledby="situation-title">
+          <span class="field-label" aria-hidden="true"><b>01</b>Situation</span>
+          <div class="field-body">
+            <h2 id="situation-title">Every claim was keyed in by hand.</h2>
+            <p>
+              Operations teams keyed in every claim by hand: read the paper,
+              interpret it, type it. It was slow, error-prone and expensive,
+              and it didn&#x27;t scale.
+            </p>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="constraint-title">
+          <span class="field-label" aria-hidden="true"><b>02</b>Constraint</span>
+          <div class="field-body">
+            <h2 id="constraint-title">Nothing recorded who changed what.</h2>
+            <p>
+              Routing was inconsistent. Claims had to route by rule, with a
+              full audit trail for compliance.
+            </p>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="ownership-title">
+          <span class="field-label" aria-hidden="true"><b>03</b>Ownership</span>
+          <div class="field-body">
+            <h2 id="ownership-title">Architecture &amp; build.</h2>
+            <p>
+              I trained the OCR model and built the validation app, the
+              routing rules and the audit trail.
+            </p>
+            <ol class="stages" aria-label="What I owned at each stage of intake">
+              <li>
+                <span class="stage-no">01</span>
+                <h3>Capture</h3>
+                <p>Receive the claim document.</p>
+              </li>
+              <li>
+                <span class="stage-no">02</span>
+                <h3>Extract</h3>
+                <p>Custom-trained Azure model.</p>
+                <dl class="layers">
+                  <div><dt>Model</dt><dd>Trained a custom OCR model in Azure Cognitive Services, dental claims first</dd></div>
+                </dl>
+              </li>
+              <li class="stage-human">
+                <span class="stage-no">03</span>
+                <h3>Validate</h3>
+                <p>A person reviews the fields.</p>
+                <dl class="layers">
+                  <div><dt>Interface</dt><dd>Built the validation app in React, where encoders validate and correct the extracted fields</dd></div>
+                </dl>
+              </li>
+              <li>
+                <span class="stage-no">04</span>
+                <h3>Route</h3>
+                <p>Apply rules and audit changes.</p>
+                <dl class="layers">
+                  <div><dt>Services</dt><dd>Built the routing rules in Node.js and TypeScript</dd></div>
+                  <div><dt>Data</dt><dd>Built the audit trail, on MongoDB</dd></div>
+                </dl>
+              </li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="decision-title">
+          <span class="field-label" aria-hidden="true"><b>04</b>Decision</span>
+          <div class="field-body">
+            <h2 id="decision-title" class="quote">
+              Automate extraction, and keep people responsible for checking it.
+            </h2>
+            <div class="split-copy">
+              <p>
+                <span class="eyebrow">THE BOUNDARY</span>
+                Extraction is a proposal. The model extracts the fields. An
+                encoder validates or corrects them before the claim routes by
+                rule.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="field field-wide" id="claims" aria-labelledby="model-title">
+          <span class="field-label" aria-hidden="true"><b>05</b>Model</span>
+          <div class="field-body">
+            <h2 id="model-title">The model extracts. A person approves.</h2>
+            <p>Try approving the amount as it was read, then correct it.</p>
+          </div>
+          <div class="study-frame">
+            <div class="lab-bar study-bar">
+              <span class="study-source" id="clm-source">SYNTHETIC STUDY / CLAIM SAMPLE-001 / ROUTED</span>
+              <div class="transport" data-enhance hidden>
+                <button type="button" class="icon" id="clm-reset" aria-label="Reset claim" title="Reset claim">
+                  <i data-lucide="rotate-ccw" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+            <div class="review" id="clm-review" data-state="routed">
+              <figure class="claim-crop" aria-labelledby="clm-crop-caption">
+                <div class="crop-sheet" aria-hidden="true">
+                  <div class="crop-head"><span>CLAIM FORM</span><span>SAMPLE</span></div>
+                  <div class="crop-row"><span>Claim reference</span><b class="crop-ref">SAMPLE-001</b></div>
+                  <div class="crop-row"><span>Claimant</span><i class="bar" style="--w: 62%"></i></div>
+                  <div class="crop-row"><span>Service date</span><i class="bar" style="--w: 34%"></i></div>
+                  <div class="crop-row"><span>Procedure</span><i class="bar" style="--w: 48%"></i></div>
+                  <div class="crop-row crop-amount"><span>Amount</span><b class="ocr-box" id="clm-box"><em>1O0.00</em><small>READ AS 1O0.00</small></b></div>
+                  <span class="crop-mark">SAMPLE</span>
+                </div>
+                <figcaption id="clm-crop-caption">
+                  <span>SYNTHETIC CLAIM CROP</span><span>Drawn for this study. No claimant data.</span>
+                </figcaption>
+              </figure>
+              <div class="review-pane">
+                <span class="eyebrow">EXTRACTED FIELD / AMOUNT</span>
+                <strong class="review-state" id="clm-state" tabindex="-1">Routed</strong>
+                <p class="review-detail" id="clm-detail">Approved as 100.00. The correction is in the record.</p>
+                <form class="review-form" id="clm-form" novalidate data-enhance hidden>
+                  <label for="clm-amount">Amount</label>
+                  <span class="hint" id="clm-hint">As read from the highlighted region. Correct it if it is wrong.</span>
+                  <p class="field-error" id="clm-error" hidden></p>
+                  <div class="field-row">
+                    <input id="clm-amount" name="amount" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" value="1O0.00" aria-describedby="clm-hint" />
+                    <button type="submit" class="command" id="clm-approve">
+                      Approve <i data-lucide="check" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </form>
+                <dl class="review-diff" id="clm-diff">
+                  <div><dt>Before</dt><dd>1<mark>O</mark>0.00</dd></div>
+                  <div><dt>After</dt><dd>1<mark>0</mark>0.00</dd></div>
+                </dl>
+              </div>
+            </div>
+            <div class="study-record">
+              <div class="register-label"><span>CLAIM RECORD</span><span id="clm-count">5 EVENTS</span></div>
+              <table>
+                <caption class="sr-only">Claim SAMPLE-001 review history</caption>
+                <thead><tr><th scope="col">Step</th><th scope="col">Event</th><th scope="col">Detail</th></tr></thead>
+                <tbody id="clm-record"><tr data-event="received"><td>01</td><td>Received</td><td>–</td></tr><tr data-event="extracted"><td>02</td><td>Extracted</td><td>Amount read as 1O0.00</td></tr><tr data-event="review_required"><td>03</td><td>Review required</td><td>Ambiguous character</td></tr><tr data-event="reviewed"><td>04</td><td>Reviewed</td><td>Amount 1O0.00 → 100.00, corrected</td></tr><tr data-event="routed"><td>05</td><td>Routed</td><td>–</td></tr></tbody>
+              </table>
+              <p class="scope">
+                No real claim, claimant or payment. No confidence score is
+                shown because none was measured.
+              </p>
+            </div>
+            <div class="study-footer">
+              <a href="../assets/portfolio/studies.js">Study source <i data-lucide="code" aria-hidden="true"></i></a
+              ><span id="clm-status" role="status" aria-live="polite"></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="delivery-title">
+          <span class="field-label" aria-hidden="true"><b>06</b>Delivery</span>
+          <div class="field-body">
+            <h2 id="delivery-title">MERN and TypeScript, on Azure.</h2>
+            <dl class="layers delivery">
+              <div><dt>Application</dt><dd>React, Node.js and TypeScript on MongoDB</dd></div>
+              <div><dt>Extraction</dt><dd>Azure Cognitive Services, custom-trained</dd></div>
+              <div><dt>Infra</dt><dd>Azure, with Terraform-managed infrastructure</dd></div>
+              <div><dt>Tests</dt><dd>Coverage held above 95% throughout the build</dd></div>
+            </dl>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="tradeoff-title">
+          <span class="field-label" aria-hidden="true"><b>07</b>Tradeoff</span>
+          <div class="field-body">
+            <h2 id="tradeoff-title">Human review remains part of the workflow.</h2>
+            <p>
+              Encoders went from typing claims to checking them. The benefit is
+              shifting work from re-entry to validation, while retaining an
+              audit trail.
+            </p>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="result-title">
+          <span class="field-label" aria-hidden="true"><b>08</b>Result</span>
+          <div class="field-body">
+            <h2 id="result-title">Reported outcome.</h2>
+            <dl class="results">
+              <div><dt>$210k</dt><dd>Labor cost saved a year</dd></div>
+              <div><dt>Audit trail</dt><dd>Built into claim routing</dd></div>
+            </dl>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="evidence-title">
+          <span class="field-label" aria-hidden="true"><b>09</b>Evidence</span>
+          <div class="field-body">
+            <h2 id="evidence-title">The public material is a reconstruction.</h2>
+            <p>
+              The $210k annual labor saving and 95%+ test coverage are reported
+              project outcomes. This sample record does not measure or
+              independently verify either figure.
+            </p>
+            <div class="evidence">
+              <div>
+                <h3>On this page</h3>
+                <ul>
+                  <li>A synthetic claim crop, drawn for this study</li>
+                  <li>A computed teaching model of the review step</li>
+                  <li>A synthetic record, reconstructed from my project account</li>
+                </ul>
+                <pre><code>{
+  "claim": "SAMPLE-001",
+  "field": "amount",
+  "extracted": "1O0.00",
+  "reviewed": "100.00",
+  "decision": "corrected",
+  "route": "approved"
+}</code></pre>
+              </div>
+              <div>
+                <h3>Not included</h3>
+                <ul>
+                  <li>Client source</li>
+                  <li>Production traces</li>
+                  <li>Independent benchmark reports</li>
+                  <li>Any real claim, claimant or payment</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <nav class="case-nav" aria-label="Case studies">
+          <a href="sim-activation.html" rel="prev"
+            ><i data-lucide="arrow-left" aria-hidden="true"></i
+            ><span><small>02 / PREVIOUS</small>SIM activation</span></a
+          ><a href="../cases.html"
+            ><span><small>ALL WORK</small>Selected systems</span></a
+          ><a href="campaign-delivery.html" rel="next"
+            ><span><small>04 / NEXT</small>Campaign delivery</span
+            ><i data-lucide="arrow-right" aria-hidden="true"></i
+          ></a>
+        </nav>
+        <p class="ask">
+          <a class="case-link" href="../notes/human-judgment.html"
+            >Note N3 / Human judgment in automation <i data-lucide="arrow-right" aria-hidden="true"></i
+          ></a>
+          <a class="case-link" href="mailto:haeronwarde@gmail.com?subject=Claims%20intake"
+            >Ask me about this <i data-lucide="arrow-up-right" aria-hidden="true"></i
+          ></a>
+        </p>
+      </article>
+    </main>
+    <footer>
+      <span>Hans Aeron Warde / Manila</span>
+      <nav aria-label="Social">
+        <a href="https://github.com/hansaeronwarde"
+          >GitHub <i data-lucide="arrow-up-right" aria-hidden="true"></i></a
+        ><a href="https://linkedin.com/in/hansaeronwarde"
+          >LinkedIn <i data-lucide="arrow-up-right" aria-hidden="true"></i
+        ></a>
+      </nav>
+    </footer>
+  </body>
+</html>

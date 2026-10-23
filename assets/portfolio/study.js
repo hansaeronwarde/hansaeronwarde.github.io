@@ -413,11 +413,11 @@
           ? $("trace-tab")
           : target.id === "top"
             ? null
-            : target.matches("h1,h2")
+            : target.matches("h1,h2,h3")
               ? target
-              : target.querySelector("h2");
+              : target.querySelector("h2, h3");
       if (heading) {
-        if (heading.matches("h1,h2")) heading.setAttribute("tabindex", "-1");
+        if (heading.matches("h1,h2,h3")) heading.setAttribute("tabindex", "-1");
         heading.focus({ preventScroll: true });
       }
     }),

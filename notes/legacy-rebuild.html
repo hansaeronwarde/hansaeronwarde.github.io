@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Operating a legacy rebuild from interface to production &#8211; Hans Aeron Warde</title>
+    <meta
+      name="description"
+      content="Engineering note: a rebuild is finished when it runs, not when it ships. One question per layer before cutover, a traffic-share routing pattern, and what to test and watch."
+    />
+    <meta name="theme-color" content="#f7f7f4" />
+    <link rel="canonical" href="https://hansaeronwarde.github.io/notes/legacy-rebuild.html" />
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="../assets/portfolio/fonts/Antonio-Variable.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="../assets/portfolio/fonts/Switzer-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="../assets/portfolio/study.css" />
+    <link rel="stylesheet" href="../assets/portfolio/supporting.css" />
+    <link rel="stylesheet" href="../components.css" />
+    <link rel="stylesheet" href="../work/case.css" />
+    <script defer src="../assets/portfolio/vendor/lucide.min.js"></script>
+    <script defer src="notes.js"></script>
+  </head>
+  <body class="case-page note-page">
+    <a class="skip" href="#case">Skip to note</a>
+    <header id="navigation" class="paper">
+      <a class="signature" href="../index.html" aria-label="haw. Hans Aeron Warde, home"
+        >haw.<span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span
+      ></a>
+      <span class="header-note">SYSTEMS / RECORDS / PEOPLE</span>
+      <nav aria-label="Primary">
+        <a href="../cases.html">Work</a>
+        <a href="../index.html#resume">R&#233;sum&#233;</a>
+        <a href="mailto:haeronwarde@gmail.com?subject=Legacy%20rebuilds" aria-label="Email Hans"
+          >Email <i data-lucide="arrow-up-right" aria-hidden="true"></i
+        ></a>
+      </nav>
+    </header>
+
+    <main id="case">
+      <article aria-labelledby="case-title">
+        <div class="masthead">
+          <div class="section-rule">
+            <span>N4 / 04 / ENGINEERING NOTE</span><span>FROM ALL FOUR SYSTEMS</span>
+          </div>
+          <div class="masthead-body">
+            <h1 id="case-title">Operating a legacy rebuild from interface to production.</h1>
+            <div class="masthead-side">
+              <p class="masthead-lead">
+                Each of the four systems replaced something people already
+                relied on. A rebuild like that is finished when it runs, not when
+                it ships, and every layer has a question to answer first.
+              </p>
+              <dl class="facts">
+                <div><dt>Layers</dt><dd>All six, interface to operation</dd></div>
+                <div><dt>Cases</dt><dd><a href="../cases.html">01&#8211;04 / Selected systems</a></dd></div>
+                <div><dt>Scope</dt><dd>General practice, not client evidence</dd></div>
+              </dl>
+            </div>
+          </div>
+        </div>
+
+        <section class="field" aria-labelledby="claim-title">
+          <span class="field-label" aria-hidden="true"><b>01</b>Claim</span>
+          <div class="field-body">
+            <h2 id="claim-title">Own every layer the change touches.</h2>
+            <p>
+              A new interface on an old data model, or a new service nobody is
+              watching, moves the risk instead of removing it. The person
+              leading the rebuild should be able to answer for each layer, from
+              what the user sees to what wakes someone at night.
+            </p>
+          </div>
+        </section>
+
+        <section class="field field-wide" aria-labelledby="model-title">
+          <span class="field-label" aria-hidden="true"><b>02</b>Model</span>
+          <div class="field-body">
+            <h2 id="model-title">One question per layer before cutover.</h2>
+            <p>Mark a layer ready when its question has an answer. Cutover waits for all six.</p>
+          </div>
+          <div class="study-frame">
+            <ol class="ladder" id="n4-layers">
+              <li>
+                <span class="stage-no">01</span><h3>Interface</h3>
+                <p>Can people finish the same task in the same or fewer steps?</p>
+                <a href="../work/claims-intake.html">Seen in 03 / Claims</a>
+                <label class="checkbox" data-enhance hidden><input type="checkbox" value="Interface" /><span class="sr-only">Interface </span>Ready</label>
+              </li>
+              <li>
+                <span class="stage-no">02</span><h3>Service boundary</h3>
+                <p>Does the new boundary accept what the old path did, and protect what sits behind it?</p>
+                <a href="../work/integration-middleware.html">Seen in 01 / Middleware</a>
+                <label class="checkbox" data-enhance hidden><input type="checkbox" value="Service boundary" /><span class="sr-only">Service boundary </span>Ready</label>
+              </li>
+              <li>
+                <span class="stage-no">03</span><h3>Data</h3>
+                <p>Is there one source of truth for every record at every point in the move?</p>
+                <a href="../work/integration-middleware.html">Seen in 01 / Middleware</a>
+                <label class="checkbox" data-enhance hidden><input type="checkbox" value="Data" /><span class="sr-only">Data </span>Ready</label>
+              </li>
+              <li>
+                <span class="stage-no">04</span><h3>Infrastructure</h3>
+                <p>Can the environment be rebuilt from code?</p>
+                <a href="../work/claims-intake.html">Seen in 03 / Claims</a>
+                <label class="checkbox" data-enhance hidden><input type="checkbox" value="Infrastructure" /><span class="sr-only">Infrastructure </span>Ready</label>
+              </li>
+              <li>
+                <span class="stage-no">05</span><h3>Delivery</h3>
+                <p>Can a change ship in small, tested steps, on its own?</p>
+                <a href="../work/sim-activation.html">Seen in 02 / Activation</a>
+                <label class="checkbox" data-enhance hidden><input type="checkbox" value="Delivery" /><span class="sr-only">Delivery </span>Ready</label>
+              </li>
+              <li>
+                <span class="stage-no">06</span><h3>Operation</h3>
+                <p>Will you know something failed before the people downstream do?</p>
+                <a href="../work/campaign-delivery.html">Seen in 04 / Campaigns</a>
+                <label class="checkbox" data-enhance hidden><input type="checkbox" value="Operation" /><span class="sr-only">Operation </span>Ready</label>
+              </li>
+            </ol>
+            <div class="study-footer">
+              <p class="gate-status" id="n4-out" data-ready="false">Cutover blocked. Not ready: Interface, Service boundary, Data, Infrastructure, Delivery, Operation.</p
+              ><span id="note-status" role="status" aria-live="polite"></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="pattern-title">
+          <span class="field-label" aria-hidden="true"><b>03</b>Pattern</span>
+          <div class="field-body">
+            <h2 id="pattern-title">Move traffic by share, keep the old path live.</h2>
+            <p>
+              Route a stable share of accounts to the new path. The same account
+              always lands on the same side, and the old path keeps serving
+              until the share reaches 100.
+            </p>
+            <pre class="pattern"><code>function bucket(id) {
+  let hash = 0;
+  for (const ch of String(id)) hash = (hash * 31 + ch.charCodeAt(0)) &gt;&gt;&gt; 0;
+  return hash % 100;
+}
+
+function route(request, { share }) {
+  return bucket(request.accountId) &lt; share
+    ? newPath(request)
+    : oldPath(request);
+}</code></pre>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="contract-title">
+          <span class="field-label" aria-hidden="true"><b>04</b>Contract</span>
+          <div class="field-body">
+            <h2 id="contract-title">What each layer can rely on during the move.</h2>
+            <dl class="layers delivery">
+              <div><dt>People</dt><dd>The same task works on either path; nobody has to know which one served them</dd></div>
+              <div><dt>Services</dt><dd>Both paths accept the same request</dd></div>
+              <div><dt>Data</dt><dd>One writer per record at any moment: migrate, then switch writes</dd></div>
+              <div><dt>Operations</dt><dd>Dashboards and alerts exist before the first request moves</dd></div>
+            </dl>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="failure-title">
+          <span class="field-label" aria-hidden="true"><b>05</b>Tradeoffs</span>
+          <div class="field-body">
+            <h2 id="failure-title">Two paths cost more than one, for a while.</h2>
+            <ul class="decisions">
+              <li>Running both paths doubles what you operate. Set the date the old one goes.</li>
+              <li>Writing to both stores drifts. Prefer one writer and a backfill.</li>
+              <li>A rollback nobody has rehearsed is a hope. Rehearse it at a small share.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="operating-title">
+          <span class="field-label" aria-hidden="true"><b>06</b>Operating</span>
+          <div class="field-body">
+            <h2 id="operating-title">Compare the paths at every step.</h2>
+            <dl class="layers delivery">
+              <div><dt>Test</dt><dd>End-to-end tests on the user&#x27;s task, run against both paths</dd></div>
+              <div><dt>Deploy</dt><dd>Raise the share in steps, through the same pipeline as any change</dd></div>
+              <div><dt>Observe</dt><dd>Errors and latency per path at each share, before raising it again</dd></div>
+            </dl>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="scope-title">
+          <span class="field-label" aria-hidden="true"><b>07</b>Scope</span>
+          <div class="field-body">
+            <h2 id="scope-title">General practice, not a client trace.</h2>
+            <p>
+              The questions and pattern are general practice. They do not
+              describe how any one client migration was sequenced. Each
+              &#8220;Seen in&#8221; link points to the case that shows that
+              layer best, with its reported outcome.
+            </p>
+          </div>
+        </section>
+
+        <nav class="case-nav" aria-label="Engineering notes">
+          <a href="human-judgment.html" rel="prev"
+            ><i data-lucide="arrow-left" aria-hidden="true"></i
+            ><span><small>N3 / PREVIOUS</small>Human judgment in automation</span></a
+          ><a href="../index.html#notes"><span><small>ALL NOTES</small>Notes from the work</span></a
+          ><a href="bounded-concurrency.html"
+            ><span><small>N1 / NEXT</small>Bounded concurrency</span
+            ><i data-lucide="arrow-right" aria-hidden="true"></i
+          ></a>
+        </nav>
+      </article>
+    </main>
+    <footer>
+      <span>Hans Aeron Warde / Manila</span>
+      <nav aria-label="Social">
+        <a href="https://github.com/hansaeronwarde">GitHub <i data-lucide="arrow-up-right" aria-hidden="true"></i></a
+        ><a href="https://linkedin.com/in/hansaeronwarde">LinkedIn <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+      </nav>
+    </footer>
+  </body>
+</html>

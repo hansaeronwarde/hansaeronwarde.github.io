@@ -52,19 +52,24 @@
     />
     <link
       rel="preload"
-      href="assets/portfolio/media/poster.jpg"
+      href="assets/portfolio/media/poster.avif"
       as="image"
-      media="(min-width:601px)"
+      type="image/avif"
+      media="not all and (max-width:600px)"
     />
     <link
       rel="preload"
-      href="assets/portfolio/media/poster-mobile.jpg"
+      href="assets/portfolio/media/poster-mobile.avif"
       as="image"
+      type="image/avif"
       media="(max-width:600px)"
     />
     <link rel="stylesheet" href="assets/portfolio/study.css" />
     <link rel="stylesheet" href="assets/portfolio/supporting.css" />
     <link rel="stylesheet" href="assets/portfolio/resume.css" />
+    <link rel="stylesheet" href="components.css" />
+    <link rel="stylesheet" href="d20.css" />
+    <script defer src="d20.js"></script>
     <script defer src="assets/portfolio/vendor/gsap.min.js"></script>
     <script
       defer
@@ -74,8 +79,6 @@
     <script defer src="assets/portfolio/queue-model.js"></script>
     <script defer src="assets/portfolio/narrative.js"></script>
     <script defer src="assets/portfolio/study.js"></script>
-    <script defer src="assets/portfolio/studies.js"></script>
-    <script defer src="assets/portfolio/studies-ui.js"></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -108,7 +111,7 @@
       ></a>
       <span class="header-note">SYSTEMS / RECORDS / PEOPLE</span>
       <nav aria-label="Primary">
-        <a href="#study">Work <sup>01</sup></a>
+        <a href="cases.html">Work</a>
         <a href="#resume"
           >R&#233;sum&#233; <i data-lucide="arrow-down" aria-hidden="true"></i
         ></a>
@@ -133,7 +136,12 @@
             <picture
               ><source
                 media="(max-width:600px)"
-                srcset="assets/portfolio/media/poster-mobile.jpg" />
+                srcset="assets/portfolio/media/poster-mobile.avif"
+                type="image/avif" /><source
+                media="(max-width:600px)"
+                srcset="assets/portfolio/media/poster-mobile.jpg" /><source
+                srcset="assets/portfolio/media/poster.avif"
+                type="image/avif" />
               <img src="assets/portfolio/media/poster.jpg" alt=""
             /></picture>
             <video
@@ -159,18 +167,18 @@
               <div class="arrival">
                 <nav class="arrival-index" aria-label="Case studies">
                   <span class="eyebrow">WORK</span
-                  ><a href="#study"
+                  ><a href="work/integration-middleware.html"
                     ><span>01</span>ESC Partners<small>MIDDLEWARE</small
-                    ><i data-lucide="arrow-down" aria-hidden="true"></i></a
-                  ><a href="#telecom"
+                    ><i data-lucide="arrow-right" aria-hidden="true"></i></a
+                  ><a href="work/sim-activation.html"
                     ><span>02</span>Circles.Life<small>TELECOM</small
-                    ><i data-lucide="arrow-down" aria-hidden="true"></i></a
-                  ><a href="#claims"
+                    ><i data-lucide="arrow-right" aria-hidden="true"></i></a
+                  ><a href="work/claims-intake.html"
                     ><span>03</span>Manulife<small>INSURANCE</small
-                    ><i data-lucide="arrow-down" aria-hidden="true"></i></a
-                  ><a href="#campaigns"
+                    ><i data-lucide="arrow-right" aria-hidden="true"></i></a
+                  ><a href="work/campaign-delivery.html"
                     ><span>04</span>ESC Partners<small>UTILITIES</small
-                    ><i data-lucide="arrow-down" aria-hidden="true"></i
+                    ><i data-lucide="arrow-right" aria-hidden="true"></i
                   ></a>
                 </nav>
                 <span class="eyebrow">OPEN TO LEAD ROLES &amp; CONSULTING</span
@@ -300,9 +308,15 @@
               bounded workers, retained request state and retries for transient
               failures.
             </p>
-            <a href="cases.html#case-middleware"
+            <dl class="layers" aria-label="What I owned, by layer">
+              <div><dt>Services</dt><dd>Designed and wrote the request lifecycle, worker pool and batch pipeline in Node.js</dd></div>
+              <div><dt>Data</dt><dd>Retained request state in MongoDB</dd></div>
+              <div><dt>Infra</dt><dd>AWS, queue architecture</dd></div>
+              <div><dt>Team</dt><dd>Led four engineers; owned schema, service boundaries, cloud and production monitoring</dd></div>
+            </dl>
+            <a href="work/integration-middleware.html"
               >Full case study
-              <i data-lucide="arrow-up-right" aria-hidden="true"></i
+              <i data-lucide="arrow-right" aria-hidden="true"></i
             ></a>
           </div>
         </div>
@@ -507,291 +521,220 @@
           </p>
         </div>
       </section>
-      <!-- 02 TELECOM -->
-      <section class="study support" id="telecom" aria-labelledby="telecom-title">
+      <section class="principle" id="principle" aria-labelledby="principle-heading">
         <div class="section-rule">
-          <span>02 / CIRCLES.LIFE</span><span>TELECOM / SOFTWARE ENGINEER</span>
+          <span>OPERATING PRINCIPLE</span><span>SYSTEMS / RECORDS / PEOPLE</span>
         </div>
-        <div class="study-heading">
-          <h2 id="telecom-title" tabindex="-1">Activation<br />stands alone.</h2>
+        <div class="principle-body">
+          <h2 id="principle-heading">The people<br />downstream.</h2>
           <div>
-            <p>
-              One purchase starts two services. Switch the logistics provider
-              off: activation still finishes, and fulfillment waits with a
-              reason until the provider returns.
+            <p class="principle-lead">
+              Most of what I build sits behind someone else&#x27;s job: a
+              billing clerk, a claims encoder, a customer waiting on a SIM. The
+              work is done when their part gets simpler.
             </p>
-            <a href="cases.html#case-activation"
-              >Full case study <i data-lucide="arrow-up-right" aria-hidden="true"></i
-            ></a>
+            <ol class="principle-people">
+              <li>
+                <a href="#study"
+                  ><span>01</span><strong>A billing clerk</strong
+                  ><small>Utility billing integration</small
+                  ><i data-lucide="arrow-up" aria-hidden="true"></i
+                ></a>
+              </li>
+              <li>
+                <a href="#telecom"
+                  ><span>02</span><strong>A customer waiting on a SIM</strong
+                  ><small>SIM activation</small
+                  ><i data-lucide="arrow-down" aria-hidden="true"></i
+                ></a>
+              </li>
+              <li>
+                <a href="#claims"
+                  ><span>03</span><strong>A claims encoder</strong
+                  ><small>Claims intake and review</small
+                  ><i data-lucide="arrow-down" aria-hidden="true"></i
+                ></a>
+              </li>
+            </ol>
           </div>
-        </div>
-        <div class="lab-bar study-bar">
-          <span class="study-source" id="tel-source">SYNTHETIC STUDY / ORDER SAMPLE-001 / TICK 005</span>
-          <div class="transport" data-enhance hidden>
-            <button type="button" class="icon" id="tel-run" aria-label="Run order">
-              <i data-lucide="play" aria-hidden="true"></i></button
-            ><button type="button" class="icon" id="tel-step" aria-label="Advance order one tick">
-              <i data-lucide="step-forward" aria-hidden="true"></i></button
-            ><button type="button" class="icon" id="tel-reset" aria-label="Reset order">
-              <i data-lucide="rotate-ccw" aria-hidden="true"></i>
-            </button>
-          </div>
-        </div>
-        <div class="lanes" id="tel-lanes">
-          <div class="lane-origin">
-            <span class="eyebrow">ORDER</span>
-            <strong>SAMPLE-001</strong>
-            <span class="muted">One purchase event</span>
-          </div>
-          <div class="service" id="tel-activation" data-state="activated">
-            <div class="service-name"><span class="eyebrow">A / SERVICE</span><h3>Activation</h3></div>
-            <div class="service-state">
-              <strong data-word>Activated</strong>
-              <span data-detail>Since tick 002</span>
-            </div>
-            <div class="service-track" style="--p: 1">
-              <i class="track-fill"></i>
-              <ol>
-                <li data-stop="pending">Pending</li>
-                <li data-stop="processing">Processing</li>
-                <li data-stop="activated">Activated</li>
-              </ol>
-            </div>
-            <div class="service-end">
-              <span class="eyebrow">DEPENDENCY</span>
-              <span class="muted">None in this study</span>
-            </div>
-          </div>
-          <div class="service" id="tel-fulfillment" data-state="fulfilled">
-            <div class="service-name"><span class="eyebrow">B / SERVICE</span><h3>Fulfillment</h3></div>
-            <div class="service-state">
-              <strong data-word>Fulfilled</strong>
-              <span data-detail>Since tick 005</span>
-            </div>
-            <div class="service-track" style="--p: 1">
-              <i class="track-fill"></i>
-              <ol>
-                <li data-stop="pending">Pending</li>
-                <li data-stop="processing">Processing</li>
-                <li data-stop="fulfilled">Fulfilled</li>
-              </ol>
-            </div>
-            <div class="service-end">
-              <span class="eyebrow">DEPENDENCY</span>
-              <label class="checkbox" data-enhance hidden
-                ><input id="tel-provider" type="checkbox" checked /> Logistics provider available</label
-              >
-              <span class="muted" data-nojs>Logistics provider</span>
-            </div>
-          </div>
-        </div>
-        <div class="study-record">
-          <div class="register-label"><span>ORDER RECORD</span><span id="tel-count">8 EVENTS</span></div>
-          <table>
-            <caption class="sr-only">Order SAMPLE-001 event history in virtual ticks</caption>
-            <thead><tr><th scope="col">Tick</th><th scope="col">Service</th><th scope="col">Event</th></tr></thead>
-            <tbody id="tel-record"><tr data-event="received"><td>000</td><td>Order</td><td>Received</td></tr><tr data-event="provider_unavailable"><td>000</td><td>Provider</td><td>Unavailable</td></tr><tr data-event="processing"><td>001</td><td>Activation</td><td>Processing</td></tr><tr data-event="waiting"><td>001</td><td>Fulfillment</td><td>Waiting: provider unavailable</td></tr><tr data-event="activated"><td>002</td><td>Activation</td><td>Activated</td></tr><tr data-event="provider_restored"><td>002</td><td>Provider</td><td>Restored</td></tr><tr data-event="processing"><td>003</td><td>Fulfillment</td><td>Processing</td></tr><tr data-event="fulfilled"><td>005</td><td>Fulfillment</td><td>Fulfilled</td></tr></tbody>
-          </table>
-          <p class="scope">
-            Two independent services, not the client's implementation.
-          </p>
-        </div>
-        <div class="study-footer">
-          <a href="assets/portfolio/studies.js">Study source <i data-lucide="code" aria-hidden="true"></i></a
-          ><span id="tel-status" role="status" aria-live="polite"></span>
-        </div>
-        <div class="reported">
-          <span class="eyebrow">REPORTED OUTCOME</span><strong>~40%</strong>
-          <p>
-            Faster average SIM activation, on a platform serving 100k+ active
-            subscribers.
-          </p>
         </div>
       </section>
 
-      <!-- 03 CLAIMS -->
-      <section class="study support" id="claims" aria-labelledby="claims-title">
+      <section class="systems" id="systems" aria-labelledby="systems-heading">
         <div class="section-rule">
-          <span>03 / MANULIFE</span><span>INSURANCE / SOFTWARE ENGINEER</span>
+          <span>SELECTED SYSTEMS / 02&#8211;04</span><span>ONE DECISION EACH</span>
         </div>
-        <div class="study-heading">
-          <h2 id="claims-title" tabindex="-1">Make room<br />for judgment.</h2>
-          <div>
-            <p>
-              Extraction proposes a value; a person approves it. Try approving
-              the amount as it was read, then correct it.
+        <h2 id="systems-heading" class="sr-only">More selected systems</h2>
+
+        <article class="preview" id="telecom" aria-labelledby="telecom-title" data-preview data-ok="true">
+          <div class="preview-copy">
+            <span class="eyebrow">02 / CIRCLES.LIFE / TELECOM</span>
+            <h3 id="telecom-title" tabindex="-1">Activation<br />stands alone.</h3>
+            <p class="decision">
+              <span class="eyebrow">THE DECISION</span>
+              Run activation and fulfillment as separate services, so one can
+              fail without the other.
             </p>
-            <a href="cases.html#case-capture"
-              >Full case study <i data-lucide="arrow-up-right" aria-hidden="true"></i
+            <dl class="layers" aria-label="What I owned, by layer">
+              <div><dt>Services</dt><dd>Led the move from the monolith to Go and Node.js services</dd></div>
+              <div><dt>Integration</dt><dd>Wired in the SIM controllers and logistics providers</dd></div>
+              <div><dt>Data</dt><dd>Event-driven, on PostgreSQL and Redis</dd></div>
+              <div><dt>Delivery</dt><dd>Provisioning test coverage from near zero to 90%</dd></div>
+            </dl>
+            <a class="case-link" href="work/sim-activation.html"
+              >Full case study <i data-lucide="arrow-right" aria-hidden="true"></i
             ></a>
           </div>
-        </div>
-        <div class="lab-bar study-bar">
-          <span class="study-source" id="clm-source">SYNTHETIC STUDY / CLAIM SAMPLE-001 / ROUTED</span>
-          <div class="transport" data-enhance hidden>
-            <button type="button" class="icon" id="clm-reset" aria-label="Reset claim">
-              <i data-lucide="rotate-ccw" aria-hidden="true"></i>
-            </button>
-          </div>
-        </div>
-        <div class="review" id="clm-review" data-state="routed">
-          <figure class="claim-crop" aria-labelledby="clm-crop-caption">
-            <div class="crop-sheet" aria-hidden="true">
-              <div class="crop-head"><span>CLAIM FORM</span><span>SAMPLE</span></div>
-              <div class="crop-row"><span>Claim reference</span><b class="crop-ref">SAMPLE-001</b></div>
-              <div class="crop-row"><span>Claimant</span><i class="bar" style="--w: 62%"></i></div>
-              <div class="crop-row"><span>Service date</span><i class="bar" style="--w: 34%"></i></div>
-              <div class="crop-row"><span>Procedure</span><i class="bar" style="--w: 48%"></i></div>
-              <div class="crop-row crop-amount"><span>Amount</span><b class="ocr-box" id="clm-box"><em>1O0.00</em><small>READ AS 1O0.00</small></b></div>
-              <span class="crop-mark">SAMPLE</span>
+          <figure class="preview-model split" aria-labelledby="telecom-caption">
+            <div class="split-origin">
+              <span class="eyebrow">ORDER</span><strong>SAMPLE-001</strong>
             </div>
-            <figcaption id="clm-crop-caption">
-              <span>SYNTHETIC CLAIM CROP</span>
+            <div class="split-lanes" aria-live="polite">
+              <div class="branch" data-state="done">
+                <span class="eyebrow">A / ACTIVATION</span><strong>Activated</strong>
+              </div>
+              <div class="branch" data-when="ok" data-state="done">
+                <span class="eyebrow">B / FULFILLMENT</span><strong>Fulfilled</strong>
+              </div>
+              <div class="branch" data-when="fail" data-state="wait">
+                <span class="eyebrow">B / FULFILLMENT</span><strong>Waiting: provider unavailable</strong>
+              </div>
+            </div>
+            <label class="checkbox" data-enhance hidden
+              ><input type="checkbox" checked data-toggle /> Logistics provider available</label
+            >
+            <figcaption id="telecom-caption">
+              SYNTHETIC STUDY. Two independent services, not the client&#x27;s
+              implementation.
             </figcaption>
           </figure>
-          <div class="review-pane">
-            <span class="eyebrow">EXTRACTED FIELD / AMOUNT</span>
-            <strong class="review-state" id="clm-state">Routed</strong>
-            <p class="review-detail" id="clm-detail">Approved as 100.00. The correction is in the record.</p>
-            <form class="review-form" id="clm-form" novalidate data-enhance hidden>
-              <label for="clm-amount">Amount</label>
-              <span class="hint" id="clm-hint">As read from the highlighted region. Correct it if it is wrong.</span>
-              <p class="field-error" id="clm-error" hidden></p>
-              <div class="field-row">
-                <input id="clm-amount" name="amount" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" value="1O0.00" aria-describedby="clm-hint" />
-                <button type="submit" class="command" id="clm-approve">
-                  Approve <i data-lucide="check" aria-hidden="true"></i>
-                </button>
-              </div>
-            </form>
-            <dl class="review-diff" id="clm-diff">
-              <div><dt>Before</dt><dd>1<mark>O</mark>0.00</dd></div>
-              <div><dt>After</dt><dd>1<mark>0</mark>0.00</dd></div>
-            </dl>
-          </div>
-        </div>
-        <div class="study-record">
-          <div class="register-label"><span>CLAIM RECORD</span><span id="clm-count">5 EVENTS</span></div>
-          <table>
-            <caption class="sr-only">Claim SAMPLE-001 review history</caption>
-            <thead><tr><th scope="col">Step</th><th scope="col">Event</th><th scope="col">Detail</th></tr></thead>
-            <tbody id="clm-record"><tr data-event="received"><td>01</td><td>Received</td><td>–</td></tr><tr data-event="extracted"><td>02</td><td>Extracted</td><td>Amount read as 1O0.00</td></tr><tr data-event="review_required"><td>03</td><td>Review required</td><td>Ambiguous character</td></tr><tr data-event="reviewed"><td>04</td><td>Reviewed</td><td>Amount 1O0.00 → 100.00, corrected</td></tr><tr data-event="routed"><td>05</td><td>Routed</td><td>–</td></tr></tbody>
-          </table>
-          <p class="scope">
-            No real claim, claimant or payment. No confidence score is shown
-            because none was measured.
-          </p>
-        </div>
-        <div class="study-footer">
-          <a href="assets/portfolio/studies.js">Study source <i data-lucide="code" aria-hidden="true"></i></a
-          ><span id="clm-status" role="status" aria-live="polite"></span>
-        </div>
-        <div class="reported">
-          <span class="eyebrow">REPORTED OUTCOME</span><strong>$210k</strong>
-          <p>
-            Labor cost saved a year at Manulife's Canadian division.
-          </p>
-        </div>
-      </section>
-
-      <!-- 04 CAMPAIGNS -->
-      <section class="study support" id="campaigns" aria-labelledby="campaigns-title">
-        <div class="section-rule">
-          <span>04 / ESC PARTNERS</span><span>UTILITIES / LEAD SOFTWARE ENGINEER</span>
-        </div>
-        <div class="study-heading">
-          <h2 id="campaigns-title" tabindex="-1">One message.<br />Every channel.</h2>
-          <div>
+          <div class="reported">
+            <span class="eyebrow">REPORTED OUTCOME</span><strong>~40%</strong>
             <p>
-              One send fans out to each selected channel, and each keeps its
-              own receipt. Take SMS down, send, then retry SMS without
-              resending IVR or email.
+              Faster average SIM activation, on a platform serving 100k+ active
+              subscribers.
             </p>
-            <a href="cases.html#case-campaigns"
-              >Full case study <i data-lucide="arrow-up-right" aria-hidden="true"></i
+          </div>
+        </article>
+
+        <article class="preview" id="claims" aria-labelledby="claims-title" data-preview data-ok="true">
+          <div class="preview-copy">
+            <span class="eyebrow">03 / MANULIFE / INSURANCE</span>
+            <h3 id="claims-title" tabindex="-1">Make room<br />for judgment.</h3>
+            <p class="decision">
+              <span class="eyebrow">THE DECISION</span>
+              Automate extraction, and keep people responsible for checking it.
+            </p>
+            <dl class="layers" aria-label="What I owned, by layer">
+              <div><dt>Interface</dt><dd>Built the validation app in React</dd></div>
+              <div><dt>Services</dt><dd>Trained the OCR model; built the routing rules in Node.js and TypeScript</dd></div>
+              <div><dt>Data</dt><dd>Built the audit trail, on MongoDB</dd></div>
+              <div><dt>Infra</dt><dd>Azure, with Terraform-managed infrastructure</dd></div>
+              <div><dt>Delivery</dt><dd>Test coverage above 95%</dd></div>
+            </dl>
+            <a class="case-link" href="work/claims-intake.html"
+              >Full case study <i data-lucide="arrow-right" aria-hidden="true"></i
             ></a>
           </div>
-        </div>
-        <div class="lab-bar study-bar">
-          <span class="study-source" id="cmp-source">SYNTHETIC STUDY / CAMPAIGN SAMPLE-001 / SENT</span>
-          <div class="transport" data-enhance hidden>
-            <button type="button" class="icon" id="cmp-reset" aria-label="Reset campaign">
-              <i data-lucide="rotate-ccw" aria-hidden="true"></i>
-            </button>
-          </div>
-        </div>
-        <div class="branches" id="cmp-branches" data-sent="true">
-          <div class="campaign-node">
-            <div>
-              <span class="eyebrow">CAMPAIGN</span>
-              <strong>SAMPLE-001</strong>
-              <span class="muted">Sample service notice, one template</span>
+          <figure class="preview-model crop" aria-labelledby="claims-caption">
+            <div class="crop-field" aria-live="polite">
+              <span class="eyebrow">EXTRACTED FIELD / AMOUNT</span>
+              <div data-when="fail">
+                <b class="read">1<mark>O</mark>0.00</b>
+                <span>Review required: ambiguous character</span>
+              </div>
+              <div data-when="ok">
+                <b class="read"><s><span class="sr-only">Read as </span>1<mark>O</mark>0.00</s> <span class="sr-only">, corrected to </span>1<mark>0</mark>0.00</b>
+                <span>Corrected by a reviewer. The change is in the record.</span>
+              </div>
             </div>
-            <div class="send" data-enhance hidden>
-              <button type="button" class="command" id="cmp-send" aria-describedby="cmp-reason">
-                Send <i data-lucide="send" aria-hidden="true"></i>
-              </button>
-              <span class="reason" id="cmp-reason">Sent. Reset to compose again.</span>
-            </div>
+            <label class="checkbox" data-enhance hidden
+              ><input type="checkbox" checked data-toggle /> Reviewer correction applied</label
+            >
+            <figcaption id="claims-caption">
+              SYNTHETIC CLAIM. No real claim, claimant or payment.
+            </figcaption>
+          </figure>
+          <div class="reported">
+            <span class="eyebrow">REPORTED OUTCOME</span><strong>$210k</strong>
+            <p>Labor cost saved a year at Manulife&#x27;s Canadian division.</p>
           </div>
-          <ol class="receipts">
-            <li class="receipt" id="cmp-sms" data-channel="sms" data-state="sent">
-              <div class="receipt-head">
-                <label class="checkbox" data-enhance hidden><input type="checkbox" data-select="sms" checked /> SMS</label>
-                <span class="channel-name" data-nojs>SMS</span>
-              </div>
-              <strong class="receipt-state" data-word>Sent</strong>
-              <ol class="attempts" data-attempts><li data-result="failed"><span>01</span><span>Failed: provider error</span></li><li data-result="failed"><span>02</span><span>Failed: provider error</span></li><li data-result="sent"><span>03</span><span>Sent</span></li></ol>
-              <div class="receipt-end">
-                <span class="eyebrow">DEPENDENCY</span>
-                <label class="checkbox" data-enhance hidden
-                  ><input id="cmp-provider" type="checkbox" checked /> SMS provider available</label
-                >
-                <span class="muted" data-nojs>SMS provider</span>
-              </div>
-              <button type="button" class="command secondary" data-retry="sms" hidden>
-                Retry SMS <i data-lucide="rotate-cw" aria-hidden="true"></i>
-              </button>
+        </article>
+
+        <article class="preview" id="campaigns" aria-labelledby="campaigns-title" data-preview data-ok="true">
+          <div class="preview-copy">
+            <span class="eyebrow">04 / ESC PARTNERS / UTILITIES</span>
+            <h3 id="campaigns-title" tabindex="-1">One message.<br />Every channel.</h3>
+            <p class="decision">
+              <span class="eyebrow">THE DECISION</span>
+              Put every vendor behind one interface, but keep channel choice and
+              each delivery&#x27;s status.
+            </p>
+            <dl class="layers" aria-label="What I owned, by layer">
+              <div><dt>Interface</dt><dd>Built templates and audience scheduling in React and Mustache</dd></div>
+              <div><dt>Services</dt><dd>Built the channel integrations: Twilio SMS and IVR, AWS SES</dd></div>
+              <div><dt>Data</dt><dd>Built per-channel delivery tracking, on MongoDB</dd></div>
+            </dl>
+            <a class="case-link" href="work/campaign-delivery.html"
+              >Full case study <i data-lucide="arrow-right" aria-hidden="true"></i
+            ></a>
+          </div>
+          <figure class="preview-model fan" aria-labelledby="campaigns-caption">
+            <ol class="fan-receipts" aria-live="polite">
+              <li data-when="ok" data-state="done"><span class="eyebrow">SMS</span><strong>Sent</strong><small>Attempt 03, retried alone</small></li>
+              <li data-when="fail" data-state="fail"><span class="eyebrow">SMS</span><strong>Failed</strong><small>Attempt 02, provider error</small></li>
+              <li data-state="done"><span class="eyebrow">IVR</span><strong>Sent</strong><small>Attempt 01</small></li>
+              <li data-state="done"><span class="eyebrow">EMAIL</span><strong>Sent</strong><small>Attempt 01</small></li>
+            </ol>
+            <label class="checkbox" data-enhance hidden
+              ><input type="checkbox" checked data-toggle /> SMS provider available</label
+            >
+            <figcaption id="campaigns-caption">
+              SYNTHETIC CAMPAIGN. One sample message; it reaches no one.
+            </figcaption>
+          </figure>
+          <div class="reported">
+            <span class="eyebrow">REPORTED CONTEXT</span><strong>50,000+</strong>
+            <p>
+              Delco&#x27;s water-customer base. This is not the number of people
+              any campaign reached.
+            </p>
+          </div>
+        </article>
+      </section>
+
+      <section class="notes" id="notes" aria-labelledby="notes-heading">
+        <div class="section-rule">
+          <span>ENGINEERING NOTES</span><span>GENERAL PRACTICE / N1&#8211;N4</span>
+        </div>
+        <div class="notes-body">
+          <h2 id="notes-heading">Notes from<br />the work.</h2>
+          <ol class="note-list">
+            <li>
+              <a href="notes/bounded-concurrency.html"><span>N1</span><strong>Protecting downstream services with bounded concurrency</strong
+              ><small>From 01 / Middleware</small
+              ><i data-lucide="arrow-right" aria-hidden="true"></i
+              ></a>
             </li>
-            <li class="receipt" id="cmp-ivr" data-channel="ivr" data-state="sent">
-              <div class="receipt-head">
-                <label class="checkbox" data-enhance hidden><input type="checkbox" data-select="ivr" checked /> IVR</label>
-                <span class="channel-name" data-nojs>IVR</span>
-              </div>
-              <strong class="receipt-state" data-word>Sent</strong>
-              <ol class="attempts" data-attempts><li data-result="sent"><span>01</span><span>Sent</span></li></ol>
+            <li>
+              <a href="notes/independent-failure.html"><span>N2</span><strong>Separating workflows that should fail independently</strong
+              ><small>From 02 / Activation</small
+              ><i data-lucide="arrow-right" aria-hidden="true"></i
+              ></a>
             </li>
-            <li class="receipt" id="cmp-email" data-channel="email" data-state="sent">
-              <div class="receipt-head">
-                <label class="checkbox" data-enhance hidden><input type="checkbox" data-select="email" checked /> Email</label>
-                <span class="channel-name" data-nojs>Email</span>
-              </div>
-              <strong class="receipt-state" data-word>Sent</strong>
-              <ol class="attempts" data-attempts><li data-result="sent"><span>01</span><span>Sent</span></li></ol>
+            <li>
+              <a href="notes/human-judgment.html"><span>N3</span><strong>Designing human judgment into automation</strong
+              ><small>From 03 / Claims</small
+              ><i data-lucide="arrow-right" aria-hidden="true"></i
+              ></a>
+            </li>
+            <li>
+              <a href="notes/legacy-rebuild.html"><span>N4</span><strong>Operating a legacy rebuild from interface to production</strong
+              ><small>From all four systems</small
+              ><i data-lucide="arrow-right" aria-hidden="true"></i
+              ></a>
             </li>
           </ol>
-        </div>
-        <div class="study-record">
-          <div class="register-label"><span>CAMPAIGN RECORD</span><span id="cmp-count">9 EVENTS</span></div>
-          <table>
-            <caption class="sr-only">Campaign SAMPLE-001 delivery history</caption>
-            <thead><tr><th scope="col">Step</th><th scope="col">Event</th><th scope="col">Attempt</th></tr></thead>
-            <tbody id="cmp-record"><tr data-event="composed"><td>01</td><td>Composed</td><td>–</td></tr><tr data-event="provider_unavailable"><td>02</td><td>SMS provider unavailable</td><td>–</td></tr><tr data-event="scheduled"><td>03</td><td>Scheduled</td><td>–</td></tr><tr data-event="failed"><td>04</td><td>SMS failed: provider error</td><td>1</td></tr><tr data-event="sent"><td>05</td><td>IVR sent</td><td>1</td></tr><tr data-event="sent"><td>06</td><td>Email sent</td><td>1</td></tr><tr data-event="failed"><td>07</td><td>SMS failed: provider error</td><td>2</td></tr><tr data-event="provider_restored"><td>08</td><td>SMS provider restored</td><td>–</td></tr><tr data-event="sent"><td>09</td><td>SMS sent</td><td>3</td></tr></tbody>
-          </table>
-          <p class="scope">
-            One sample message. It sends nothing and reaches no one.
-          </p>
-        </div>
-        <div class="study-footer">
-          <a href="assets/portfolio/studies.js">Study source <i data-lucide="code" aria-hidden="true"></i></a
-          ><span id="cmp-status" role="status" aria-live="polite"></span>
-        </div>
-        <div class="reported">
-          <span class="eyebrow">REPORTED CONTEXT</span><strong>50,000+</strong>
-          <p>
-            Delco's water-customer base. This is not the number of people any
-            campaign reached.
-          </p>
         </div>
       </section>
       <section
@@ -811,8 +754,7 @@
             <h3>Lead full-stack engineer.</h3>
             <p>
               I lead teams that replace legacy systems, from schema design to
-              production monitoring. Batch processing cut from 72 hours to 4 at
-              ESC Partners. $210k a year saved in labor at Manulife.
+              production monitoring.
             </p>
             <a class="arrow-link" href="mailto:haeronwarde@gmail.com"
               >haeronwarde@gmail.com
@@ -890,9 +832,10 @@
                 ><time datetime="2023-05">May 2023</time> &#8211;
                 <time datetime="2025-11">Nov 2025</time> &#183; Remote</span
               >
+              <h3>Lead Software Engineer</h3>
+              <dl class="career-metric"><dt>72 h &#8594; 4 h</dt><dd>Batch processing time</dd></dl>
             </div>
             <div>
-              <h3>Lead Software Engineer</h3>
               <p>
                 I led a team of four engineers delivering five utility portals
                 for billing, usage analytics and payments. I cut batch
@@ -918,9 +861,10 @@
                 ><time datetime="2022-07">Jul 2022</time> &#8211;
                 <time datetime="2023-08">Aug 2023</time> &#183; Remote</span
               >
+              <h3>Software Engineer</h3>
+              <dl class="career-metric"><dt>~40%</dt><dd>Faster average SIM activation</dd></dl>
             </div>
             <div>
-              <h3>Software Engineer</h3>
               <p>
                 I led the move from a legacy monolith to Node.js and Go
                 services, and rebuilt SIM activation as an event-driven system
@@ -944,9 +888,10 @@
                 ><time datetime="2022-07">Jul 2022</time> &#8211;
                 <time datetime="2023-03">Mar 2023</time> &#183; Remote</span
               >
+              <h3>Software Engineer</h3>
+              <dl class="career-metric"><dt>40s &#8594; 90s</dt><dd>Lighthouse performance</dd></dl>
             </div>
             <div>
-              <h3>Software Engineer</h3>
               <p>
                 I rebuilt the School Sites fundraising platform in Next.js:
                 initial load over 50% faster, Lighthouse performance from the
@@ -963,18 +908,19 @@
                 href="https://www.manulife.ca/personal.html"
                 target="_blank"
                 rel="noreferrer"
-                >Manulife, Canadian Division<i
+                >Manulife, Canadian <span class="nowrap">Division<i
                   data-lucide="arrow-up-right"
                   aria-hidden="true"
-                ></i></a
+                ></i></span></a
               ><span class="career-dates"
                 ><time datetime="2021-06">Jun 2021</time> &#8211;
                 <time datetime="2022-07">Jul 2022</time> &#183; Makati
                 City</span
               >
+              <h3>Software Engineer</h3>
+              <dl class="career-metric"><dt>$210k</dt><dd>Labor saved a year</dd></dl>
             </div>
             <div>
-              <h3>Software Engineer</h3>
               <p>
                 I built Intelligent Capture, an OCR platform that replaced
                 manual entry of paper dental claims and saved $210k a year in
@@ -1000,9 +946,10 @@
                 <time datetime="2021-06">Jun 2021</time> &#183; Makati
                 City</span
               >
+              <h3>Cloud Applications Consultant</h3>
+              <dl class="career-metric"><dt>50%</dt><dd>Fewer escalations</dd></dl>
             </div>
             <div>
-              <h3>Cloud Applications Consultant</h3>
               <p>
                 I built and maintained B2B EDI integrations in Node.js and React
                 for enterprise clients including Nestl&#233;, BMW and Costco,
@@ -1013,214 +960,120 @@
           </article>
         </div>
       </section>
-      <section
-        id="engineering-focus"
-        class="focus"
-        aria-labelledby="engineering-focus-heading"
-      >
-        <div class="section-label">
-          <span>ENGINEERING FOCUS</span>
+      <section class="dossier" id="credentials" aria-labelledby="credentials-heading">
+        <div class="section-rule">
+          <span>FOCUS / STACK / CREDENTIALS</span><span>EARNED 2019&#8211;2023</span>
         </div>
-        <div class="section-intro">
-          <h2 class="section-heading" id="engineering-focus-heading">
-            The hard parts<br />of delivery.
-          </h2>
-          <p>
-            I&#x27;m most useful when a system has outgrown how it was built:
-            releases are slow, failures are hard to see, and infrastructure
-            choices have become business problems.
-          </p>
-        </div>
-        <ol class="focus-list">
-          <li>
-            Split legacy monoliths into services that deploy and fail on their
-            own.
-          </li>
-          <li>
-            Design event-driven systems that hold up under real concurrency.
-          </li>
-          <li>Build CI/CD pipelines that make releases routine.</li>
-          <li>Set testing standards that survive production.</li>
-          <li>Own systems end to end, from schema to monitoring.</li>
-        </ol>
-      </section>
-      <section id="stack" class="toolbox" aria-labelledby="stack-heading">
-        <div class="section-label">
-          <span>STACK</span>
-        </div>
-        <div class="section-intro">
-          <h2 class="section-heading" id="stack-heading">
-            What I<br />build with.
-          </h2>
-        </div>
-        <dl class="toolbox-grid">
-          <div>
-            <dt>LANGUAGES</dt>
-            <dd>TypeScript, JavaScript, Go, SQL</dd>
+        <h2 id="credentials-heading" class="sr-only">Focus, stack and credentials</h2>
+        <div class="dossier-grid">
+          <div class="dossier-cell dossier-focus">
+            <span class="eyebrow">ENGINEERING FOCUS</span>
+            <h3 id="engineering-focus">The hard parts<br />of delivery.</h3>
+            <ol class="dossier-focus-list">
+              <li>Split legacy monoliths into services that deploy and fail on their own.</li>
+              <li>Design event-driven systems that hold up under real concurrency.</li>
+              <li>Build CI/CD pipelines that make releases routine.</li>
+              <li>Set testing standards that survive production.</li>
+              <li>Own systems end to end, from schema to monitoring.</li>
+            </ol>
           </div>
-          <div>
-            <dt>FRONTEND</dt>
-            <dd>React, Next.js, React Native, Tailwind CSS</dd>
+          <div class="dossier-cell">
+            <span class="eyebrow">STACK</span>
+            <h3 id="stack">What I<br />build with.</h3>
+            <dl class="dossier-rows">
+              <div><dt>LANGUAGES</dt><dd>TypeScript, JavaScript, Go, SQL</dd></div>
+              <div><dt>FRONTEND</dt><dd>React, Next.js, React Native, Tailwind CSS</dd></div>
+              <div><dt>BACKEND</dt><dd>Node.js, Express, GraphQL, REST</dd></div>
+              <div><dt>DATA</dt><dd>PostgreSQL, MongoDB, Redis</dd></div>
+              <div><dt>CLOUD &amp; INFRASTRUCTURE</dt><dd>Amazon Web Services (AWS), Microsoft Azure, Terraform, Docker</dd></div>
+              <div><dt>TESTING &amp; QUALITY</dt><dd>Jest, Vitest, Cypress, Playwright, Test-driven Development, End-to-End Testing</dd></div>
+              <div><dt>ARCHITECTURE</dt><dd>Microservices, Serverless, Event-driven systems, CI/CD (Jenkins)</dd></div>
+            </dl>
           </div>
-          <div>
-            <dt>BACKEND</dt>
-            <dd>Node.js, Express, GraphQL, REST</dd>
+          <div class="dossier-cell">
+            <span class="eyebrow">CERTIFICATIONS</span>
+            <h3 id="certs">Certified on<br />Azure and AWS.</h3>
+            <div class="dossier-certs">
+              <a href="https://www.credly.com/badges/08866e47-1eb3-418a-aa1c-9697304f689b" target="_blank" rel="noreferrer"
+                ><span class="issuer">Microsoft Azure</span><span>Fundamentals</span><time datetime="2021">2021</time
+                ><i data-lucide="arrow-up-right" aria-hidden="true"></i></a
+              ><a href="https://www.credly.com/badges/50525cc4-a574-4a8a-9472-e53ce6e5f2a6/linked_in_profile" target="_blank" rel="noreferrer"
+                ><span class="issuer">Microsoft Azure</span><span>Developer Associate</span><time datetime="2022">2022</time
+                ><i data-lucide="arrow-up-right" aria-hidden="true"></i></a
+              ><a href="https://www.credly.com/badges/dd9f7de5-4782-4c77-bc62-3ffa407cc7a6/linked_in_profile" target="_blank" rel="noreferrer"
+                ><span class="issuer">Microsoft Azure</span><span>DevOps Engineer Expert</span><time datetime="2022">2022</time
+                ><i data-lucide="arrow-up-right" aria-hidden="true"></i></a
+              ><a href="https://www.credly.com/badges/a1195bba-7dc9-4c60-936b-e768f1b76abb/linked_in_profile" target="_blank" rel="noreferrer"
+                ><span class="issuer">AWS</span><span>Solutions Architect Associate</span><time datetime="2023">2023</time
+                ><i data-lucide="arrow-up-right" aria-hidden="true"></i
+              ></a>
+            </div>
           </div>
-          <div>
-            <dt>DATA</dt>
-            <dd>PostgreSQL, MongoDB, Redis</dd>
-          </div>
-          <div>
-            <dt>CLOUD &amp; INFRASTRUCTURE</dt>
-            <dd>Amazon Web Services (AWS), Microsoft Azure, Terraform, Docker</dd>
-          </div>
-          <div>
-            <dt>TESTING &amp; QUALITY</dt>
-            <dd>Jest, Vitest, Cypress, Playwright, Test-driven Development, End-to-End Testing</dd>
-          </div>
-          <div class="wide">
-            <dt>ARCHITECTURE</dt>
-            <dd>Microservices, Serverless, Event-driven systems, CI/CD (Jenkins)</dd>
-          </div>
-        </dl>
-      </section>
-      <section id="certs" class="credentials" aria-labelledby="certs-heading">
-        <div class="section-label">
-          <span>CERTIFICATIONS</span><span>EARNED 2021&#8211;2023</span>
-        </div>
-        <div class="section-intro">
-          <h2 class="section-heading" id="certs-heading">
-            Certified on<br />Azure and AWS.
-          </h2>
-        </div>
-        <div class="credential-list">
-          <a
-            href="https://www.credly.com/badges/08866e47-1eb3-418a-aa1c-9697304f689b"
-            target="_blank"
-            rel="noreferrer"
-            ><span class="issuer">Microsoft Azure</span
-            ><span class="qualification">Fundamentals</span
-            ><time datetime="2021">2021</time
-            ><i data-lucide="arrow-up-right" aria-hidden="true"></i></a
-          ><a
-            href="https://www.credly.com/badges/50525cc4-a574-4a8a-9472-e53ce6e5f2a6/linked_in_profile"
-            target="_blank"
-            rel="noreferrer"
-            ><span class="issuer">Microsoft Azure</span
-            ><span class="qualification">Developer Associate</span
-            ><time datetime="2022">2022</time
-            ><i data-lucide="arrow-up-right" aria-hidden="true"></i></a
-          ><a
-            href="https://www.credly.com/badges/dd9f7de5-4782-4c77-bc62-3ffa407cc7a6/linked_in_profile"
-            target="_blank"
-            rel="noreferrer"
-            ><span class="issuer">Microsoft Azure</span
-            ><span class="qualification">DevOps Engineer Expert</span
-            ><time datetime="2022">2022</time
-            ><i data-lucide="arrow-up-right" aria-hidden="true"></i></a
-          ><a
-            href="https://www.credly.com/badges/a1195bba-7dc9-4c60-936b-e768f1b76abb/linked_in_profile"
-            target="_blank"
-            rel="noreferrer"
-            ><span class="issuer">AWS</span
-            ><span class="qualification">Solutions Architect Associate</span
-            ><time datetime="2023">2023</time
-            ><i data-lucide="arrow-up-right" aria-hidden="true"></i
-          ></a>
-        </div>
-      </section>
-      <section
-        id="education"
-        class="education"
-        aria-labelledby="education-heading"
-      >
-        <div class="section-label">
-          <span>EDUCATION</span>
-        </div>
-        <div class="education-body">
-          <h2 id="education-heading">
-            <a href="https://www.pup.edu.ph/" target="_blank" rel="noreferrer"
-              >PUP Manila <i data-lucide="arrow-up-right" aria-hidden="true"></i
-            ></a>
-          </h2>
-          <div>
-            <h3>B.S. Computer Science</h3>
+          <div class="dossier-cell dossier-edu">
+            <span class="eyebrow">EDUCATION</span>
+            <h3 id="education">
+              <a href="https://www.pup.edu.ph/" target="_blank" rel="noreferrer"
+                >PUP Manila <i data-lucide="arrow-up-right" aria-hidden="true"></i
+              ></a>
+            </h3>
+            <p class="dossier-degree">B.S. Computer Science</p>
             <p>
               Specialized in Information Systems Development. Ranked 8th in the
               department&#x27;s graduating batch &#183; Best Undergraduate
               Thesis &#183; Academic and Leadership Excellence Awards
             </p>
-            <p class="education-year">CLASS OF 2019</p>
-          </div>
-        </div>
-      </section>
-      <section class="profile" id="about" aria-labelledby="profile-heading">
-        <div class="section-label">
-          <span>ABOUT</span>
-        </div>
-        <div class="profile-layout">
-          <figure>
-            <img
-              src="assets/headshot.jpg"
-              alt="Portrait of Hans Aeron Warde"
-              loading="lazy"
-              width="600"
-              height="900"
-              decoding="async"
-            />
-            <figcaption>Hans Aeron Warde / Manila</figcaption>
-          </figure>
-          <div>
-            <h2 id="profile-heading">The people<br />downstream.</h2>
-            <p>
-              Most of what I build sits behind someone else&#x27;s job: a
-              billing clerk, a claims encoder, a customer waiting on a SIM. The
-              work is done when their part gets simpler.
-            </p>
-            <p>
-              I&#x27;m based in Manila. From 2022 to 2025 I worked remotely with
-              teams in the US and&#160;Singapore.
-            </p>
+            <p class="eyebrow">CLASS OF 2019</p>
           </div>
         </div>
       </section>
       <section class="contact" id="contact" aria-labelledby="contact-heading">
-        <div class="section-label">
-          <span>CONTACT</span
-          ><a href="#top" aria-label="Back to top"
-            ><i data-lucide="arrow-up" aria-hidden="true">Back to top</i
-          ></a>
+        <div class="closing">
+          <div class="section-label">
+            <span>CONTACT</span
+            ><a href="#top" aria-label="Back to top"
+              ><i data-lucide="arrow-up" aria-hidden="true">Back to top</i
+            ></a>
+          </div>
+          <div class="closing-layout">
+            <figure id="about">
+              <img src="assets/headshot.jpg" alt="Portrait of Hans Aeron Warde" loading="lazy" width="600" height="900" decoding="async" />
+              <figcaption><span>Hans Aeron Warde / Manila</span><span>MANILA / PH</span></figcaption>
+            </figure>
+            <div>
+              <h2 id="contact-heading">
+                <span class="ln">Hiring a lead engineer?</span>
+                <span class="ln">Stuck on a legacy system?</span>
+              </h2>
+              <p class="contact-lead">
+                I&#x27;m open to lead roles and architecture consulting. Tell me about
+                the system that&#x27;s holding you back: a legacy codebase, a scaling
+                bottleneck, or a release process nobody trusts.
+              </p>
+              <div class="email-row">
+                <a class="email arrow-link" href="mailto:haeronwarde@gmail.com"
+                  >haeronwarde@gmail.com
+                  <i data-lucide="arrow-up-right" aria-hidden="true"></i></a
+                ><button
+                  class="icon"
+                  id="copy-email"
+                  type="button"
+                  aria-label="Copy email address"
+                  hidden
+                >
+                  <i data-lucide="copy" aria-hidden="true"></i>
+                </button>
+              </div>
+              <p
+                id="copy-status"
+                role="status"
+                aria-live="polite"
+                class="copy-status"
+              ></p>
+              <p class="closing-note">I&#x27;m based in Manila. From 2022 to 2025 I worked remotely with teams in the US and&#160;Singapore.</p>
+              <p class="contact-meta">Manila &#183; UTC+8 &#183; remote</p>
+            </div>
+          </div>
         </div>
-        <h2 id="contact-heading">
-          <span class="ln">Hiring a lead engineer?</span>
-          <span class="ln">Stuck on a legacy system?</span>
-        </h2>
-        <p class="contact-lead">
-          I&#x27;m open to lead roles and architecture consulting. Tell me about
-          the system that&#x27;s holding you back: a legacy codebase, a scaling
-          bottleneck, or a release process nobody trusts.
-        </p>
-        <div class="email-row">
-          <a class="email arrow-link" href="mailto:haeronwarde@gmail.com"
-            >haeronwarde@gmail.com
-            <i data-lucide="arrow-up-right" aria-hidden="true"></i></a
-          ><button
-            class="icon"
-            id="copy-email"
-            type="button"
-            aria-label="Copy email address"
-            hidden
-          >
-            <i data-lucide="copy" aria-hidden="true"></i>
-          </button>
-        </div>
-        <p class="contact-meta">Manila &#183; UTC+8 &#183; remote</p>
-        <p
-          id="copy-status"
-          role="status"
-          aria-live="polite"
-          class="copy-status"
-        ></p>
         <div class="practice-close" aria-hidden="true">
           <span class="practice-mark" aria-hidden="true"
             ><i></i><i></i><i></i><i></i><i></i></span

@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Protecting downstream services with bounded concurrency &#8211; Hans Aeron Warde</title>
+    <meta
+      name="description"
+      content="Engineering note: accept every request, but cap the calls you send downstream. A computed sweep, a bounded-concurrency pattern, and what to test and watch."
+    />
+    <meta name="theme-color" content="#f7f7f4" />
+    <link rel="canonical" href="https://hansaeronwarde.github.io/notes/bounded-concurrency.html" />
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="../assets/portfolio/fonts/Antonio-Variable.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="../assets/portfolio/fonts/Switzer-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="../assets/portfolio/study.css" />
+    <link rel="stylesheet" href="../assets/portfolio/supporting.css" />
+    <link rel="stylesheet" href="../components.css" />
+    <link rel="stylesheet" href="../work/case.css" />
+    <script defer src="../assets/portfolio/vendor/lucide.min.js"></script>
+    <script defer src="../assets/portfolio/queue-model.js"></script>
+    <script defer src="notes.js"></script>
+  </head>
+  <body class="case-page note-page">
+    <a class="skip" href="#case">Skip to note</a>
+    <header id="navigation" class="paper">
+      <a class="signature" href="../index.html" aria-label="haw. Hans Aeron Warde, home"
+        >haw.<span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span
+      ></a>
+      <span class="header-note">SYSTEMS / RECORDS / PEOPLE</span>
+      <nav aria-label="Primary">
+        <a href="../cases.html">Work</a>
+        <a href="../index.html#resume">R&#233;sum&#233;</a>
+        <a href="mailto:haeronwarde@gmail.com?subject=Bounded%20concurrency" aria-label="Email Hans"
+          >Email <i data-lucide="arrow-up-right" aria-hidden="true"></i
+        ></a>
+      </nav>
+    </header>
+
+    <main id="case">
+      <article aria-labelledby="case-title">
+        <div class="masthead">
+          <div class="section-rule">
+            <span>N1 / 04 / ENGINEERING NOTE</span><span>FROM 01 / INTEGRATION MIDDLEWARE</span>
+          </div>
+          <div class="masthead-body">
+            <h1 id="case-title">Protecting downstream services with bounded concurrency.</h1>
+            <div class="masthead-side">
+              <p class="masthead-lead">
+                Accepting a request is cheap. Calling the system behind it is
+                not. Cap the calls in flight, and a burst becomes a queue you
+                can see instead of a load the downstream has to absorb.
+              </p>
+              <dl class="facts">
+                <div><dt>Layers</dt><dd>Service / data / operation</dd></div>
+                <div><dt>Case</dt><dd><a href="../work/integration-middleware.html">01 / Integration middleware</a></dd></div>
+                <div><dt>Scope</dt><dd>General practice, not client evidence</dd></div>
+              </dl>
+            </div>
+          </div>
+        </div>
+
+        <section class="field" aria-labelledby="claim-title">
+          <span class="field-label" aria-hidden="true"><b>01</b>Claim</span>
+          <div class="field-body">
+            <h2 id="claim-title">Cap the work you send, not the work you accept.</h2>
+            <p>
+              Acknowledge every request at once and give it a record. Then let
+              a fixed number of calls reach the downstream at a time. Set that
+              number from what the downstream can take, not from how many
+              workers you can afford to run. On the integration middleware the
+              cap was five.
+            </p>
+          </div>
+        </section>
+
+        <section class="field field-wide" aria-labelledby="model-title">
+          <span class="field-label" aria-hidden="true"><b>02</b>Model</span>
+          <div class="field-body">
+            <h2 id="model-title">More workers stop helping at the cap.</h2>
+            <p>
+              24 synthetic requests, run to the end for 1 to 8 workers. Move
+              the downstream capacity: below it, each extra worker finishes
+              sooner. Above it, the batch barely speeds up, while rejected calls,
+              retries and failures climb.
+            </p>
+          </div>
+          <div class="study-frame">
+            <div class="lab-controls" data-enhance hidden>
+              <div class="slider"
+                ><span id="n1-capacity-label">Downstream capacity</span>
+                <output id="n1-capacity-value" for="n1-capacity" aria-live="off">5</output
+                ><input id="n1-capacity" aria-labelledby="n1-capacity-label" type="range" min="1" max="8" value="5"
+              /></div>
+            </div>
+            <div class="study-record sweep">
+              <div class="register-label"><span>SWEEP / 24 REQUESTS / UP TO 3 ATTEMPTS</span><span>VIRTUAL TICKS</span></div>
+              <table>
+                <caption class="sr-only">Batch outcome by worker count at the selected downstream capacity</caption>
+                <thead><tr><th scope="col">Workers</th><th scope="col">Finished at tick</th><th scope="col">Failed</th><th scope="col">Calls sent downstream</th></tr></thead>
+                <tbody id="n1-rows"><tr><td>1</td><td>84</td><td>0</td><td><span class="bar" style="--w: 43.75%"></span>28</td></tr><tr><td>2</td><td>43</td><td>0</td><td><span class="bar" style="--w: 43.75%"></span>28</td></tr><tr><td>3</td><td>30</td><td>0</td><td><span class="bar" style="--w: 43.75%"></span>28</td></tr><tr><td>4</td><td>23</td><td>0</td><td><span class="bar" style="--w: 43.75%"></span>28</td></tr><tr data-match><td>5 <small class="cap">CAP</small></td><td>19</td><td>0</td><td><span class="bar" style="--w: 43.75%"></span>28</td></tr><tr data-over><td>6</td><td>19</td><td>1</td><td><span class="bar" style="--w: 64.0625%"></span>41</td></tr><tr data-over><td>7</td><td>19</td><td>3</td><td><span class="bar" style="--w: 73.4375%"></span>47</td></tr><tr data-over><td>8</td><td>18</td><td>3</td><td><span class="bar" style="--w: 78.125%"></span>50</td></tr></tbody>
+              </table>
+              <p class="scope">
+                Computed by the same teaching model as the middleware case. The
+                28 calls at or under the cap are the 24 requests plus one
+                dependency-timeout retry each for requests 003, 010, 017 and
+                024. Ticks are virtual.
+              </p>
+            </div>
+            <div class="study-footer">
+              <a href="../assets/portfolio/queue-model.js">Model source <i data-lucide="code" aria-hidden="true"></i></a
+              ><span id="note-status" role="status" aria-live="polite"></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="pattern-title">
+          <span class="field-label" aria-hidden="true"><b>03</b>Pattern</span>
+          <div class="field-body">
+            <h2 id="pattern-title">A semaphore and a bounded retry.</h2>
+            <p>
+              Wrap the downstream call once. Callers queue in arrival order,
+              and transient errors back off before trying again.
+            </p>
+            <pre class="pattern"><code>function bounded(limit, call) {
+  let active = 0;
+  const waiting = [];
+  const next = () =&gt; {
+    if (active &gt;= limit || !waiting.length) return;
+    active++;
+    const { args, resolve, reject } = waiting.shift();
+    Promise.resolve()
+      .then(() =&gt; call(...args))
+      .then(resolve, reject)
+      .finally(() =&gt; {
+        active--;
+        next();
+      });
+  };
+  return (...args) =&gt;
+    new Promise((resolve, reject) =&gt; {
+      waiting.push({ args, resolve, reject });
+      next();
+    });
+}
+
+async function withRetry(fn, { attempts = 3, baseMs = 1000 } = {}) {
+  for (let attempt = 1; ; attempt++) {
+    try {
+      return await fn();
+    } catch (error) {
+      if (!error?.transient || attempt >= attempts) throw error;
+      await new Promise((r) =&gt; setTimeout(r, baseMs * 2 ** (attempt - 1)));
+    }
+  }
+}
+
+const callBilling = bounded(5, (id) =&gt; withRetry(() =&gt; billing.fetch(id)));</code></pre>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="contract-title">
+          <span class="field-label" aria-hidden="true"><b>04</b>Contract</span>
+          <div class="field-body">
+            <h2 id="contract-title">What each layer can rely on.</h2>
+            <dl class="layers delivery">
+              <div><dt>Caller</dt><dd>An immediate acknowledgement with a request id, not a held-open connection</dd></div>
+              <div><dt>Service</dt><dd>Never more than the cap in flight to any one downstream</dd></div>
+              <div><dt>State</dt><dd>One record per request: pending, processing, completed or failed, with every attempt</dd></div>
+              <div><dt>Status reads</dt><dd>Answered from the record, never by asking the downstream</dd></div>
+            </dl>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="failure-title">
+          <span class="field-label" aria-hidden="true"><b>05</b>Tradeoffs</span>
+          <div class="field-body">
+            <h2 id="failure-title">The wait moves; it does not disappear.</h2>
+            <ul class="decisions">
+              <li>A cap moves waiting from the downstream into your queue. Queue depth becomes the number to watch.</li>
+              <li>Retries add load at the worst moment. Back off, cap the attempts, and retry only errors you know are transient.</li>
+              <li>One cap shared by every downstream lets one slow system starve the others. Cap per dependency.</li>
+              <li>The cap is a guess until you measure the downstream. Make it configuration, not code.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="operating-title">
+          <span class="field-label" aria-hidden="true"><b>06</b>Operating</span>
+          <div class="field-body">
+            <h2 id="operating-title">Test the cap. Watch the queue.</h2>
+            <dl class="layers delivery">
+              <div><dt>Test</dt><dd>A fake downstream that counts concurrent calls; the test fails if the count ever passes the limit</dd></div>
+              <div><dt>Deploy</dt><dd>The limit and retry policy ship as configuration per dependency</dd></div>
+              <div><dt>Observe</dt><dd>Queue depth, oldest pending age, calls in flight, retries and failures, per downstream</dd></div>
+            </dl>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="scope-title">
+          <span class="field-label" aria-hidden="true"><b>07</b>Scope</span>
+          <div class="field-body">
+            <h2 id="scope-title">General practice, not a client trace.</h2>
+            <p>
+              The pattern and model are illustrative. They are not the
+              client&#x27;s implementation, and the sweep measures nothing in
+              production. The reported 72 h &#8594; 4 h result is on the
+              <a href="../work/integration-middleware.html">middleware case</a>.
+            </p>
+          </div>
+        </section>
+
+        <nav class="case-nav" aria-label="Engineering notes">
+          <a href="legacy-rebuild.html"
+            ><i data-lucide="arrow-left" aria-hidden="true"></i
+            ><span><small>N4 / PREVIOUS</small>Operating a legacy rebuild</span></a
+          ><a href="../index.html#notes"><span><small>ALL NOTES</small>Notes from the work</span></a
+          ><a href="independent-failure.html" rel="next"
+            ><span><small>N2 / NEXT</small>Failing independently</span
+            ><i data-lucide="arrow-right" aria-hidden="true"></i
+          ></a>
+        </nav>
+      </article>
+    </main>
+    <footer>
+      <span>Hans Aeron Warde / Manila</span>
+      <nav aria-label="Social">
+        <a href="https://github.com/hansaeronwarde">GitHub <i data-lucide="arrow-up-right" aria-hidden="true"></i></a
+        ><a href="https://linkedin.com/in/hansaeronwarde">LinkedIn <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+      </nav>
+    </footer>
+  </body>
+</html>

@@ -191,40 +191,77 @@ test("reset: a new instance shares no state with a used one", () => {
   assert.deepEqual(fresh.channels.sms.attempts, []);
 });
 
-for (const page of ["index.html", "cases.html"])
-  test(`no-JS markup in ${page} shows each model's final record`, () => {
-    const views = require("../assets/portfolio/studies-ui.js");
-    const html = require("node:fs").readFileSync(
-      require("node:path").join(__dirname, "..", page),
-      "utf8",
-    );
+// Each case page carries one study, and its markup is that model's final record.
+const STUDY_PAGES = {
+  tel: "work/sim-activation.html",
+  clm: "work/claims-intake.html",
+  cmp: "work/campaign-delivery.html",
+};
+const read = (page) =>
+  require("node:fs").readFileSync(require("node:path").join(__dirname, "..", page), "utf8");
+
+test("no-JS markup on each case page shows its model's final record", () => {
+  const views = require("../assets/portfolio/studies-ui.js");
+  const order = new Order();
+  order.setAvailable(false);
+  order.step();
+  order.step();
+  order.setAvailable(true);
+  run(order);
+  const claim = new Claim();
+  claim.edit("100.00");
+  claim.approve();
+  const campaign = new Campaign();
+  campaign.setSmsAvailable(false);
+  campaign.send();
+  campaign.retry("sms");
+  campaign.setSmsAvailable(true);
+  campaign.retry("sms");
+  for (const [prefix, model, record] of [
+    ["tel", order, views.telRecord],
+    ["clm", claim, views.clmRecord],
+    ["cmp", campaign, views.cmpRecord],
+  ]) {
+    const html = read(STUDY_PAGES[prefix]);
     const authored = (id) =>
       html.match(new RegExp(`id="${id}">([\\s\\S]*?)</(?:tbody|span)>`))[1];
-    const order = new Order();
-    order.setAvailable(false);
-    order.step();
-    order.step();
-    order.setAvailable(true);
-    run(order);
-    const claim = new Claim();
-    claim.edit("100.00");
-    claim.approve();
-    const campaign = new Campaign();
-    campaign.setSmsAvailable(false);
-    campaign.send();
-    campaign.retry("sms");
-    campaign.setSmsAvailable(true);
-    campaign.retry("sms");
-    for (const [prefix, model, record] of [
-      ["tel", order, views.telRecord],
-      ["clm", claim, views.clmRecord],
-      ["cmp", campaign, views.cmpRecord],
-    ]) {
-      assert.equal(authored(`${prefix}-record`), record(model));
-      assert.equal(authored(`${prefix}-count`), views.events(model.history.length));
-    }
-    assert.notEqual(authored("tel-record"), views.telRecord(new Order()));
-  });
+    assert.equal(authored(`${prefix}-record`), record(model), prefix);
+    assert.equal(authored(`${prefix}-count`), views.events(model.history.length), prefix);
+    if (prefix === "tel") assert.notEqual(authored("tel-record"), views.telRecord(new Order()));
+  }
+});
+
+test("each case page holds only its own study", () => {
+  const roots = { tel: "tel-lanes", clm: "clm-review", cmp: "cmp-branches" };
+  for (const page of ["index.html", "cases.html", ...Object.values(STUDY_PAGES)]) {
+    const html = read(page);
+    for (const [prefix, id] of Object.entries(roots))
+      assert.equal(html.includes(`id="${id}"`), STUDY_PAGES[prefix] === page, `${page} #${id}`);
+  }
+});
+
+test("studies-ui.js does nothing for studies absent from the page", () => {
+  const vm = require("node:vm");
+  const S = require("../assets/portfolio/studies.js");
+  const revealed = [{ hidden: true }];
+  const fallbacks = [{ hidden: false }];
+  const queried = [];
+  const document = {
+    getElementById: (id) => (queried.push(id), null),
+    querySelectorAll: (sel) => (sel === "[data-enhance]" ? revealed : sel === "[data-nojs]" ? fallbacks : []),
+    body: { classList: { contains: () => false } },
+  };
+  const window = { PortfolioStudies: S, document, matchMedia: () => ({ matches: false }) };
+  window.window = window;
+  vm.runInNewContext(
+    require("node:fs").readFileSync(require.resolve("../assets/portfolio/studies-ui.js"), "utf8"),
+    window,
+  );
+  assert.deepEqual(queried, ["tel-lanes", "clm-review", "cmp-branches"]);
+  assert.equal(revealed[0].hidden, false);
+  assert.equal(fallbacks[0].hidden, true);
+  assert.equal(typeof window.SupportingViews.telRecord, "function");
+});
 
 test("claim record and diff escape markup in reviewed values", () => {
   const views = require("../assets/portfolio/studies-ui.js");

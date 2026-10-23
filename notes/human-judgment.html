@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Designing human judgment into automation &#8211; Hans Aeron Warde</title>
+    <meta
+      name="description"
+      content="Engineering note: treat a model's output as a proposal, and record who decided. A small model, a review-before-route pattern, and what to test and watch."
+    />
+    <meta name="theme-color" content="#f7f7f4" />
+    <link rel="canonical" href="https://hansaeronwarde.github.io/notes/human-judgment.html" />
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="../assets/portfolio/fonts/Antonio-Variable.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="../assets/portfolio/fonts/Switzer-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="../assets/portfolio/study.css" />
+    <link rel="stylesheet" href="../assets/portfolio/supporting.css" />
+    <link rel="stylesheet" href="../components.css" />
+    <link rel="stylesheet" href="../work/case.css" />
+    <script defer src="../assets/portfolio/vendor/lucide.min.js"></script>
+    <script defer src="notes.js"></script>
+  </head>
+  <body class="case-page note-page">
+    <a class="skip" href="#case">Skip to note</a>
+    <header id="navigation" class="paper">
+      <a class="signature" href="../index.html" aria-label="haw. Hans Aeron Warde, home"
+        >haw.<span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span
+      ></a>
+      <span class="header-note">SYSTEMS / RECORDS / PEOPLE</span>
+      <nav aria-label="Primary">
+        <a href="../cases.html">Work</a>
+        <a href="../index.html#resume">R&#233;sum&#233;</a>
+        <a href="mailto:haeronwarde@gmail.com?subject=Human%20judgment" aria-label="Email Hans"
+          >Email <i data-lucide="arrow-up-right" aria-hidden="true"></i
+        ></a>
+      </nav>
+    </header>
+
+    <main id="case">
+      <article aria-labelledby="case-title">
+        <div class="masthead">
+          <div class="section-rule">
+            <span>N3 / 04 / ENGINEERING NOTE</span><span>FROM 03 / CLAIMS INTAKE</span>
+          </div>
+          <div class="masthead-body">
+            <h1 id="case-title">Designing human judgment into automation.</h1>
+            <div class="masthead-side">
+              <p class="masthead-lead">
+                Extraction saves typing. It does not remove responsibility. Put
+                the person where the model can be wrong, show them the evidence,
+                and keep their decision in the record.
+              </p>
+              <dl class="facts">
+                <div><dt>Layers</dt><dd>Interface / service / data / operation</dd></div>
+                <div><dt>Case</dt><dd><a href="../work/claims-intake.html">03 / Claims intake</a></dd></div>
+                <div><dt>Scope</dt><dd>General practice, not client evidence</dd></div>
+              </dl>
+            </div>
+          </div>
+        </div>
+
+        <section class="field" aria-labelledby="claim-title">
+          <span class="field-label" aria-hidden="true"><b>01</b>Claim</span>
+          <div class="field-body">
+            <h2 id="claim-title">The model proposes. A person decides, on the record.</h2>
+            <p>
+              A reading that skips review becomes a fact downstream, wrong or
+              not. On claims intake, an encoder validated or corrected the
+              extracted fields before any claim routed by rule.
+            </p>
+          </div>
+        </section>
+
+        <section class="field field-wide" aria-labelledby="model-title">
+          <span class="field-label" aria-hidden="true"><b>02</b>Model</span>
+          <div class="field-body">
+            <h2 id="model-title">Where the person stands.</h2>
+            <p>
+              The model reads an amount of 100.00 as <code>1<mark>O</mark>0.00</code>, with a
+              letter O. Compare the record with and without the review step.
+            </p>
+          </div>
+          <div class="study-frame">
+            <fieldset class="note-controls" data-enhance hidden>
+              <legend class="sr-only">Review step</legend>
+              <div id="n3-review">
+                <label class="checkbox"><input type="radio" name="n3-review" value="review" checked /> Review before routing</label>
+                <label class="checkbox"><input type="radio" name="n3-review" value="direct" /> Route as extracted</label>
+              </div>
+            </fieldset>
+            <div class="study-record">
+              <div class="register-label"><span>SYNTHETIC CLAIM RECORD / SAMPLE-001</span><span>AMOUNT FIELD</span></div>
+              <table>
+                <caption class="sr-only">Claim record with the selected review step</caption>
+                <thead><tr><th scope="col">Step</th><th scope="col">Event</th><th scope="col">Detail</th></tr></thead>
+                <tbody id="n3-rows"><tr data-event="extracted"><td>01</td><td>Extracted</td><td>Amount read as 1O0.00</td></tr><tr data-event="review_required"><td>02</td><td>Review required</td><td>Ambiguous character</td></tr><tr data-event="reviewed"><td>03</td><td>Reviewed</td><td>1O0.00 → 100.00, corrected by the encoder</td></tr><tr data-event="routed"><td>04</td><td>Routed</td><td>Amount 100.00</td></tr></tbody>
+              </table>
+            </div>
+            <div class="study-footer">
+              <p class="scope">One synthetic field. No claimant data, and no confidence score, because none was measured.</p
+              ><span id="note-status" role="status" aria-live="polite"></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="pattern-title">
+          <span class="field-label" aria-hidden="true"><b>03</b>Pattern</span>
+          <div class="field-body">
+            <h2 id="pattern-title">Validate the correction. Refuse the unreviewed.</h2>
+            <p>
+              The reviewer&#x27;s value passes the same rules as any input, the
+              record keeps before and after, and routing refuses a claim no one
+              has reviewed.
+            </p>
+            <pre class="pattern"><code>const rules = {
+  amount: (value) =&gt; (/^\d+\.\d{2}$/.test(value) ? null : "not_a_number"),
+};
+
+function review(claim, field, after, reviewer) {
+  const problem = rules[field]?.(after);
+  if (problem) return { ok: false, problem };
+  const before = claim.fields[field];
+  claim.fields[field] = after;
+  claim.history.push({
+    event: "reviewed", field, before, after, reviewer,
+    at: new Date().toISOString(),
+  });
+  return { ok: true };
+}
+
+function route(claim) {
+  if (!claim.history.some((e) =&gt; e.event === "reviewed"))
+    throw new Error("A claim routes only after review");
+  claim.history.push({ event: "routed" });
+}</code></pre>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="contract-title">
+          <span class="field-label" aria-hidden="true"><b>04</b>Contract</span>
+          <div class="field-body">
+            <h2 id="contract-title">What each layer can rely on.</h2>
+            <dl class="layers delivery">
+              <div><dt>Reviewer</dt><dd>The source region beside the extracted value, and an error that says what is wrong while focus stays on the field</dd></div>
+              <div><dt>Service</dt><dd>Nothing routes until a person has approved it</dd></div>
+              <div><dt>State</dt><dd>Before, after, who and when, for every field a person changed</dd></div>
+            </dl>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="failure-title">
+          <span class="field-label" aria-hidden="true"><b>05</b>Tradeoffs</span>
+          <div class="field-body">
+            <h2 id="failure-title">Review is a queue too.</h2>
+            <ul class="decisions">
+              <li>People stay in the workflow. If the review queue grows, the savings shrink.</li>
+              <li>Reviewers who see only the value learn to approve it. Show the evidence it came from.</li>
+              <li>A correction teaches nothing unless it is stored with the value it replaced.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="operating-title">
+          <span class="field-label" aria-hidden="true"><b>06</b>Operating</span>
+          <div class="field-body">
+            <h2 id="operating-title">Watch the people step like any other.</h2>
+            <dl class="layers delivery">
+              <div><dt>Test</dt><dd>The rule table with ambiguous values; routing refuses an unreviewed claim</dd></div>
+              <div><dt>Deploy</dt><dd>Rules change with the code and are tested with it</dd></div>
+              <div><dt>Observe</dt><dd>Review queue depth and age, and the correction rate per field</dd></div>
+            </dl>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="scope-title">
+          <span class="field-label" aria-hidden="true"><b>07</b>Scope</span>
+          <div class="field-body">
+            <h2 id="scope-title">General practice, not a client trace.</h2>
+            <p>
+              The pattern and model are illustrative, not the client&#x27;s
+              implementation. The reported $210k annual labor saving is on the
+              <a href="../work/claims-intake.html">claims intake case</a>.
+            </p>
+          </div>
+        </section>
+
+        <nav class="case-nav" aria-label="Engineering notes">
+          <a href="independent-failure.html" rel="prev"
+            ><i data-lucide="arrow-left" aria-hidden="true"></i
+            ><span><small>N2 / PREVIOUS</small>Failing independently</span></a
+          ><a href="../index.html#notes"><span><small>ALL NOTES</small>Notes from the work</span></a
+          ><a href="legacy-rebuild.html" rel="next"
+            ><span><small>N4 / NEXT</small>Operating a legacy rebuild</span
+            ><i data-lucide="arrow-right" aria-hidden="true"></i
+          ></a>
+        </nav>
+      </article>
+    </main>
+    <footer>
+      <span>Hans Aeron Warde / Manila</span>
+      <nav aria-label="Social">
+        <a href="https://github.com/hansaeronwarde">GitHub <i data-lucide="arrow-up-right" aria-hidden="true"></i></a
+        ><a href="https://linkedin.com/in/hansaeronwarde">LinkedIn <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+      </nav>
+    </footer>
+  </body>
+</html>

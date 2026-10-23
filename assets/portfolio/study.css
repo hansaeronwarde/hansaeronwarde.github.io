@@ -826,7 +826,7 @@ footer {
   padding: var(--block) 0 30px;
 }
 .lab-controls :is(label, .field) {
-  font-size: var(--type-link);
+  font-size: 13px;
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 12px;
@@ -1353,12 +1353,6 @@ body > footer nav a:not([aria-label]) svg {
   }
   .lab-controls {
     gap: 25px 20px;
-  }
-  .lab-controls :is(label, .field) {
-    font-size: var(--type-min);
-  }
-  .lab-controls .checkbox {
-    font-size: var(--type-min);
   }
   .metrics {
     gap: 8px;

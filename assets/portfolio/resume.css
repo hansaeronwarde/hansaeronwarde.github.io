@@ -1,7 +1,6 @@
-/* Started as design-probe/d19-frames/extract-resume-css.mjs output (production site.css rules that match the résumé), then
-   pruned by prune-resume-css.mjs and given the step-4 layout at the end. Do not regenerate: that would drop step 4.
-   Every selector names a résumé section ID, so nothing here reaches the D19 sections above; the step-4 rules name an ID too
-   and win over the extracted ones by order. */
+/* Every selector names a résumé section ID, so nothing here reaches the home sections above it. The layout rules at the
+   end name an ID too and win over the earlier ones by order. The id scoping outranks class rules in d20.css: override
+   with an id-scoped selector there. */
 a:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *),
 button:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *),
 nav:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *) {

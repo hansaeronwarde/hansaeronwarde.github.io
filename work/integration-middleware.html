@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Integration middleware &#8211; Hans Aeron Warde</title>
+    <meta
+      name="description"
+      content="Integration middleware between Delco and Beacon at ESC Partners: requests are acknowledged, queued and processed by five capped workers, with one retained record each. Batch processing cut from 72 hours to 4."
+    />
+    <meta name="theme-color" content="#f7f7f4" />
+    <link rel="canonical" href="https://hansaeronwarde.github.io/work/integration-middleware.html" />
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="../assets/portfolio/fonts/Antonio-Variable.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="../assets/portfolio/fonts/Switzer-Variable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="../assets/portfolio/study.css" />
+    <link rel="stylesheet" href="../assets/portfolio/supporting.css" />
+    <link rel="stylesheet" href="../components.css" />
+    <link rel="stylesheet" href="case.css" />
+    <script defer src="../assets/portfolio/vendor/lucide.min.js"></script>
+    <script defer src="../assets/portfolio/queue-model.js"></script>
+    <script defer src="middleware.js"></script>
+  </head>
+  <body class="case-page">
+    <a class="skip" href="#case">Skip to case</a>
+    <header id="navigation" class="paper">
+      <a class="signature" href="../index.html" aria-label="haw. Hans Aeron Warde, home"
+        >haw.<span class="mark" aria-hidden="true"
+          ><i></i><i></i><i></i><i></i><i></i></span
+      ></a>
+      <span class="header-note">SYSTEMS / RECORDS / PEOPLE</span>
+      <nav aria-label="Primary">
+        <a href="../cases.html">Work</a>
+        <a href="../index.html#resume">R&#233;sum&#233;</a>
+        <a href="mailto:haeronwarde@gmail.com?subject=Integration%20middleware" aria-label="Email Hans"
+          >Email <i data-lucide="arrow-up-right" aria-hidden="true"></i
+        ></a>
+      </nav>
+    </header>
+
+    <main id="case">
+      <article aria-labelledby="case-title">
+        <div class="masthead">
+          <div class="section-rule">
+            <span>01 / 04 / ESC PARTNERS</span><span>UTILITIES / INTEGRATION MIDDLEWARE</span>
+          </div>
+          <div class="masthead-body">
+            <h1 id="case-title">Own the<br />integration.</h1>
+            <div class="masthead-side">
+              <p class="masthead-lead">
+                Integration middleware. I built the layer between Delco and
+                Beacon for billing, meter data and customer records, instead of
+                licensing Oracle Integration Cloud.
+              </p>
+              <dl class="facts">
+                <div><dt>Role</dt><dd>Lead Software Engineer / design &amp; build</dd></div>
+                <div>
+                  <dt>Period</dt>
+                  <dd>
+                    <time datetime="2023-05">May 2023</time> &#8211;
+                    <time datetime="2025-11">Nov 2025</time> &#183; Remote
+                  </dd>
+                </div>
+                <div>
+                  <dt>Stack</dt>
+                  <dd>Node.js / MongoDB / Event-driven / AWS / Queue Architecture / Batch Processing</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </div>
+
+        <section class="field" aria-labelledby="situation-title">
+          <span class="field-label" aria-hidden="true"><b>01</b>Situation</span>
+          <div class="field-body">
+            <h2 id="situation-title">Two systems, no integration layer.</h2>
+            <p>
+              Delco and Beacon had no integration layer. The options were
+              manual handling by operations teams, or licensing Oracle
+              Integration Cloud.
+            </p>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="constraint-title">
+          <span class="field-label" aria-hidden="true"><b>02</b>Constraint</span>
+          <div class="field-body">
+            <h2 id="constraint-title">Failed jobs disappeared without a trace.</h2>
+            <p>
+              Requests were synchronous, failed jobs disappeared without a
+              trace, and batch imports took a separate path from real-time
+              requests. The downstream APIs had to be protected from load.
+            </p>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="ownership-title">
+          <span class="field-label" aria-hidden="true"><b>03</b>Ownership</span>
+          <div class="field-body">
+            <h2 id="ownership-title">Design &amp; build.</h2>
+            <p>
+              I designed and wrote the middleware: request lifecycle, worker
+              pool and batch pipeline.
+            </p>
+            <div class="pipeline">
+              <ol class="pipeline-steps" aria-label="What I owned at each step of a request">
+                <li>
+                  <span class="stage-no">01 / INGRESS</span>
+                  <h3>Receive</h3>
+                  <p>API request or batch CSV. Acknowledge, then queue.</p>
+                  <dl class="layers">
+                    <div><dt>Pipeline</dt><dd>Real-time requests and batch CSV imports share one pipeline</dd></div>
+                  </dl>
+                </li>
+                <li>
+                  <span class="stage-no">02 / FIFO QUEUE</span>
+                  <h3>Process</h3>
+                  <p>Five parallel workers. Bound the concurrency.</p>
+                  <dl class="layers">
+                    <div><dt>Services</dt><dd>Designed and wrote the request lifecycle and worker pool in Node.js</dd></div>
+                  </dl>
+                </li>
+                <li>
+                  <span class="stage-no">03 / DOWNSTREAM</span>
+                  <h3>Resolve</h3>
+                  <p>Poll long-running work. Retry transient failures.</p>
+                  <dl class="layers">
+                    <div><dt>Integration</dt><dd>Built the layer between Delco and Beacon: billing, meter data and customer records</dd></div>
+                  </dl>
+                </li>
+              </ol>
+              <div class="pipeline-state">
+                <div>
+                  <span class="stage-no">MONGODB / REQUEST STATE</span>
+                  <p>Pending &#8594; processing &#8594; completed or failed. One record throughout.</p>
+                </div>
+                <dl class="layers">
+                  <div><dt>Data</dt><dd>MongoDB as store and cache, so status reads don&#x27;t hit the external systems</dd></div>
+                </dl>
+              </div>
+            </div>
+            <dl class="layers platform" aria-label="What I owned across the ESC Partners role">
+              <div><dt>Team</dt><dd>Across the role: led four engineers, and owned the schema, service boundaries, cloud infrastructure and production monitoring</dd></div>
+            </dl>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="decision-title">
+          <span class="field-label" aria-hidden="true"><b>04</b>Decision</span>
+          <div class="field-body">
+            <h2 id="decision-title" class="quote">
+              Own the integration, and cap concurrency to protect downstream
+              APIs.
+            </h2>
+            <div class="split-copy">
+              <p>
+                <span class="eyebrow">THE BOUNDARY</span>
+                A request keeps its identity. Acknowledge before doing the
+                expensive work. The request record outlives an individual worker
+                attempt.
+              </p>
+              <p>
+                <span class="eyebrow">NOT CHOSEN</span>
+                Licensing Oracle Integration Cloud. Custom middleware gave full
+                control and a fit to the actual workflow.
+              </p>
+            </div>
+            <ul class="decisions" aria-label="Key decisions">
+              <li>A FIFO queue with capped parallelism, so one slow system can&#x27;t cascade.</li>
+              <li>MongoDB for storage and cache in one.</li>
+              <li>Polling instead of blocking, so workers stay busy during external waits.</li>
+              <li>One pipeline for real-time and batch work.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="field field-wide" id="pipeline" aria-labelledby="model-title">
+          <span class="field-label" aria-hidden="true"><b>05</b>Model</span>
+          <div class="field-body">
+            <h2 id="model-title">Bound the concurrency.</h2>
+            <p>
+              Set downstream capacity below the worker count and run the batch.
+              Requests that find no free slot wait and retry, up to three
+              attempts, and every one keeps its record.
+            </p>
+          </div>
+          <div class="study-frame">
+            <div class="lab-bar study-bar">
+              <span class="study-source" id="mw-source">SYNTHETIC STUDY / 5 WORKERS / 5 DOWNSTREAM / TICK 004</span>
+              <div class="transport" data-enhance hidden>
+                <button type="button" class="icon" id="mw-run" aria-label="Run batch">
+                  <i data-lucide="play" aria-hidden="true"></i></button
+                ><button type="button" class="icon" id="mw-step" aria-label="Advance batch one tick">
+                  <i data-lucide="step-forward" aria-hidden="true"></i></button
+                ><button type="button" class="icon" id="mw-reset" aria-label="Reset batch">
+                  <i data-lucide="rotate-ccw" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+            <div class="lab-controls" data-enhance hidden>
+              <div class="slider"
+                ><span id="mw-pool-label">Workers</span>
+                <output id="mw-pool-value" for="mw-pool" aria-live="off">5</output
+                ><input id="mw-pool" aria-labelledby="mw-pool-label" type="range" min="1" max="8" value="5"
+              /></div>
+              <div class="slider"
+                ><span id="mw-capacity-label">Downstream capacity</span>
+                <output id="mw-capacity-value" for="mw-capacity" aria-live="off">5</output
+                ><input id="mw-capacity" aria-labelledby="mw-capacity-label" type="range" min="1" max="8" value="5"
+              /></div>
+              <label class="checkbox"><input id="mw-errors" type="checkbox" checked /> Transient errors</label>
+            </div>
+            <ol class="pipe" id="mw-pipe" data-done="false">
+              <li>
+                <span class="eyebrow">01 / QUEUE</span>
+                <strong id="mw-queuedCount">16</strong>
+                <span class="muted">Waiting, first in, first out</span>
+                <div class="tokens" id="mw-queued"><span data-state="queued">009</span><span data-state="queued">010</span><span data-state="queued">011</span><span data-state="queued">012</span><span data-state="queued">013</span><span data-state="queued">014</span><span data-state="queued">015</span><span data-state="queued">016</span><span data-state="queued">017</span><span data-state="queued">018</span><span data-state="queued">019</span><span data-state="queued">020</span><span data-state="queued">021</span><span data-state="queued">022</span><span data-state="queued">023</span><span data-state="queued">024</span></div>
+              </li>
+              <li>
+                <span class="eyebrow">02 / WORKERS</span>
+                <strong id="mw-workersCount">5 / 5</strong>
+                <span class="muted">Busy</span>
+                <ol class="slots" id="mw-workers"><li><span>W1</span><span data-state="processing">007</span></li><li><span>W2</span><span data-state="processing">002</span></li><li><span>W3</span><span data-state="processing">006</span></li><li><span>W4</span><span data-state="processing">008</span></li><li><span>W5</span><span data-state="processing">005</span></li></ol>
+              </li>
+              <li class="pipe-pressure">
+                <span class="eyebrow">03 / DOWNSTREAM</span>
+                <strong id="mw-downstreamCount">5 / 5</strong>
+                <span class="muted">Slots in use</span>
+                <div class="meter" id="mw-downstream" aria-hidden="true"><i data-used></i><i data-used></i><i data-used></i><i data-used></i><i data-used></i></div>
+              </li>
+              <li>
+                <span class="eyebrow">04 / RETRY WAIT</span>
+                <strong id="mw-retryingCount">1</strong>
+                <span class="muted">Backing off</span>
+                <div class="tokens" id="mw-retrying"><span data-state="retrying">003</span></div>
+              </li>
+              <li>
+                <span class="eyebrow">05 / RECORDED</span>
+                <strong id="mw-doneCount">2 / 0</strong>
+                <span class="muted">Completed / failed</span>
+                <div class="tokens" id="mw-done"><span data-state="completed">001</span><span data-state="completed">004</span></div>
+              </li>
+            </ol>
+            <div class="study-record">
+              <div class="register-label"><span id="mw-recordLabel">REQUEST 003 / RETRYING / 1 ATTEMPT</span><span data-enhance hidden>SELECT ANY REQUEST</span></div>
+              <table>
+                <caption class="sr-only">Selected request event history in virtual ticks</caption>
+                <thead><tr><th scope="col">Tick</th><th scope="col">Event</th><th scope="col">Attempt</th></tr></thead>
+                <tbody id="mw-record"><tr data-event="received"><td>000</td><td>Received</td><td>0</td></tr><tr data-event="processing"><td>001</td><td>Processing</td><td>1</td></tr><tr data-event="dependency_timeout"><td>003</td><td>Dependency timeout</td><td>1</td></tr><tr data-event="retry_scheduled"><td>003</td><td>Retry scheduled</td><td>1</td></tr></tbody>
+              </table>
+              <p class="scope">
+                A computed teaching model, not a production trace. Its
+                capacities and timings are illustrative, and its virtual ticks
+                are unrelated to the 72 h &#8594; 4 h result. No client data.
+              </p>
+            </div>
+            <div class="study-footer">
+              <a href="../assets/portfolio/queue-model.js">Model source <i data-lucide="code" aria-hidden="true"></i></a
+              ><span id="mw-status" role="status" aria-live="polite"></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="delivery-title">
+          <span class="field-label" aria-hidden="true"><b>06</b>Delivery</span>
+          <div class="field-body">
+            <h2 id="delivery-title">Node.js and MongoDB, on AWS.</h2>
+            <dl class="layers delivery">
+              <div><dt>Runtime</dt><dd>Node.js on AWS, with an event-driven queue architecture</dd></div>
+              <div><dt>Batch</dt><dd>Download, parse, validate, transform, upload, clean up</dd></div>
+              <div><dt>Release</dt><dd>Across the role: CI/CD pipelines and automated testing; release cycles 70% faster</dd></div>
+            </dl>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="tradeoff-title">
+          <span class="field-label" aria-hidden="true"><b>07</b>Tradeoff</span>
+          <div class="field-body">
+            <h2 id="tradeoff-title">Owning it means operating it.</h2>
+            <p>
+              Custom middleware gives full control of the workflow. It also
+              means owning retry policy, monitoring and every future change.
+            </p>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="result-title">
+          <span class="field-label" aria-hidden="true"><b>08</b>Result</span>
+          <div class="field-body">
+            <h2 id="result-title">Reported outcome.</h2>
+            <dl class="results">
+              <div><dt>72 h &#8594; 4 h</dt><dd>Batch processing time</dd></div>
+              <div><dt>5</dt><dd>Parallel workers, capped</dd></div>
+              <div><dt>4 states</dt><dd>Pending, processing, completed, failed</dd></div>
+            </dl>
+          </div>
+        </section>
+
+        <section class="field" aria-labelledby="evidence-title">
+          <span class="field-label" aria-hidden="true"><b>09</b>Evidence</span>
+          <div class="field-body">
+            <h2 id="evidence-title">The public material is a reconstruction.</h2>
+            <p>
+              The 72 h to 4 h result is my reported batch-processing outcome.
+              The workload size and measurement window are not published.
+            </p>
+            <div class="evidence">
+              <div>
+                <h3>On this page</h3>
+                <ul>
+                  <li>A simplified drawing of the design</li>
+                  <li>A computed teaching model of the queue, in virtual time</li>
+                  <li>A synthetic record, reconstructed from my project account</li>
+                </ul>
+                <pre><code>{
+  "request": "SAMPLE-003",
+  "state": "completed",
+  "attempts": 2,
+  "history": [
+    "received",
+    "processing",
+    "dependency_timeout",
+    "retry_scheduled",
+    "requeued",
+    "processing",
+    "completed"
+  ]
+}</code></pre>
+              </div>
+              <div>
+                <h3>Not included</h3>
+                <ul>
+                  <li>Client source</li>
+                  <li>Production traces</li>
+                  <li>Independent benchmark reports</li>
+                  <li>The workload size and measurement window</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <nav class="case-nav" aria-label="Case studies">
+          <a href="campaign-delivery.html"
+            ><i data-lucide="arrow-left" aria-hidden="true"></i
+            ><span><small>04 / PREVIOUS</small>Campaign delivery</span></a
+          ><a href="../cases.html"
+            ><span><small>ALL WORK</small>Selected systems</span></a
+          ><a href="sim-activation.html" rel="next"
+            ><span><small>02 / NEXT</small>SIM activation</span
+            ><i data-lucide="arrow-right" aria-hidden="true"></i
+          ></a>
+        </nav>
+        <p class="ask">
+          <a class="case-link" href="../notes/bounded-concurrency.html"
+            >Note N1 / Bounded concurrency <i data-lucide="arrow-right" aria-hidden="true"></i
+          ></a>
+          <a class="case-link" href="mailto:haeronwarde@gmail.com?subject=Integration%20middleware"
+            >Ask me about this <i data-lucide="arrow-up-right" aria-hidden="true"></i
+          ></a>
+        </p>
+      </article>
+    </main>
+    <footer>
+      <span>Hans Aeron Warde / Manila</span>
+      <nav aria-label="Social">
+        <a href="https://github.com/hansaeronwarde"
+          >GitHub <i data-lucide="arrow-up-right" aria-hidden="true"></i></a
+        ><a href="https://linkedin.com/in/hansaeronwarde"
+          >LinkedIn <i data-lucide="arrow-up-right" aria-hidden="true"></i
+        ></a>
+      </nav>
+    </footer>
+  </body>
+</html>

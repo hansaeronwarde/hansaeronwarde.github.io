@@ -1,0 +1,911 @@
+/* Arial scaled to Antonio's advance width, so headings wrap the same before and after the swap. */
+@font-face {
+  font-family: "Antonio fallback";
+  src: local("Arial"), local("ArialMT"), local("Roboto");
+  size-adjust: 65.2%;
+}
+.case-page main {
+  margin: 0 var(--g);
+  padding-top: 86px;
+}
+.case-page p {
+  max-width: 68ch;
+}
+
+.masthead .section-rule {
+  margin-top: 56px;
+}
+.masthead-body {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 80px;
+  align-items: end;
+  padding: 40px 0 72px;
+}
+.masthead h1 {
+  margin: 0;
+  font:
+    450 112px/1.04 Antonio,
+    "Antonio fallback",
+    sans-serif;
+  text-transform: uppercase;
+  overflow-wrap: break-word;
+}
+.masthead-lead {
+  margin: 0 0 28px;
+  font-size: 18px;
+}
+.facts {
+  margin: 0;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+}
+.facts div {
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+.facts dt {
+  padding-top: 2px;
+  font-size: var(--type-min);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.facts dd {
+  margin: 0;
+}
+
+/* Each section is a row of the claim form the case describes: label in the margin, entry on the rule. */
+.field {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  column-gap: 40px;
+  padding: 36px 0 56px;
+  border-top: 1px solid var(--line);
+}
+.field-label {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  font-size: var(--type-min);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.field-label b {
+  font-weight: 450;
+  color: var(--red);
+}
+.field h2 {
+  margin: 0 0 18px;
+  font:
+    450 44px/1.12 Antonio,
+    "Antonio fallback",
+    sans-serif;
+  text-transform: uppercase;
+}
+.field-body > p {
+  margin: 0;
+  font-size: 18px;
+}
+.field h2.quote {
+  max-width: 24ch;
+  font-size: 56px;
+}
+
+.stages {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 40px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--ink);
+}
+.stages li {
+  position: relative;
+  padding: 18px 20px 0 0;
+}
+.stages li + li {
+  padding-left: 20px;
+  border-left: 1px solid var(--line);
+}
+:is(.stages, .fork, .pipeline, .fanout) h3 {
+  margin: 10px 0 4px;
+  font:
+    450 26px/1.1 Antonio,
+    "Antonio fallback",
+    sans-serif;
+  text-transform: uppercase;
+}
+:is(.stages, .fork, .pipeline, .fanout) p {
+  margin: 0 0 20px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.stage-no {
+  font-size: var(--type-min);
+  color: var(--muted);
+}
+/* The one stage a person performs: the decision the case is about. */
+.stages .stage-human::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: -1px;
+  right: 0;
+  border-top: 5px solid var(--red);
+}
+:is(.stages, .fork, .pipeline, .fanout) .layers {
+  margin: 0;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+}
+:is(.stages, .fork, .pipeline, .fanout) .layers div {
+  grid-template-columns: 1fr;
+  gap: 2px;
+}
+
+.split-copy {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 40px;
+  margin-top: 32px;
+}
+.split-copy p {
+  margin: 0;
+  font-size: 16px;
+}
+.split-copy .eyebrow {
+  margin-bottom: 8px;
+  font-size: var(--type-min);
+  color: var(--muted);
+}
+
+.field-wide .study-frame {
+  grid-column: 1 / -1;
+  margin-top: 40px;
+}
+.field-wide .review {
+  padding: 56px 0;
+}
+
+.delivery {
+  max-width: 560px;
+  margin: 0;
+  border-top: 1px solid var(--line);
+  font-size: 15px;
+}
+.delivery div {
+  grid-template-columns: 110px 1fr;
+}
+
+.results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 80px;
+  margin: 8px 0 0;
+}
+.results dt {
+  font:
+    450 66px/1 Antonio,
+    "Antonio fallback",
+    sans-serif;
+}
+.results dd {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.evidence {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 40px;
+  margin-top: 32px;
+  font-size: 14px;
+}
+.evidence h3 {
+  margin: 0 0 12px;
+  font-size: var(--type-min);
+  font-weight: 450;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.evidence ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.evidence li {
+  padding: 8px 0;
+  border-top: 1px solid var(--line);
+}
+.evidence pre,
+pre.pattern {
+  margin: 20px 0 0;
+  padding: 18px 20px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: white;
+  box-shadow: 0 0 0 1px var(--line);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.case-nav {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 24px;
+  margin: 0;
+  padding: 28px 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--line);
+  font-size: 16px;
+}
+.case-nav a {
+  display: inline-flex;
+  gap: 16px;
+  align-items: center;
+}
+.case-nav a:last-child {
+  justify-self: end;
+  text-align: right;
+}
+.case-nav small {
+  display: block;
+  margin-bottom: 4px;
+  font-size: var(--type-link);
+  color: var(--muted);
+}
+.case-nav a:hover span {
+  color: var(--red);
+}
+.case-nav svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+.ask {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 40px;
+  margin: 28px 0 0;
+}
+
+.platform {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 40px;
+  margin: 28px 0 0;
+  font-size: 14px;
+}
+.layers.platform {
+  max-width: none;
+}
+.platform:has(> div:only-child) {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 68ch;
+}
+.decisions {
+  max-width: 68ch;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 15px;
+}
+.decisions li {
+  padding: 8px 0;
+  border-top: 1px solid var(--line);
+}
+
+/* Middleware: a request travels left to right, and its record runs underneath every step. */
+.pipeline-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 40px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--ink);
+}
+.pipeline-steps li {
+  position: relative;
+  padding: 18px 28px 0 0;
+}
+.pipeline-steps li + li {
+  padding-left: 28px;
+}
+.pipeline-steps li + li::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -7px;
+  width: 10px;
+  height: 10px;
+  border-top: 1px solid var(--ink);
+  border-right: 1px solid var(--ink);
+  background: var(--paper);
+  transform: rotate(45deg);
+}
+.pipeline-state {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: start;
+  margin-top: 8px;
+  padding-top: 14px;
+  border-top: 5px solid var(--green);
+}
+/* Lines the Data entry up under the third step, whose text starts 28px past its column. */
+.pipeline-state .layers {
+  margin-left: 28px;
+}
+
+/* Activation: one purchase splits into two lanes that finish on their own. */
+.fork {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  margin-top: 40px;
+  border-top: 1px solid var(--ink);
+}
+.fork-origin {
+  padding: 18px 24px 20px 0;
+  border-right: 1px solid var(--ink);
+}
+.fork-paths {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.fork-paths li {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  column-gap: 24px;
+  align-content: start;
+  padding: 18px 0 18px 32px;
+}
+.fork-paths li + li {
+  border-top: 1px solid var(--line);
+}
+.fork-paths li::before {
+  content: "";
+  position: absolute;
+  top: 26px;
+  left: 0;
+  width: 20px;
+  border-top: 1px solid var(--ink);
+}
+/* Fulfillment hangs on an outside provider; the dashed join is the wait the case is about. */
+.fork-paths .fork-wait::before {
+  border-top-style: dashed;
+}
+.fork-paths li > :not(.layers) {
+  grid-column: 1;
+}
+.fork-paths .layers {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+}
+
+/* Campaigns: one send fans out, and each channel keeps its own receipt. */
+.fanout {
+  margin-top: 40px;
+  border-top: 1px solid var(--line);
+}
+.fanout-origin {
+  max-width: 460px;
+  margin: 0 auto;
+  padding: 18px 0 28px;
+  text-align: center;
+}
+.fanout-origin .layers {
+  text-align: left;
+}
+.fanout-channels {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+}
+.fanout-channels::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 16.667%;
+  right: 16.667%;
+  border-top: 1px solid var(--ink);
+}
+.fanout-channels::after {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  height: 20px;
+  border-left: 1px solid var(--ink);
+}
+.fanout-channels li {
+  position: relative;
+  padding: 26px 12px 0;
+}
+.fanout-channels li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 16px;
+  border-left: 1px solid var(--ink);
+}
+
+/* Middleware model: the queue study's register, spread along the request's path. */
+.pipe {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 0.8fr 1fr 1.3fr;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--ink);
+}
+.pipe > li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 260px;
+  padding: 18px 16px 24px;
+}
+.pipe > li:first-child {
+  padding-left: 0;
+}
+.pipe > li:last-child {
+  padding-right: 0;
+}
+.pipe > li + li {
+  border-left: 1px solid var(--line);
+}
+.pipe .eyebrow {
+  font-size: var(--type-min);
+  color: var(--muted);
+}
+.pipe strong {
+  font:
+    450 44px/1.1 Antonio,
+    "Antonio fallback",
+    sans-serif;
+}
+.tokens,
+.slots,
+.meter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.slots,
+.meter {
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+.slots li {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-height: 32px;
+  font-size: var(--type-min);
+  color: var(--muted);
+}
+.slots i {
+  font-style: normal;
+}
+.tokens > *,
+.slots [data-state] {
+  display: inline-grid;
+  place-items: center;
+  min-width: 46px;
+  height: 32px;
+  padding: 0 6px;
+  border: 1px solid var(--line);
+  background: #edefe9;
+  font-size: var(--type-link);
+  color: var(--ink);
+}
+.pipe [data-state="processing"] {
+  background: var(--green);
+  color: white;
+}
+.pipe :is([data-state="retrying"], [data-state="failed"]) {
+  background: #f1d7d1;
+  color: #8e261a;
+}
+.pipe [data-state="completed"] {
+  background: #dce7dc;
+  color: var(--green);
+}
+.pipe [aria-pressed="true"] {
+  box-shadow: inset 0 0 0 2px var(--ink);
+}
+.meter i {
+  height: 12px;
+  border: 1px solid var(--line);
+}
+.meter [data-used] {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.index-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--ink);
+}
+.index-list li {
+  display: grid;
+  grid-template-columns: 60px minmax(0, 1.5fr) minmax(0, 1fr) 220px;
+  gap: 32px;
+  align-items: start;
+  padding: 32px 0 40px;
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: 90px;
+}
+/* Old cases.html#case-* links land here; mark which entry they meant. */
+.index-list li:target {
+  box-shadow: inset 0 4px 0 var(--red);
+}
+.index-no {
+  padding-top: 2px;
+  font-size: var(--type-min);
+  color: var(--red);
+}
+.index-list .eyebrow {
+  font-size: var(--type-min);
+  color: var(--muted);
+}
+.index-list h2 {
+  margin: 8px 0 0;
+  font:
+    450 56px/1.04 Antonio,
+    "Antonio fallback",
+    sans-serif;
+  text-transform: uppercase;
+}
+.index-list h2 a:hover {
+  color: var(--red);
+}
+.index-list p {
+  margin: 22px 0 0;
+  font-size: 16px;
+}
+.index-list dl {
+  margin: 22px 0 0;
+}
+.index-list dt {
+  font:
+    450 44px/1 Antonio,
+    "Antonio fallback",
+    sans-serif;
+}
+.index-list dd {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Engineering notes: the case grammar with longer titles and generic code. */
+.note-page .masthead h1 {
+  font-size: 72px;
+  line-height: 1.06;
+}
+pre.pattern {
+  max-width: 760px;
+  margin-top: 24px;
+}
+.note-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 40px;
+  margin: 0;
+  padding: var(--block) 0 28px;
+  border: 0;
+}
+.note-controls > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 28px;
+}
+.status-list {
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--ink);
+}
+.status-list li {
+  display: grid;
+  grid-template-columns: 200px 200px minmax(0, 1fr);
+  gap: 24px;
+  align-items: baseline;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.status-list span {
+  font-size: var(--type-min);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.status-list strong {
+  font:
+    450 36px/1.1 Antonio,
+    "Antonio fallback",
+    sans-serif;
+  text-transform: uppercase;
+}
+.status-list :is([data-state="pending"], [data-state="waiting"]) strong {
+  color: var(--red);
+}
+.status-list :is([data-state="activated"], [data-state="delivered"], [data-state="complete"]) strong {
+  color: var(--green);
+}
+.sweep .bar {
+  display: inline-block;
+  width: calc(var(--w) * 0.7);
+  height: 8px;
+  margin-right: 12px;
+  background: var(--ink);
+}
+.sweep tr[data-over] td {
+  color: var(--red);
+}
+.sweep tr[data-over] .bar {
+  background: var(--red);
+}
+.sweep tr[data-match] td {
+  border-bottom: 2px solid var(--ink);
+  font-weight: 600;
+}
+.sweep .cap {
+  margin-left: 6px;
+  font-size: var(--type-min);
+  font-weight: 450;
+  color: var(--muted);
+}
+.study-record tr[data-event="routed_unchecked"] td:nth-child(n + 2) {
+  color: var(--red);
+}
+.ladder {
+  margin: var(--block) 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--ink);
+}
+.ladder li {
+  display: grid;
+  grid-template-columns: 40px 200px minmax(0, 1fr) 200px 90px;
+  gap: 24px;
+  align-items: baseline;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+.ladder h3 {
+  margin: 0;
+  font:
+    450 26px/1.1 Antonio,
+    "Antonio fallback",
+    sans-serif;
+  text-transform: uppercase;
+}
+.ladder p {
+  margin: 0;
+  font-size: 15px;
+}
+.ladder a {
+  font-size: 13px;
+  color: var(--muted);
+}
+.ladder li:has(input:checked) h3 {
+  color: var(--green);
+}
+
+@media (max-width: 1000px) {
+  .note-page .masthead h1 {
+    font-size: min(64px, 9vw);
+  }
+  .status-list li {
+    grid-template-columns: 140px minmax(0, 1fr);
+  }
+  .status-list small {
+    grid-column: 2;
+  }
+  .ladder li {
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 6px 20px;
+  }
+  .ladder li > :nth-child(n + 3) {
+    grid-column: 2;
+  }
+  .index-list li {
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 0 20px;
+  }
+  .index-list li > :nth-child(n + 3) {
+    grid-column: 2;
+  }
+  .masthead-body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+  }
+  .masthead h1 {
+    font-size: min(96px, 13vw);
+  }
+  .field {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 18px;
+  }
+  .stages {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .stages li:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .stages li:nth-child(n + 3) {
+    border-top: 1px solid var(--line);
+  }
+  .pipeline-state {
+    grid-template-columns: 1fr;
+  }
+  .pipeline-state .layers {
+    margin-left: 0;
+  }
+  .pipe {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 24px;
+  }
+  .pipe > li,
+  .pipe > li + li {
+    min-height: 0;
+    padding: 18px 0 22px;
+    border-left: 0;
+  }
+  .pipe > li + li {
+    border-top: 1px solid var(--line);
+  }
+  .pipe > li:nth-child(2) {
+    border-top: 0;
+  }
+}
+@media (max-width: 600px) {
+  .case-page main {
+    padding-top: 70px;
+  }
+  .masthead .section-rule {
+    margin-top: 32px;
+    flex-direction: column;
+    align-items: start;
+    gap: 4px;
+  }
+  .masthead h1 {
+    font-size: min(64px, 16vw);
+  }
+  .field h2 {
+    font-size: 34px;
+  }
+  .field h2.quote {
+    font-size: 40px;
+  }
+  .field-body > p {
+    font-size: 16px;
+  }
+  .stages {
+    grid-template-columns: 1fr;
+  }
+  .stages li,
+  .stages li + li {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .stages li + li {
+    border-top: 1px solid var(--line);
+  }
+  .split-copy,
+  .evidence,
+  .platform,
+  .pipeline-steps,
+  .fork,
+  .fork-paths li,
+  .pipe {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .pipeline-steps li,
+  .pipeline-steps li + li {
+    padding: 18px 0 0;
+  }
+  .pipeline-steps li + li {
+    border-top: 1px solid var(--line);
+  }
+  .pipeline-steps li + li::before,
+  .fork-paths li::before {
+    display: none;
+  }
+  .fork-origin {
+    border-right: 0;
+    border-bottom: 1px solid var(--ink);
+  }
+  .fork-paths li {
+    padding-left: 0;
+  }
+  .fork-paths .layers {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .fanout-channels li {
+    padding: 26px 4px 0;
+  }
+  .pipe > li:nth-child(2) {
+    border-top: 1px solid var(--line);
+  }
+  .results dt {
+    font-size: 52px;
+  }
+  .index-list li {
+    grid-template-columns: 1fr;
+  }
+  .index-list li > :nth-child(n + 3) {
+    grid-column: 1;
+  }
+  .index-list h2 {
+    font-size: 40px;
+  }
+  .note-page .masthead h1 {
+    font-size: 40px;
+  }
+  .status-list li {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .status-list small {
+    grid-column: 1;
+  }
+  .case-nav {
+    grid-template-columns: 1fr;
+  }
+  .case-nav a:last-child {
+    justify-self: start;
+    text-align: left;
+  }
+}
+@media print {
+  .case-page main {
+    padding-top: 0;
+  }
+  header,
+  .case-nav,
+  .ask,
+  button:is(.icon, .command) {
+    display: none;
+  }
+}
+.gate-status {
+  margin: 0;
+  padding: 4px 0 4px 14px;
+  border-left: 3px solid var(--red);
+  font-size: 17px;
+  font-weight: 500;
+}
+.gate-status[data-ready="true"] {
+  border-left-color: var(--green);
+}
+/* Not a <label>: a label may hold only one control, and the <output> counts as one. */
+.lab-controls .slider {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  font-size: 13px;
+}
+code mark {
+  background: none;
+  color: inherit;
+  box-shadow: inset 0 -2px 0 var(--red);
+}
