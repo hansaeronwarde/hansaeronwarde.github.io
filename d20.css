@@ -108,6 +108,23 @@
   margin-bottom: 8px;
   color: var(--muted);
 }
+/* Below 360 px one more line leaves no room for the film controls, so the pinned film falls back to static; the study repeats this result. */
+@media (max-width: 359px) {
+  .hero-result {
+    display: none;
+  }
+}
+.owned {
+  max-width: 410px;
+  margin: 0 0 24px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+}
+.owned .eyebrow {
+  margin-bottom: 8px;
+  color: var(--muted);
+}
 .preview .reported {
   grid-area: reported;
   padding: 36px 0 0;

@@ -104,16 +104,22 @@
             <h2 id="pattern-title">One event, two owners.</h2>
             <p>
               Each service subscribes to the same event and keeps its own
-              record. Events can arrive twice, so starting the work is
-              idempotent on the order id. <code>bus</code> and
-              <code>records</code> stand for your event bus and store.
+              record. Events can arrive twice, and a handler that throws gets
+              its event again. So the record leaves <code>pending</code> only
+              after the work has started. It skips work already started, not
+              a duplicate that arrives at the same moment or a crash before the
+              update, so <code>start</code> must itself be idempotent on the
+              order id. <code>bus</code> and <code>records</code> stand for
+              your event bus and store. The second block is the status a
+              customer sees, read from both records.
             </p>
             <pre class="pattern"><code>function subscribe(bus, service) {
   bus.on("order.placed", async ({ orderId }) =&gt; {
-    const created = await service.records.insertIfAbsent(orderId, {
-      state: "pending",
-    });
-    if (created) await service.start(orderId);
+    await service.records.insertIfAbsent(orderId, { state: "pending" });
+    const { state } = await service.records.get(orderId);
+    if (state !== "pending") return;
+    await service.start(orderId);
+    await service.records.update(orderId, { state: "started" });
   });
 }
 
@@ -157,7 +163,7 @@ subscribe(bus, fulfillment);</code></pre>
           <div class="field-body">
             <h2 id="operating-title">Prove each half finishes alone.</h2>
             <dl class="layers delivery">
-              <div><dt>Test</dt><dd>Each service completes with the other&#x27;s dependency down; a duplicate event starts nothing</dd></div>
+              <div><dt>Test</dt><dd>Each service completes with the other&#x27;s dependency down; a duplicate event starts no second piece of work</dd></div>
               <div><dt>Deploy</dt><dd>Services release on their own pipelines</dd></div>
               <div><dt>Observe</dt><dd>Consumer lag per service, and orders where one half finished and the other has not, past a set age</dd></div>
             </dl>

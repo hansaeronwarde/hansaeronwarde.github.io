@@ -108,16 +108,23 @@
           <div class="field-body">
             <h2 id="pattern-title">Validate the correction. Refuse the unreviewed.</h2>
             <p>
-              The reviewer&#x27;s value passes the same rules as any input, the
-              record keeps before and after, and routing refuses a claim no one
-              has reviewed.
+              The reviewer&#x27;s value passes the same rules as any input, and a
+              field with no rule is refused. The record keeps before and after,
+              and routing refuses a claim until every field has been approved
+              at its current value, so an extracted field with no rule holds
+              the claim.
             </p>
             <pre class="pattern"><code>const rules = {
-  amount: (value) =&gt; (/^\d+\.\d{2}$/.test(value) ? null : "not_a_number"),
+  amount: (value) =&gt;
+    typeof value === "string" &amp;&amp; /^\d+\.\d{2}$/.test(value)
+      ? null
+      : "not_a_number",
 };
 
 function review(claim, field, after, reviewer) {
-  const problem = rules[field]?.(after);
+  if (!Object.hasOwn(rules, field))
+    return { ok: false, problem: "unknown_field" };
+  const problem = rules[field](after);
   if (problem) return { ok: false, problem };
   const before = claim.fields[field];
   claim.fields[field] = after;
@@ -129,8 +136,18 @@ function review(claim, field, after, reviewer) {
 }
 
 function route(claim) {
-  if (!claim.history.some((e) =&gt; e.event === "reviewed"))
-    throw new Error("A claim routes only after review");
+  const fields = new Set([
+    ...Object.keys(rules),
+    ...Object.keys(claim.fields),
+  ]);
+  const unreviewed = [...fields].filter((field) =&gt; {
+    const last = claim.history.findLast(
+      (e) =&gt; e.event === "reviewed" &amp;&amp; e.field === field,
+    );
+    return !last || last.after !== claim.fields[field];
+  });
+  if (unreviewed.length)
+    throw new Error(`Review first: ${unreviewed.join(", ")}`);
   claim.history.push({ event: "routed" });
 }</code></pre>
           </div>
@@ -142,7 +159,7 @@ function route(claim) {
             <h2 id="contract-title">What each layer can rely on.</h2>
             <dl class="layers delivery">
               <div><dt>Reviewer</dt><dd>The source region beside the extracted value, and an error that says what is wrong while focus stays on the field</dd></div>
-              <div><dt>Service</dt><dd>Nothing routes until a person has approved it</dd></div>
+              <div><dt>Service</dt><dd>Nothing routes until a person has approved every field at its current value</dd></div>
               <div><dt>State</dt><dd>Before, after, who and when, for every field a person changed</dd></div>
             </dl>
           </div>

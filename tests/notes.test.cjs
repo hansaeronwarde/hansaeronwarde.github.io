@@ -106,3 +106,68 @@ test("N4 no-JS checklist is the model's layers, none ticked, and the gate is blo
   assert.ok(boxes.every((m) => !m[2]));
   assert.equal(html.match(/id="n4-out" data-ready="false">([^<]*)</)[1], readiness([]));
 });
+
+// The notes publish these snippets as patterns to copy, so they run here exactly as printed.
+const snippet = (page, start) => {
+  const code = read(page).match(new RegExp(`<pre class="pattern"><code>(${start}[\\s\\S]*?)</code></pre>`))[1];
+  return code.replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&amp;/g, "&").replace(/&#x27;/g, "'");
+};
+
+test("N2 pattern: a start that throws leaves the order pending, and redelivery starts it once", async () => {
+  const handlers = [];
+  const bus = { on: (_, handler) => handlers.push(handler) };
+  const makeService = (failFirst) => {
+    const rows = new Map();
+    const started = [];
+    return {
+      rows,
+      started,
+      records: {
+        insertIfAbsent: async (id, row) => { if (!rows.has(id)) rows.set(id, { ...row }); },
+        get: async (id) => rows.get(id),
+        update: async (id, patch) => Object.assign(rows.get(id), patch),
+      },
+      start: async (id) => {
+        if (failFirst) { failFirst = false; throw new Error("provider down"); }
+        started.push(id);
+      },
+    };
+  };
+  const activation = makeService(true);
+  const fulfillment = makeService(false);
+  new Function("bus", "activation", "fulfillment", snippet("independent-failure.html", "function subscribe"))(bus, activation, fulfillment);
+  const deliver = () => Promise.allSettled(handlers.map((handle) => handle({ orderId: "SAMPLE-001" })));
+  const [first] = await deliver();
+  assert.equal(first.status, "rejected");
+  assert.equal(activation.rows.get("SAMPLE-001").state, "pending");
+  assert.deepEqual(fulfillment.started, ["SAMPLE-001"]);
+  await deliver();
+  await deliver();
+  assert.deepEqual(activation.started, ["SAMPLE-001"]);
+  assert.equal(activation.rows.get("SAMPLE-001").state, "started");
+  assert.deepEqual(fulfillment.started, ["SAMPLE-001"]);
+});
+
+test("N3 pattern: unknown fields and non-strings are refused, and a claim routes only once every field's latest approval matches its value", () => {
+  const { review, route } = new Function(`${snippet("human-judgment.html", "const rules")}; return { review, route };`)();
+  const claim = { fields: { amount: "1O0.00" }, history: [] };
+  for (const field of ["note", "hasOwnProperty", "__proto__"])
+    assert.deepEqual(review(claim, field, "fine", "enc-1"), { ok: false, problem: "unknown_field" });
+  assert.throws(() => route(claim), /amount/);
+  assert.deepEqual(review(claim, "amount", "1O0.00", "enc-1"), { ok: false, problem: "not_a_number" });
+  assert.deepEqual(review(claim, "amount", "100.00", "enc-1"), { ok: true });
+  claim.fields.amount = "900.00";
+  assert.throws(() => route(claim), /amount/);
+  claim.fields.amount = "100.00";
+  route(claim);
+  assert.equal(claim.history.at(-1).event, "routed");
+
+  assert.deepEqual(review(claim, "amount", ["1.00"], "enc-1"), { ok: false, problem: "not_a_number" });
+  const superseded = { fields: { amount: "100.00" }, history: [] };
+  review(superseded, "amount", "100.00", "enc-1");
+  review(superseded, "amount", "900.00", "enc-2");
+  superseded.fields.amount = "100.00";
+  assert.throws(() => route(superseded), /amount/);
+  assert.throws(() => route({ fields: { amount: "1.00", payee: "X" }, history: [{ event: "reviewed", field: "amount", after: "1.00" }] }), /payee/);
+  assert.throws(() => route({ fields: {}, history: [] }), /amount/);
+});
