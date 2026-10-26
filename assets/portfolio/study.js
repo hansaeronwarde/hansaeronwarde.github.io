@@ -131,7 +131,7 @@
       const active = snapshot.jobs.find(
         (item) => item.worker === Number(element.dataset.worker),
       );
-      element.textContent = active ? pad(active.id) : "IDLE";
+      element.textContent = active ? pad(active.id) : "Idle";
       element.parentElement.classList.toggle("active", Boolean(active));
       const started = active?.history.findLast(
         (event) => event.event === "processing",

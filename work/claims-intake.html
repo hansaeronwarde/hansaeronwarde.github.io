@@ -13,9 +13,9 @@
     <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
     <link
       rel="preload"
-      href="../assets/portfolio/fonts/Antonio-Variable.ttf"
+      href="../assets/portfolio/fonts/InstrumentSerif-Regular.woff2"
       as="font"
-      type="font/ttf"
+      type="font/woff2"
       crossorigin
     />
     <link
@@ -86,7 +86,7 @@
         <section class="field" aria-labelledby="situation-title">
           <span class="field-label" aria-hidden="true"><b>01</b>Situation</span>
           <div class="field-body">
-            <h2 id="situation-title">Every claim was keyed in by hand.</h2>
+            <h2 id="situation-title" class="heading">Every claim was keyed in by hand.</h2>
             <p>
               Operations teams keyed in every claim by hand: read the paper,
               interpret it, type it. It was slow, error-prone and expensive,
@@ -98,7 +98,7 @@
         <section class="field" aria-labelledby="constraint-title">
           <span class="field-label" aria-hidden="true"><b>02</b>Constraint</span>
           <div class="field-body">
-            <h2 id="constraint-title">Nothing recorded who changed what.</h2>
+            <h2 id="constraint-title" class="heading">Nothing recorded who changed what.</h2>
             <p>
               Routing was inconsistent. Claims had to route by rule, with a
               full audit trail for compliance.
@@ -109,7 +109,7 @@
         <section class="field" aria-labelledby="ownership-title">
           <span class="field-label" aria-hidden="true"><b>03</b>Ownership</span>
           <div class="field-body">
-            <h2 id="ownership-title">Architecture &amp; build.</h2>
+            <h2 id="ownership-title" class="heading">Architecture &amp; build.</h2>
             <p>
               I trained the OCR model and built the validation app, the
               routing rules and the audit trail.
@@ -117,12 +117,12 @@
             <ol class="stages" aria-label="What I owned at each stage of intake">
               <li>
                 <span class="stage-no">01</span>
-                <h3>Capture</h3>
+                <h3 class="subheading">Capture</h3>
                 <p>Receive the claim document.</p>
               </li>
               <li>
                 <span class="stage-no">02</span>
-                <h3>Extract</h3>
+                <h3 class="subheading">Extract</h3>
                 <p>Custom-trained Azure model.</p>
                 <dl class="layers">
                   <div><dt>Model</dt><dd>Trained a custom OCR model in Azure Cognitive Services, dental claims first</dd></div>
@@ -130,7 +130,7 @@
               </li>
               <li class="stage-human">
                 <span class="stage-no">03</span>
-                <h3>Validate</h3>
+                <h3 class="subheading">Validate</h3>
                 <p>A person reviews the fields.</p>
                 <dl class="layers">
                   <div><dt>Interface</dt><dd>Built the validation app in React, where encoders validate and correct the extracted fields</dd></div>
@@ -138,7 +138,7 @@
               </li>
               <li>
                 <span class="stage-no">04</span>
-                <h3>Route</h3>
+                <h3 class="subheading">Route</h3>
                 <p>Apply rules and audit changes.</p>
                 <dl class="layers">
                   <div><dt>Services</dt><dd>Built the routing rules in Node.js and TypeScript</dd></div>
@@ -169,7 +169,7 @@
         <section class="field field-wide" id="claims" aria-labelledby="model-title">
           <span class="field-label" aria-hidden="true"><b>05</b>Model</span>
           <div class="field-body">
-            <h2 id="model-title">The model extracts. A person approves.</h2>
+            <h2 id="model-title" class="heading">The model extracts. A person approves.</h2>
             <p>Try approving the amount as it was read, then correct it.</p>
           </div>
           <div class="study-frame">
@@ -190,7 +190,7 @@
                   <div class="crop-row"><span>Service date</span><i class="bar" style="--w: 34%"></i></div>
                   <div class="crop-row"><span>Procedure</span><i class="bar" style="--w: 48%"></i></div>
                   <div class="crop-row crop-amount"><span>Amount</span><b class="ocr-box" id="clm-box"><em>1O0.00</em><small>READ AS 1O0.00</small></b></div>
-                  <span class="crop-mark">SAMPLE</span>
+                  <span class="crop-mark">Sample</span>
                 </div>
                 <figcaption id="clm-crop-caption">
                   <span>SYNTHETIC CLAIM CROP</span><span>Drawn for this study. No claimant data.</span>
@@ -240,7 +240,7 @@
         <section class="field" aria-labelledby="delivery-title">
           <span class="field-label" aria-hidden="true"><b>06</b>Delivery</span>
           <div class="field-body">
-            <h2 id="delivery-title">MERN and TypeScript, on Azure.</h2>
+            <h2 id="delivery-title" class="heading">MERN and TypeScript, on Azure.</h2>
             <dl class="layers delivery">
               <div><dt>Application</dt><dd>React, Node.js and TypeScript on MongoDB</dd></div>
               <div><dt>Extraction</dt><dd>Azure Cognitive Services, custom-trained</dd></div>
@@ -253,7 +253,7 @@
         <section class="field" aria-labelledby="tradeoff-title">
           <span class="field-label" aria-hidden="true"><b>07</b>Tradeoff</span>
           <div class="field-body">
-            <h2 id="tradeoff-title">Human review remains part of the workflow.</h2>
+            <h2 id="tradeoff-title" class="heading">Human review remains part of the workflow.</h2>
             <p>
               Full automation was ruled out: these claims pay out real money, so
               a person approves every extracted field before a claim routes.
@@ -266,7 +266,7 @@
         <section class="field" aria-labelledby="result-title">
           <span class="field-label" aria-hidden="true"><b>08</b>Result</span>
           <div class="field-body">
-            <h2 id="result-title">Reported outcome.</h2>
+            <h2 id="result-title" class="heading">Reported outcome.</h2>
             <dl class="results">
               <div><dt>$210k</dt><dd>Labor cost saved a year</dd></div>
               <div><dt>Audit trail</dt><dd>Built into claim routing</dd></div>
@@ -277,7 +277,7 @@
         <section class="field" aria-labelledby="evidence-title">
           <span class="field-label" aria-hidden="true"><b>09</b>Evidence</span>
           <div class="field-body">
-            <h2 id="evidence-title">The public material is a reconstruction.</h2>
+            <h2 id="evidence-title" class="heading">The public material is a reconstruction.</h2>
             <p>
               The $210k annual labor saving and 95%+ test coverage are reported
               project outcomes. This sample record does not measure or

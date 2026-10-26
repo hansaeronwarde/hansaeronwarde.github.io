@@ -33,3 +33,34 @@
   width: 16px;
   height: 16px;
 }
+/* Instrument Serif is kept for the page's voice: the name, hero statements, h1s, the decision quote and the contact line. Section headings speak in Switzer, two levels only. */
+.heading,
+.subheading {
+  font-family: Switzer, "Helvetica Neue", sans-serif;
+  font-weight: 600;
+  text-transform: none;
+}
+.heading {
+  font-size: 32px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+.subheading {
+  font-size: 22px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+@media (max-width: 600px) {
+  .heading {
+    font-size: 28px;
+  }
+  .subheading {
+    font-size: 20px;
+  }
+}
+/* Instrument Serif has no arrow glyph; the system fallback is heavy beside its hairlines. */
+:is(.results, .index-list, .career-metric) dt svg {
+  width: 0.45em;
+  height: 0.45em;
+  vertical-align: 0.05em;
+}

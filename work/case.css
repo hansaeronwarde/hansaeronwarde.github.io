@@ -1,9 +1,3 @@
-/* Arial scaled to Antonio's advance width, so headings wrap the same before and after the swap. */
-@font-face {
-  font-family: "Antonio fallback";
-  src: local("Arial"), local("ArialMT"), local("Roboto");
-  size-adjust: 65.2%;
-}
 .case-page main {
   margin: 0 var(--g);
   padding-top: 86px;
@@ -24,11 +18,9 @@
 }
 .masthead h1 {
   margin: 0;
-  font:
-    450 112px/1.04 Antonio,
-    "Antonio fallback",
-    sans-serif;
-  text-transform: uppercase;
+  font: 400 96px/1.04 var(--serif);
+  letter-spacing: -0.01em;
+  font-synthesis: none;
   overflow-wrap: break-word;
 }
 .masthead-lead {
@@ -79,11 +71,6 @@
 }
 .field h2 {
   margin: 0 0 18px;
-  font:
-    450 44px/1.12 Antonio,
-    "Antonio fallback",
-    sans-serif;
-  text-transform: uppercase;
 }
 .field-body > p {
   margin: 0;
@@ -91,7 +78,10 @@
 }
 .field h2.quote {
   max-width: 24ch;
-  font-size: 56px;
+  text-wrap: balance;
+  font: italic 400 48px/1.12 var(--serif);
+  letter-spacing: -0.01em;
+  font-synthesis: none;
 }
 
 .stages {
@@ -112,11 +102,6 @@
 }
 :is(.stages, .fork, .pipeline, .fanout) h3 {
   margin: 10px 0 4px;
-  font:
-    450 26px/1.1 Antonio,
-    "Antonio fallback",
-    sans-serif;
-  text-transform: uppercase;
 }
 :is(.stages, .fork, .pipeline, .fanout) p {
   margin: 0 0 20px;
@@ -187,13 +172,12 @@
   margin: 8px 0 0;
 }
 .results dt {
-  font:
-    450 66px/1 Antonio,
-    "Antonio fallback",
-    sans-serif;
+  font: 400 66px/1 var(--serif);
+  letter-spacing: -0.01em;
+  font-synthesis: none;
 }
 .results dd {
-  margin: 8px 0 0;
+  margin: 0;
   font-size: 13px;
   color: var(--muted);
 }
@@ -469,10 +453,9 @@ pre.pattern {
   color: var(--muted);
 }
 .pipe strong {
-  font:
-    450 44px/1.1 Antonio,
-    "Antonio fallback",
-    sans-serif;
+  font: 400 44px/1.1 var(--serif);
+  letter-spacing: -0.01em;
+  font-synthesis: none;
 }
 .tokens,
 .slots,
@@ -566,11 +549,6 @@ pre.pattern {
 }
 .index-list h2 {
   margin: 8px 0 0;
-  font:
-    450 56px/1.04 Antonio,
-    "Antonio fallback",
-    sans-serif;
-  text-transform: uppercase;
 }
 .index-list h2 a:hover {
   color: var(--red);
@@ -583,20 +561,19 @@ pre.pattern {
   margin: 22px 0 0;
 }
 .index-list dt {
-  font:
-    450 44px/1 Antonio,
-    "Antonio fallback",
-    sans-serif;
+  font: 400 44px/1 var(--serif);
+  letter-spacing: -0.01em;
+  font-synthesis: none;
 }
 .index-list dd {
-  margin: 8px 0 0;
+  margin: 0;
   font-size: 13px;
   color: var(--muted);
 }
 
 /* Engineering notes: the case grammar with longer titles and generic code. */
 .note-page .masthead h1 {
-  font-size: 72px;
+  font-size: 62px;
   line-height: 1.06;
 }
 pre.pattern {
@@ -636,11 +613,9 @@ pre.pattern {
   color: var(--muted);
 }
 .status-list strong {
-  font:
-    450 36px/1.1 Antonio,
-    "Antonio fallback",
-    sans-serif;
-  text-transform: uppercase;
+  font: 400 36px/1.1 var(--serif);
+  letter-spacing: -0.01em;
+  font-synthesis: none;
 }
 .status-list :is([data-state="pending"], [data-state="waiting"]) strong {
   color: var(--red);
@@ -690,11 +665,6 @@ pre.pattern {
 }
 .ladder h3 {
   margin: 0;
-  font:
-    450 26px/1.1 Antonio,
-    "Antonio fallback",
-    sans-serif;
-  text-transform: uppercase;
 }
 .ladder p {
   margin: 0;
@@ -710,7 +680,7 @@ pre.pattern {
 
 @media (max-width: 1000px) {
   .note-page .masthead h1 {
-    font-size: min(64px, 9vw);
+    font-size: min(55px, 7.74vw);
   }
   .status-list li {
     grid-template-columns: 140px minmax(0, 1fr);
@@ -737,7 +707,7 @@ pre.pattern {
     gap: 40px;
   }
   .masthead h1 {
-    font-size: min(96px, 13vw);
+    font-size: min(83px, 11.18vw);
   }
   .field {
     grid-template-columns: minmax(0, 1fr);
@@ -787,13 +757,10 @@ pre.pattern {
     gap: 4px;
   }
   .masthead h1 {
-    font-size: min(64px, 16vw);
-  }
-  .field h2 {
-    font-size: 34px;
+    font-size: min(55px, 13.76vw);
   }
   .field h2.quote {
-    font-size: 40px;
+    font-size: 34px;
   }
   .field-body > p {
     font-size: 16px;
@@ -855,11 +822,8 @@ pre.pattern {
   .index-list li > :nth-child(n + 3) {
     grid-column: 1;
   }
-  .index-list h2 {
-    font-size: 40px;
-  }
   .note-page .masthead h1 {
-    font-size: 40px;
+    font-size: 34px;
   }
   .status-list li {
     grid-template-columns: 1fr;

@@ -13,9 +13,9 @@
     <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
     <link
       rel="preload"
-      href="../assets/portfolio/fonts/Antonio-Variable.ttf"
+      href="../assets/portfolio/fonts/InstrumentSerif-Regular.woff2"
       as="font"
-      type="font/ttf"
+      type="font/woff2"
       crossorigin
     />
     <link
@@ -85,7 +85,7 @@
         <section class="field" aria-labelledby="situation-title">
           <span class="field-label" aria-hidden="true"><b>01</b>Situation</span>
           <div class="field-body">
-            <h2 id="situation-title">Two systems, no integration layer.</h2>
+            <h2 id="situation-title" class="heading">Two systems, no integration layer.</h2>
             <p>
               Delco and Beacon had no integration layer. The options were
               manual handling by operations teams, or licensing Oracle
@@ -97,7 +97,7 @@
         <section class="field" aria-labelledby="constraint-title">
           <span class="field-label" aria-hidden="true"><b>02</b>Constraint</span>
           <div class="field-body">
-            <h2 id="constraint-title">Failed jobs disappeared without a trace.</h2>
+            <h2 id="constraint-title" class="heading">Failed jobs disappeared without a trace.</h2>
             <p>
               Requests were synchronous, failed jobs disappeared without a
               trace, and batch imports took a separate path from real-time
@@ -109,7 +109,7 @@
         <section class="field" aria-labelledby="ownership-title">
           <span class="field-label" aria-hidden="true"><b>03</b>Ownership</span>
           <div class="field-body">
-            <h2 id="ownership-title">Design &amp; build.</h2>
+            <h2 id="ownership-title" class="heading">Design &amp; build.</h2>
             <p>
               I designed and wrote the middleware: request lifecycle, worker
               pool and batch pipeline.
@@ -118,7 +118,7 @@
               <ol class="pipeline-steps" aria-label="What I owned at each step of a request">
                 <li>
                   <span class="stage-no">01 / INGRESS</span>
-                  <h3>Receive</h3>
+                  <h3 class="subheading">Receive</h3>
                   <p>API request or batch CSV. Acknowledge, then queue.</p>
                   <dl class="layers">
                     <div><dt>Pipeline</dt><dd>Real-time requests and batch CSV imports share one pipeline</dd></div>
@@ -126,7 +126,7 @@
                 </li>
                 <li>
                   <span class="stage-no">02 / FIFO QUEUE</span>
-                  <h3>Process</h3>
+                  <h3 class="subheading">Process</h3>
                   <p>Five parallel workers. Bound the concurrency.</p>
                   <dl class="layers">
                     <div><dt>Services</dt><dd>Designed and wrote the request lifecycle and worker pool in Node.js</dd></div>
@@ -134,7 +134,7 @@
                 </li>
                 <li>
                   <span class="stage-no">03 / DOWNSTREAM</span>
-                  <h3>Resolve</h3>
+                  <h3 class="subheading">Resolve</h3>
                   <p>Poll long-running work. Retry transient failures.</p>
                   <dl class="layers">
                     <div><dt>Integration</dt><dd>Built the layer between Delco and Beacon: billing, meter data and customer records</dd></div>
@@ -189,7 +189,7 @@
         <section class="field field-wide" id="pipeline" aria-labelledby="model-title">
           <span class="field-label" aria-hidden="true"><b>05</b>Model</span>
           <div class="field-body">
-            <h2 id="model-title">Bound the concurrency.</h2>
+            <h2 id="model-title" class="heading">Bound the concurrency.</h2>
             <p>
               Set downstream capacity below the worker count and run the batch.
               Requests that find no free slot wait and retry, up to three
@@ -278,7 +278,7 @@
         <section class="field" aria-labelledby="delivery-title">
           <span class="field-label" aria-hidden="true"><b>06</b>Delivery</span>
           <div class="field-body">
-            <h2 id="delivery-title">Node.js and MongoDB, on AWS.</h2>
+            <h2 id="delivery-title" class="heading">Node.js and MongoDB, on AWS.</h2>
             <dl class="layers delivery">
               <div><dt>Runtime</dt><dd>Node.js on AWS, with an event-driven queue architecture</dd></div>
               <div><dt>Batch</dt><dd>Download, parse, validate, transform, upload, clean up</dd></div>
@@ -290,7 +290,7 @@
         <section class="field" aria-labelledby="tradeoff-title">
           <span class="field-label" aria-hidden="true"><b>07</b>Tradeoff</span>
           <div class="field-body">
-            <h2 id="tradeoff-title">Owning it means operating it.</h2>
+            <h2 id="tradeoff-title" class="heading">Owning it means operating it.</h2>
             <p>
               Custom middleware gives full control of the workflow. It also
               means owning retry policy, monitoring and every future change.
@@ -301,9 +301,9 @@
         <section class="field" aria-labelledby="result-title">
           <span class="field-label" aria-hidden="true"><b>08</b>Result</span>
           <div class="field-body">
-            <h2 id="result-title">Reported outcome.</h2>
+            <h2 id="result-title" class="heading">Reported outcome.</h2>
             <dl class="results">
-              <div><dt>72 h &#8594; 4 h</dt><dd>Batch processing time</dd></div>
+              <div><dt>72 h <i data-lucide="arrow-right" aria-hidden="true"></i><span class="sr-only">to</span> 4 h</dt><dd>Batch processing time</dd></div>
               <div><dt>5</dt><dd>Parallel workers, capped</dd></div>
               <div><dt>4 states</dt><dd>Pending, processing, completed, failed</dd></div>
             </dl>
@@ -313,7 +313,7 @@
         <section class="field" aria-labelledby="evidence-title">
           <span class="field-label" aria-hidden="true"><b>09</b>Evidence</span>
           <div class="field-body">
-            <h2 id="evidence-title">The public material is a reconstruction.</h2>
+            <h2 id="evidence-title" class="heading">The public material is a reconstruction.</h2>
             <p>
               The 72 h to 4 h result is my reported batch-processing outcome.
               The workload size and measurement window are not published.

@@ -1,6 +1,6 @@
 # Hans Aeron Warde
 
-A buildless personal portfolio for GitHub Pages, set in Antonio display type and Switzer body type. The home page (`index.html`) opens on a scroll-controlled film that hands one request record into an inspectable study. Four case studies and four engineering notes follow, then the résumé, credentials and contact. Each case shows what Hans owned at every layer: UI, services, data, infrastructure, delivery and team.
+A buildless personal portfolio for GitHub Pages, set in Instrument Serif display type and Switzer body type. The home page (`index.html`) opens on a scroll-controlled film that hands one request record into an inspectable study. Four case studies and four engineering notes follow, then the résumé, credentials and contact. Each case shows what Hans owned at every layer: UI, services, data, infrastructure, delivery and team.
 
 ## Local Preview
 

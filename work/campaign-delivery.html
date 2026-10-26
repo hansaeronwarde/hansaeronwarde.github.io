@@ -13,9 +13,9 @@
     <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
     <link
       rel="preload"
-      href="../assets/portfolio/fonts/Antonio-Variable.ttf"
+      href="../assets/portfolio/fonts/InstrumentSerif-Regular.woff2"
       as="font"
-      type="font/ttf"
+      type="font/woff2"
       crossorigin
     />
     <link
@@ -85,7 +85,7 @@
         <section class="field" aria-labelledby="situation-title">
           <span class="field-label" aria-hidden="true"><b>01</b>Situation</span>
           <div class="field-body">
-            <h2 id="situation-title">Every channel had its own vendor.</h2>
+            <h2 id="situation-title" class="heading">Every channel had its own vendor.</h2>
             <p>
               Utilities sent notifications through separate vendors for SMS,
               IVR and email. Each campaign meant coordinating disconnected
@@ -97,7 +97,7 @@
         <section class="field" aria-labelledby="constraint-title">
           <span class="field-label" aria-hidden="true"><b>02</b>Constraint</span>
           <div class="field-body">
-            <h2 id="constraint-title">History lived in different places.</h2>
+            <h2 id="constraint-title" class="heading">History lived in different places.</h2>
             <p>
               Schedules, delivery status and history lived in different places.
               As the client base grew to AlexRenew, MVU and Delco, which alone
@@ -109,7 +109,7 @@
         <section class="field" aria-labelledby="ownership-title">
           <span class="field-label" aria-hidden="true"><b>03</b>Ownership</span>
           <div class="field-body">
-            <h2 id="ownership-title">Design &amp; build.</h2>
+            <h2 id="ownership-title" class="heading">Design &amp; build.</h2>
             <p>
               I built the channel integrations, audience scheduling, templates
               and delivery tracking.
@@ -117,16 +117,16 @@
             <div class="fanout">
               <div class="fanout-origin">
                 <span class="stage-no">CAMPAIGN</span>
-                <h3>Compose &amp; schedule</h3>
+                <h3 class="subheading">Compose &amp; schedule</h3>
                 <p>One template, one audience, one send.</p>
                 <dl class="layers">
                   <div><dt>Interface</dt><dd>Built templates and audience scheduling in React; Mustache personalizes each message</dd></div>
                 </dl>
               </div>
               <ol class="fanout-channels" aria-label="One receipt per channel">
-                <li><span class="stage-no">SMS</span><h3>Twilio</h3><p>Its own receipt</p></li>
-                <li><span class="stage-no">IVR</span><h3>Twilio</h3><p>Its own receipt</p></li>
-                <li><span class="stage-no">EMAIL</span><h3>AWS SES</h3><p>Its own receipt</p></li>
+                <li><span class="stage-no">SMS</span><h3 class="subheading">Twilio</h3><p>Its own receipt</p></li>
+                <li><span class="stage-no">IVR</span><h3 class="subheading">Twilio</h3><p>Its own receipt</p></li>
+                <li><span class="stage-no">EMAIL</span><h3 class="subheading">AWS SES</h3><p>Its own receipt</p></li>
               </ol>
             </div>
             <dl class="layers platform" aria-label="What I owned across every channel">
@@ -142,7 +142,7 @@
           <div class="field-body">
             <h2 id="decision-title" class="quote">
               Put every vendor behind one interface, but keep channel choice and
-              each delivery&#x27;s status.
+              each delivery&#8217;s status.
             </h2>
             <div class="split-copy">
               <p>
@@ -167,7 +167,7 @@
         <section class="field field-wide" id="campaigns" aria-labelledby="model-title">
           <span class="field-label" aria-hidden="true"><b>05</b>Model</span>
           <div class="field-body">
-            <h2 id="model-title">Retry the channel, not the campaign.</h2>
+            <h2 id="model-title" class="heading">Retry the channel, not the campaign.</h2>
             <p>
               One send fans out to each selected channel, and each keeps its own
               receipt. Take SMS down, send, then retry SMS without resending IVR
@@ -258,7 +258,7 @@
         <section class="field" aria-labelledby="delivery-title">
           <span class="field-label" aria-hidden="true"><b>06</b>Delivery</span>
           <div class="field-body">
-            <h2 id="delivery-title">React and Node.js, on Twilio and SES.</h2>
+            <h2 id="delivery-title" class="heading">React and Node.js, on Twilio and SES.</h2>
             <dl class="layers delivery">
               <div><dt>Interface</dt><dd>React; operators pick channels, audience and schedule</dd></div>
               <div><dt>Services</dt><dd>Node.js; one delivery layer over Twilio SMS and IVR, and AWS SES email</dd></div>
@@ -271,7 +271,7 @@
         <section class="field" aria-labelledby="tradeoff-title">
           <span class="field-label" aria-hidden="true"><b>07</b>Tradeoff</span>
           <div class="field-body">
-            <h2 id="tradeoff-title">One interface, many failure modes.</h2>
+            <h2 id="tradeoff-title" class="heading">One interface, many failure modes.</h2>
             <p>
               A common interface simplifies orchestration, while each provider
               still has distinct delivery states and failure handling.
@@ -282,7 +282,7 @@
         <section class="field" aria-labelledby="result-title">
           <span class="field-label" aria-hidden="true"><b>08</b>Result</span>
           <div class="field-body">
-            <h2 id="result-title">Reported context.</h2>
+            <h2 id="result-title" class="heading">Reported context.</h2>
             <dl class="results">
               <div><dt>50,000+</dt><dd>Delco water customers</dd></div>
               <div><dt>3</dt><dd>Channels: SMS, IVR, email</dd></div>
@@ -294,7 +294,7 @@
         <section class="field" aria-labelledby="evidence-title">
           <span class="field-label" aria-hidden="true"><b>09</b>Evidence</span>
           <div class="field-body">
-            <h2 id="evidence-title">The public material is a reconstruction.</h2>
+            <h2 id="evidence-title" class="heading">The public material is a reconstruction.</h2>
             <p>
               50,000+ describes Delco&#x27;s water-customer base. It is not a
               claim that every customer received a campaign or that every

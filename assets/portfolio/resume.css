@@ -29,7 +29,8 @@ svg:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focu
   --masthead-h: 86px;
   --scrim: #050905b3;
 }
-:is(#resume, #work, #engineering-focus, #stack, #certs, #education, #about, #contact) {
+/* Four of these ids sit on the credential h3s, which take their size from .heading. */
+:is(#resume, #work, #engineering-focus, #stack, #certs, #education, #about, #contact):not(h3) {
   font-size: 17px;
   line-height: 1.4;
   font-family: Switzer, "Helvetica Neue", Arial, sans-serif;
@@ -333,7 +334,7 @@ img:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focu
   margin-bottom: 22px;
 }
 .resume-intro h2:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *) {
-  margin-bottom: 35px;
+  margin-bottom: 30px;
 }
 .resume-intro h3:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *) {
   font-size: 18px;
@@ -483,13 +484,13 @@ main > section:not(.scroll-story):is(#resume, #resume *, #work, #work *, #engine
 main > .profile:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *)::before {
   background: rgba(255, 255, 255, 0.25) !important;
 }
-.resume-intro h2:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *),
-.section-heading:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *),
 .profile h2:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *),
 .contact h2:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *),
 .education-body h2:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *) {
-  font-family: Antonio, "Arial Narrow", Impact, sans-serif;
-  text-transform: uppercase;
+  font-family: var(--serif);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  font-synthesis: none;
 }
 .career-entry:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *) {
   position: relative;
@@ -691,15 +692,13 @@ main > section:not(.scroll-story):is(#resume, #work, #engineering-focus, #stack,
   font-size: var(--type-min);
   font-weight: 450;
 }
-#resume .resume-intro h2,
-:is(#work, #engineering-focus, #stack, #certs) .section-heading,
 #education .education-body h2,
 #about.profile h2 {
   font-size: var(--display-b);
   line-height: 1.05;
 }
 #contact.contact h2 {
-  font-size: 68px;
+  font-size: 58px;
   line-height: 1.12;
   margin: 50px 0 30px;
 }
@@ -736,20 +735,6 @@ main > section:not(.scroll-story):is(#resume, #work, #engineering-focus, #stack,
 }
 #engineering-focus .focus-list {
   padding-left: calc((100% - 80px) * 1.4 / 2.4 + 80px);
-}
-/* Tools and credentials: a ledger in the heading grid's right column. */
-:is(#stack, #certs) {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  column-gap: 80px;
-  align-items: start;
-}
-:is(#stack, #certs) > .section-label {
-  grid-column: 1 / -1;
-}
-:is(#stack, #certs) .section-intro {
-  display: block;
-  padding: 50px 0 0;
 }
 #stack .toolbox-grid,
 #certs .credential-list {
@@ -799,10 +784,7 @@ main > section:not(.scroll-story):is(#resume, #work, #engineering-focus, #stack,
 }
 @media (max-width: 1000px) {
   #contact.contact h2 {
-    font-size: 58px;
-  }
-  :is(#stack, #certs) {
-    display: block;
+    font-size: 50px;
   }
   #resume .resume-intro,
   :is(#work, #engineering-focus, #stack, #certs) .section-intro,
@@ -832,7 +814,7 @@ main > section:not(.scroll-story):is(#resume, #work, #engineering-focus, #stack,
     padding: 40px var(--gutter);
   }
   #contact.contact h2 {
-    font-size: 48px;
+    font-size: 41px;
     margin: 30px 0 25px;
   }
   #resume .resume-intro,

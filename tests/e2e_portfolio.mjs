@@ -895,28 +895,31 @@ const checks = {
       await idle(page, path);
       const bad = [];
       let n = 0;
-      let prev = null;
+      let left = false;
       for (let i = 0; i < 160; i++) {
         await page.keyboard.press("Tab");
         const f = await page.evaluate(() => {
           const e = document.activeElement;
           if (!e || e === document.body) return null;
+          // Identity, not markup: two preview checkboxes in a row have identical outerHTML.
+          const same = e === window.__kbPrev;
+          window.__kbPrev = e;
           const cs = getComputedStyle(e), r = e.getBoundingClientRect();
           const ring = (cs.outlineStyle !== "none" && parseFloat(cs.outlineWidth) > 0) || cs.boxShadow !== "none";
           const covers = [...document.querySelectorAll("header, [class*=masthead], nav")].filter((h) => ["fixed", "sticky"].includes(getComputedStyle(h).position) && !h.contains(e));
           const coverBottom = Math.max(0, ...covers.map((h) => h.getBoundingClientRect().bottom));
           const hit = document.elementFromPoint(Math.min(innerWidth - 1, Math.max(0, r.left + r.width / 2)), Math.min(innerHeight - 1, Math.max(0, r.top + r.height / 2)));
           const onTop = !!hit && (hit === e || e.contains(hit) || hit.contains(e));
-          return { onTop, key: e.outerHTML.slice(0, 60), label: (e.getAttribute("aria-label") || e.textContent || e.id).trim().slice(0, 30), ring, top: r.top, bottom: r.bottom, vh: innerHeight, coverBottom, visible: r.width > 0 && r.height > 0 };
+          return { onTop, same, label: (e.getAttribute("aria-label") || e.textContent || e.id).trim().slice(0, 30), ring, top: r.top, bottom: r.bottom, vh: innerHeight, coverBottom, visible: r.width > 0 && r.height > 0 };
         });
-        if (!f || prev === f.key) break;
-        prev = f.key;
+        if (!f) { left = true; break; }
+        if (f.same) { bad.push(`focus stuck on "${f.label}"`); break; }
         n++;
         if (!f.visible) bad.push(`invisible "${f.label}"`);
         else if (!f.ring) bad.push(`no ring "${f.label}"`);
         else if (!f.onTop || f.top >= f.vh || f.bottom <= 0) bad.push(`obscured "${f.label}" top ${Math.round(f.top)} under ${Math.round(f.coverBottom)}`);
       }
-      check(`${path} keyboard ${width}: ${n} stops visible, ringed, unobscured`, !bad.length && n > 0, bad.slice(0, 5).join("; "));
+      check(`${path} keyboard ${width}: ${n} stops visible, ringed, unobscured, then out of the page`, !bad.length && n > 0 && left, (left ? "" : "walk never left the page; ") + bad.slice(0, 5).join("; "));
       await context.close();
     }
   },

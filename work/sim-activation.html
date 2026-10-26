@@ -6,16 +6,16 @@
     <title>SIM activation &#8211; Hans Aeron Warde</title>
     <meta
       name="description"
-      content="SIM activation and delivery at Circles.Life: activation and fulfillment run as separate event-driven services, so one can fail without the other. About 40% faster average activation, for 100k+ active subscribers."
+      content="SIM activation and delivery at Circles.Life: activation and fulfillment run as separate event-driven services, so one can fail without the other. About 40% shorter average activation time, for 100k+ active subscribers."
     />
     <meta name="theme-color" content="#f7f7f4" />
     <link rel="canonical" href="https://hansaeronwarde.github.io/work/sim-activation.html" />
     <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
     <link
       rel="preload"
-      href="../assets/portfolio/fonts/Antonio-Variable.ttf"
+      href="../assets/portfolio/fonts/InstrumentSerif-Regular.woff2"
       as="font"
-      type="font/ttf"
+      type="font/woff2"
       crossorigin
     />
     <link
@@ -85,7 +85,7 @@
         <section class="field" aria-labelledby="situation-title">
           <span class="field-label" aria-hidden="true"><b>01</b>Situation</span>
           <div class="field-body">
-            <h2 id="situation-title">Activation was buried in a monolith.</h2>
+            <h2 id="situation-title" class="heading">Activation was buried in a monolith.</h2>
             <p>
               SIM activation was buried in a tightly coupled monolith. Deploys
               were risky and test coverage was near zero. Activation and
@@ -98,7 +98,7 @@
         <section class="field" aria-labelledby="constraint-title">
           <span class="field-label" aria-hidden="true"><b>02</b>Constraint</span>
           <div class="field-body">
-            <h2 id="constraint-title">One spike slowed everything.</h2>
+            <h2 id="constraint-title" class="heading">One spike slowed everything.</h2>
             <p>
               A traffic spike degraded the whole platform. Activation had to
               scale, fail and ship without the rest.
@@ -109,7 +109,7 @@
         <section class="field" aria-labelledby="ownership-title">
           <span class="field-label" aria-hidden="true"><b>03</b>Ownership</span>
           <div class="field-body">
-            <h2 id="ownership-title">Migration lead.</h2>
+            <h2 id="ownership-title" class="heading">Migration lead.</h2>
             <p>
               I led the move from the monolith to Go and Node.js services, and
               wired in the SIM controllers and logistics providers.
@@ -117,13 +117,13 @@
             <div class="fork">
               <div class="fork-origin">
                 <span class="stage-no">ORDER</span>
-                <h3>Purchase</h3>
+                <h3 class="subheading">Purchase</h3>
                 <p>One event starts both services.</p>
               </div>
               <ol class="fork-paths" aria-label="What I owned on each path">
                 <li>
                   <span class="stage-no">A / SERVICE</span>
-                  <h3>Activation</h3>
+                  <h3 class="subheading">Activation</h3>
                   <p>Its own service.</p>
                   <dl class="layers">
                     <div><dt>Integration</dt><dd>Wired in the SIM controllers</dd></div>
@@ -131,7 +131,7 @@
                 </li>
                 <li class="fork-wait">
                   <span class="stage-no">B / SERVICE</span>
-                  <h3>Fulfillment</h3>
+                  <h3 class="subheading">Fulfillment</h3>
                   <p>Carries events into logistics.</p>
                   <dl class="layers">
                     <div><dt>Integration</dt><dd>Integrated third-party logistics for last-mile delivery, including rider services in markets such as Pakistan</dd></div>
@@ -169,7 +169,7 @@
         <section class="field field-wide" id="telecom" aria-labelledby="model-title">
           <span class="field-label" aria-hidden="true"><b>05</b>Model</span>
           <div class="field-body">
-            <h2 id="model-title">One purchase. Two services.</h2>
+            <h2 id="model-title" class="heading">One purchase. Two services.</h2>
             <p>
               Switch the logistics provider off: activation still finishes, and
               fulfillment waits with a reason until the provider returns.
@@ -195,7 +195,7 @@
                 <span class="muted">One purchase event</span>
               </div>
               <div class="service" id="tel-activation" data-state="activated">
-                <div class="service-name"><span class="eyebrow">A / SERVICE</span><h3>Activation</h3></div>
+                <div class="service-name"><span class="eyebrow">A / SERVICE</span><h3 class="subheading">Activation</h3></div>
                 <div class="service-state">
                   <strong data-word>Activated</strong>
                   <span data-detail>Since tick 002</span>
@@ -214,7 +214,7 @@
                 </div>
               </div>
               <div class="service" id="tel-fulfillment" data-state="fulfilled">
-                <div class="service-name"><span class="eyebrow">B / SERVICE</span><h3>Fulfillment</h3></div>
+                <div class="service-name"><span class="eyebrow">B / SERVICE</span><h3 class="subheading">Fulfillment</h3></div>
                 <div class="service-state">
                   <strong data-word>Fulfilled</strong>
                   <span data-detail>Since tick 005</span>
@@ -259,7 +259,7 @@
         <section class="field" aria-labelledby="delivery-title">
           <span class="field-label" aria-hidden="true"><b>06</b>Delivery</span>
           <div class="field-body">
-            <h2 id="delivery-title">Services that ship on their own.</h2>
+            <h2 id="delivery-title" class="heading">Services that ship on their own.</h2>
             <dl class="layers delivery">
               <div><dt>Services</dt><dd>Go and Node.js, deployed independently</dd></div>
               <div><dt>Events</dt><dd>Purchase, activation and fulfillment connected by events</dd></div>
@@ -272,7 +272,7 @@
         <section class="field" aria-labelledby="tradeoff-title">
           <span class="field-label" aria-hidden="true"><b>07</b>Tradeoff</span>
           <div class="field-body">
-            <h2 id="tradeoff-title">Two services, two states to reconcile.</h2>
+            <h2 id="tradeoff-title" class="heading">Two services, two states to reconcile.</h2>
             <p>
               Separating services creates a need to correlate events and
               reconcile states across their boundaries. When activation and
@@ -285,10 +285,10 @@
         <section class="field" aria-labelledby="result-title">
           <span class="field-label" aria-hidden="true"><b>08</b>Result</span>
           <div class="field-body">
-            <h2 id="result-title">Reported outcome.</h2>
+            <h2 id="result-title" class="heading">Reported outcome.</h2>
             <dl class="results">
-              <div><dt>~40%</dt><dd>Faster average SIM activation</dd></div>
-              <div><dt>~0 &#8594; 90%</dt><dd>Test coverage on provisioning</dd></div>
+              <div><dt>~40%</dt><dd>Shorter average SIM activation time</dd></div>
+              <div><dt>~0 <i data-lucide="arrow-right" aria-hidden="true"></i><span class="sr-only">to</span> 90%</dt><dd>Test coverage on provisioning</dd></div>
               <div><dt>100k+</dt><dd>Active subscribers, not simultaneous requests</dd></div>
             </dl>
           </div>
@@ -297,7 +297,7 @@
         <section class="field" aria-labelledby="evidence-title">
           <span class="field-label" aria-hidden="true"><b>09</b>Evidence</span>
           <div class="field-body">
-            <h2 id="evidence-title">The public material is a reconstruction.</h2>
+            <h2 id="evidence-title" class="heading">The public material is a reconstruction.</h2>
             <p>
               The ~40% reduction is a reported change in average SIM activation
               time. The platform served 100k+ active subscribers; that figure

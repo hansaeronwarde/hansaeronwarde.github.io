@@ -11,10 +11,6 @@
 .principle h2,
 .notes h2 {
   margin: 0;
-  font:
-    450 68px/1.12 Antonio,
-    sans-serif;
-  text-transform: uppercase;
 }
 
 .principle-body,
@@ -76,28 +72,27 @@
   color: var(--red);
 }
 
+/* One anatomy (head, copy, model, reported), three compositions, each drawn from its own model: lanes run wide, the crop bleeds, the fan spreads. */
 .preview {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  grid-template-areas:
-    "copy model"
-    "reported reported";
   column-gap: 80px;
   padding-top: 56px;
 }
 .preview + .preview {
-  margin-top: 40px;
+  margin-top: 56px;
   border-top: 1px solid var(--line);
+}
+.preview-head {
+  grid-area: head;
 }
 .preview-copy {
   grid-area: copy;
 }
-.preview h3 {
-  margin: 14px 0 28px;
-  font:
-    450 52px/1.12 Antonio,
-    sans-serif;
-  text-transform: uppercase;
+.preview-head h3 {
+  margin-top: 14px;
+}
+.preview-copy > :last-child {
+  margin-bottom: 0;
 }
 .decision {
   max-width: 410px;
@@ -127,7 +122,7 @@
 }
 .preview .reported {
   grid-area: reported;
-  padding: 36px 0 0;
+  padding: 0;
   border-bottom: 0;
 }
 
@@ -212,9 +207,9 @@
 .crop-field .read {
   display: block;
   margin-bottom: 8px;
-  font:
-    450 48px/1.1 Antonio,
-    sans-serif;
+  font: 400 48px/1.1 var(--serif);
+  letter-spacing: -0.01em;
+  font-synthesis: none;
 }
 .crop-field s {
   color: var(--muted);
@@ -224,6 +219,12 @@
   background: none;
   color: var(--red);
   box-shadow: inset 0 -3px 0 var(--red);
+}
+@media (forced-colors: active) {
+  .crop-field mark {
+    background: Mark;
+    color: MarkText;
+  }
 }
 .crop-field span {
   font-size: 13px;
@@ -244,6 +245,125 @@
   color: var(--muted);
 }
 
+/* Telecom: the copy is a lead-in on the site's heading grid; the two lanes then run the full width. */
+.preview-lanes {
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  grid-template-areas:
+    "head copy"
+    "model model"
+    "reported reported";
+  row-gap: 48px;
+}
+.preview-lanes .preview-model {
+  padding: 32px 0 0;
+  border: 0;
+  border-top: 1px solid var(--ink);
+}
+/* The rule under each branch is its lane: it runs to the column's edge. */
+.preview-lanes .split-lanes .branch {
+  padding: 18px 0 18px 20px;
+  border-bottom: 1px solid var(--line);
+}
+.preview-lanes .branch strong {
+  display: block;
+  font-size: 22px;
+  font-weight: 600;
+}
+.preview-lanes .reported {
+  padding-top: 8px;
+}
+/* The outcome's sentence starts on the copy column of the 1.4fr / 1fr grid above it. */
+@media (min-width: 1001px) {
+  .preview-lanes .reported {
+    grid-template-columns: minmax(0, 0.7fr) minmax(0, 0.7fr) minmax(0, 1fr);
+    column-gap: 40px;
+  }
+}
+
+/* Claims: the extracted field is cropped large and bleeds off the right edge; the copy and the result stand against it. */
+.preview-crop {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr);
+  grid-template-areas:
+    "head model"
+    "copy model"
+    "reported model";
+  grid-template-rows: auto auto 1fr;
+  row-gap: 48px;
+}
+.preview-crop .preview-model {
+  margin-right: calc(-1 * var(--g));
+  padding: 0;
+  border: 0;
+}
+.preview-crop .crop-field {
+  padding: 40px var(--g) 48px 48px;
+  border-right: 0;
+}
+.preview-crop .crop-field .read {
+  margin-bottom: 16px;
+  font-size: clamp(72px, 9vw, 136px);
+  line-height: 1;
+}
+.preview-crop :is(.checkbox, figcaption) {
+  margin-inline: 48px var(--g);
+}
+.preview-crop .decision {
+  font-size: 22px;
+  line-height: 1.4;
+}
+.preview-crop .reported {
+  display: block;
+  align-self: end;
+}
+@media (min-width: 1001px) {
+  .preview-crop .reported > strong {
+    margin: 12px 0;
+  }
+}
+
+/* Campaigns: one message fans out across the width; the copy reads below it. */
+.preview-fan {
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  grid-template-areas:
+    "head ."
+    "model model"
+    "copy reported";
+  row-gap: 48px;
+}
+.preview-fan .preview-model {
+  padding: 0;
+  border: 0;
+}
+.preview-fan .fan-receipts {
+  gap: 0 24px;
+  border-top: 2px solid var(--ink);
+}
+/* Lands the cells on the telecom outcome row's columns: 0, 413, 827 at 1440. */
+@media (min-width: 1001px) {
+  .preview-fan .fan-receipts {
+    grid-template-columns: minmax(0, 0.7fr) minmax(0, 0.7fr) minmax(0, 1fr);
+    column-gap: 40px;
+  }
+}
+.preview-fan .fan-receipts li {
+  min-height: 140px;
+  padding: 24px 20px 20px;
+}
+.preview-fan .fan-receipts strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 22px;
+  font-weight: 600;
+}
+.preview-fan .reported {
+  display: block;
+}
+@media (min-width: 1001px) {
+  .preview-fan .reported > strong {
+    margin: 12px 0;
+  }
+}
+
 .dossier-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -253,10 +373,6 @@
 /* The ids on these h3s are fragment targets; resume.css styles by those ids, so this needs one too. */
 #credentials .dossier-cell h3 {
   margin: 14px 0 32px;
-  font:
-    450 var(--display-b) / 1.05 Antonio,
-    sans-serif;
-  text-transform: uppercase;
 }
 #credentials .dossier-cell h3 a {
   color: inherit;
@@ -426,10 +542,32 @@
     grid-template-columns: 1fr;
     gap: 40px;
   }
-  .preview {
+  .preview-lanes,
+  .preview-crop,
+  .preview-fan {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "copy" "model" "reported";
-    row-gap: 32px;
+    grid-template-rows: none;
+    row-gap: 40px;
+  }
+  .preview-lanes,
+  .preview-crop {
+    grid-template-areas: "head" "copy" "model" "reported";
+  }
+  .preview-fan {
+    grid-template-areas: "head" "model" "copy" "reported";
+  }
+  .preview-crop .preview-model {
+    margin-left: calc(-1 * var(--g));
+  }
+  .preview-crop .crop-field {
+    padding: 28px var(--g) 32px;
+    border-left: 0;
+  }
+  .preview-crop :is(.checkbox, figcaption) {
+    margin-inline: var(--g);
+  }
+  .preview-fan .fan-receipts li {
+    min-height: 0;
   }
   .dossier-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -445,13 +583,6 @@
   }
 }
 @media (max-width: 600px) {
-  .principle h2,
-  .notes h2 {
-    font-size: 44px;
-  }
-  .preview h3 {
-    font-size: 40px;
-  }
   .fan-receipts {
     grid-template-columns: 1fr;
   }
@@ -529,12 +660,12 @@
   text-align: right;
 }
 .career-metric dt {
-  font:
-    450 44px/1 Antonio,
-    sans-serif;
+  font: 400 44px/1 var(--serif);
+  letter-spacing: -0.01em;
+  font-synthesis: none;
 }
 .career-metric dd {
-  margin: 6px 0 0;
+  margin: 0;
   font-size: 13px;
   color: var(--muted);
 }

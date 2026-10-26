@@ -4,7 +4,7 @@ The home page uses the approved D19 design and `cases.html` the earlier D17 stud
 
 ## Type
 
-- Antonio Variable by Vernon Adams, unmodified TTF from the official Google Fonts repository: https://github.com/google/fonts/tree/main/ofl/antonio. SIL OFL license included in fonts/Antonio-OFL.txt.
+- Instrument Serif Regular and Italic by the Instrument Serif Project Authors (https://github.com/Instrument/instrument-serif), from the official Google Fonts repository: https://github.com/google/fonts/tree/main/ofl/instrumentserif. The TTFs were converted to WOFF2 with ttf2woff2 8.0.1, glyphs unmodified (a format change, which the OFL counts as a Modified Version); the licence declares no Reserved Font Name. SIL OFL license included in fonts/InstrumentSerif-OFL.txt.
 - Switzer Variable by Indian Type Foundry, unmodified WOFF2 from https://www.fontshare.com/fonts/switzer. ITF Free Font License 2.0 included in fonts/Switzer-FFL.txt. Embedded for this website's use, not offered as a font download or font library.
 
 ## Film

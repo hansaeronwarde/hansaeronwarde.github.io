@@ -11,7 +11,7 @@
     <meta name="theme-color" content="#f7f7f4" />
     <link rel="canonical" href="https://hansaeronwarde.github.io/notes/human-judgment.html" />
     <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
-    <link rel="preload" href="../assets/portfolio/fonts/Antonio-Variable.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="../assets/portfolio/fonts/InstrumentSerif-Regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="../assets/portfolio/fonts/Switzer-Variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="../assets/portfolio/study.css" />
     <link rel="stylesheet" href="../assets/portfolio/supporting.css" />
@@ -62,7 +62,7 @@
         <section class="field" aria-labelledby="claim-title">
           <span class="field-label" aria-hidden="true"><b>01</b>Claim</span>
           <div class="field-body">
-            <h2 id="claim-title">The model proposes. A person decides, on the record.</h2>
+            <h2 id="claim-title" class="heading">The model proposes. A person decides, on the record.</h2>
             <p>
               A reading that skips review becomes a fact downstream, wrong or
               not. On claims intake, an encoder validated or corrected the
@@ -74,7 +74,7 @@
         <section class="field field-wide" aria-labelledby="model-title">
           <span class="field-label" aria-hidden="true"><b>02</b>Model</span>
           <div class="field-body">
-            <h2 id="model-title">Where the person stands.</h2>
+            <h2 id="model-title" class="heading">Where the person stands.</h2>
             <p>
               The model reads an amount of 100.00 as <code>1<mark>O</mark>0.00</code>, with a
               letter O. Compare the record with and without the review step.
@@ -106,13 +106,12 @@
         <section class="field" aria-labelledby="pattern-title">
           <span class="field-label" aria-hidden="true"><b>03</b>Pattern</span>
           <div class="field-body">
-            <h2 id="pattern-title">Validate the correction. Refuse the unreviewed.</h2>
+            <h2 id="pattern-title" class="heading">Validate the correction. Refuse the unreviewed.</h2>
             <p>
-              The reviewer&#x27;s value passes the same rules as any input, and a
-              field with no rule is refused. The record keeps before and after,
-              and routing refuses a claim until every field has been approved
-              at its current value, so an extracted field with no rule holds
-              the claim.
+              The reviewer&#x27;s value passes the same rules as any input. A field
+              with no rule can&#x27;t be approved, so it holds the claim. The
+              record keeps before and after, and routing refuses the claim
+              until every field is approved at its current value.
             </p>
             <pre class="pattern"><code>const rules = {
   amount: (value) =&gt;
@@ -156,7 +155,7 @@ function route(claim) {
         <section class="field" aria-labelledby="contract-title">
           <span class="field-label" aria-hidden="true"><b>04</b>Contract</span>
           <div class="field-body">
-            <h2 id="contract-title">What each layer can rely on.</h2>
+            <h2 id="contract-title" class="heading">What each layer can rely on.</h2>
             <dl class="layers delivery">
               <div><dt>Reviewer</dt><dd>The source region beside the extracted value, and an error that says what is wrong while focus stays on the field</dd></div>
               <div><dt>Service</dt><dd>Nothing routes until a person has approved every field at its current value</dd></div>
@@ -168,7 +167,7 @@ function route(claim) {
         <section class="field" aria-labelledby="failure-title">
           <span class="field-label" aria-hidden="true"><b>05</b>Tradeoffs</span>
           <div class="field-body">
-            <h2 id="failure-title">Review is a queue too.</h2>
+            <h2 id="failure-title" class="heading">Review is a queue too.</h2>
             <ul class="decisions">
               <li>People stay in the workflow. If the review queue grows, the savings shrink.</li>
               <li>Reviewers who see only the value learn to approve it. Show the evidence it came from.</li>
@@ -180,7 +179,7 @@ function route(claim) {
         <section class="field" aria-labelledby="operating-title">
           <span class="field-label" aria-hidden="true"><b>06</b>Operating</span>
           <div class="field-body">
-            <h2 id="operating-title">Watch the people step like any other.</h2>
+            <h2 id="operating-title" class="heading">Watch the people step like any other.</h2>
             <dl class="layers delivery">
               <div><dt>Test</dt><dd>The rule table with ambiguous values; routing refuses an unreviewed claim</dd></div>
               <div><dt>Deploy</dt><dd>Rules change with the code and are tested with it</dd></div>
@@ -192,7 +191,7 @@ function route(claim) {
         <section class="field" aria-labelledby="scope-title">
           <span class="field-label" aria-hidden="true"><b>07</b>Scope</span>
           <div class="field-body">
-            <h2 id="scope-title">General practice, not a client trace.</h2>
+            <h2 id="scope-title" class="heading">General practice, not a client trace.</h2>
             <p>
               The pattern and model are illustrative, not the client&#x27;s
               implementation. The reported $210k annual labor saving is on the

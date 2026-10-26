@@ -6,13 +6,23 @@
   font-display: swap;
 }
 @font-face {
-  font-family: Antonio;
-  src: url("fonts/Antonio-Variable.ttf")
-    format("truetype");
-  font-weight: 100 700;
+  font-family: "Instrument Serif";
+  src: url("fonts/InstrumentSerif-Regular.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("fonts/InstrumentSerif-Italic.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: italic;
   font-display: swap;
 }
 :root {
+  --serif: "Instrument Serif", Georgia, serif;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --quick: 0.2s;
   --settle: 0.45s;
@@ -190,6 +200,14 @@ header.paper {
   border-color: var(--line);
   background: var(--paper);
 }
+/* The bar is inset by the gutters, so a full-bleed band (the contact section) would show beside it. */
+header.paper::before {
+  content: "";
+  position: absolute;
+  inset: 0 calc(-1 * var(--g));
+  z-index: -1;
+  background: var(--paper);
+}
 /* Unpinned, the hero scrolls under the bar; the backdrop spans the gutters so no hero text shows beside it. */
 .static-story header:not(.paper)::before {
   content: "";
@@ -323,9 +341,9 @@ nav .icon {
   margin-bottom: 26px;
 }
 .identity h1 {
-  font:
-    500 min(128px, 11.8vw) / 1.02 Antonio,
-    sans-serif;
+  font: 400 min(110px, 10.15vw) / 1.02 var(--serif);
+  letter-spacing: -0.01em;
+  font-synthesis: none;
 }
 .identity h1 > span {
   color: #ef5140;
@@ -396,10 +414,9 @@ nav .icon {
   opacity: var(--scene-head);
 }
 .scene-heading h2 {
-  font:
-    450 80px/1.08 Antonio,
-    sans-serif;
-  text-transform: uppercase;
+  font: 400 69px/1.08 var(--serif);
+  letter-spacing: -0.01em;
+  font-synthesis: none;
   margin-top: 20px;
 }
 .worker-tracks {
@@ -428,9 +445,9 @@ nav .icon {
 }
 .lane b {
   display: block;
-  font:
-    450 44px/1.1 Antonio,
-    sans-serif;
+  font: 400 44px/1.1 var(--serif);
+  letter-spacing: -0.01em;
+  font-synthesis: none;
   margin-top: 22px;
   color: #ffffffa8;
 }
@@ -492,9 +509,9 @@ nav .icon {
   color: var(--red);
 }
 .subject-number {
-  font:
-    450 clamp(40px, 30cqi, 92px) / 1.15 Antonio,
-    sans-serif;
+  font: 400 clamp(40px, 30cqi, 92px) / 1.15 var(--serif);
+  letter-spacing: -0.01em;
+  font-synthesis: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -590,10 +607,9 @@ nav .icon {
   }
 }
 .paper-surface h2 {
-  font:
-    450 94px/1.08 Antonio,
-    sans-serif;
-  text-transform: uppercase;
+  font: 400 81px/1.08 var(--serif);
+  letter-spacing: -0.01em;
+  font-synthesis: none;
   max-width: 42%;
   margin: 24px 0 30px;
 }
@@ -678,14 +694,8 @@ footer {
   display: grid;
   grid-template-columns: 1.4fr 1fr;
   gap: 80px;
-  align-items: end;
+  align-items: start;
   padding: 50px 0 65px;
-}
-.study-heading h2 {
-  font:
-    450 68px/1.12 Antonio,
-    sans-serif;
-  text-transform: uppercase;
 }
 .study-heading p {
   max-width: 410px;
@@ -736,9 +746,9 @@ footer {
   gap: 14px;
 }
 .trace-identity > strong {
-  font:
-    450 136px/1 Antonio,
-    sans-serif;
+  font: 400 136px/1 var(--serif);
+  letter-spacing: -0.01em;
+  font-synthesis: none;
 }
 .trace-identity > #trace-state {
   font-size: 14px;
@@ -801,9 +811,9 @@ footer {
   border-bottom: 1px solid var(--line);
 }
 .reported > strong {
-  font:
-    450 66px/1 Antonio,
-    sans-serif;
+  font: 400 66px/1 var(--serif);
+  letter-spacing: -0.01em;
+  font-synthesis: none;
   display: flex;
   align-items: center;
   gap: 20px;
@@ -855,9 +865,9 @@ footer {
 }
 .metrics strong {
   display: block;
-  font:
-    450 50px/1.2 Antonio,
-    sans-serif;
+  font: 400 50px/1.2 var(--serif);
+  letter-spacing: -0.01em;
+  font-synthesis: none;
 }
 .metrics span {
   font-size: var(--type-min);
@@ -948,7 +958,7 @@ body > footer nav a:not([aria-label]) svg {
   padding: 60px var(--g) 30px;
 }
 .static-story .paper-surface h2 {
-  font-size: 68px;
+  font-size: 58px;
   max-width: 100%;
 }
 .static-story .paper-surface p {
@@ -987,13 +997,13 @@ body > footer nav a:not([aria-label]) svg {
 }
 @media (min-width: 1600px) {
   .identity h1 {
-    font-size: 156px;
+    font-size: 134px;
   }
   .scene-heading h2 {
-    font-size: 100px;
+    font-size: 86px;
   }
   .paper-surface h2 {
-    font-size: 112px;
+    font-size: 96px;
   }
 }
 /* The card must fit between the lane label and the scene footer. */
@@ -1011,19 +1021,16 @@ body > footer nav a:not([aria-label]) svg {
     display: none;
   }
   .identity h1 {
-    font-size: min(112px, 14.5vw);
+    font-size: min(96px, 12.47vw);
   }
   .study-heading {
     gap: 40px;
   }
-  .study-heading h2 {
-    font-size: 58px;
-  }
   .scene-heading h2 {
-    font-size: 70px;
+    font-size: 60px;
   }
   .paper-surface h2 {
-    font-size: 76px;
+    font-size: 65px;
   }
   .reported {
     grid-template-columns: 1fr 1.3fr;
@@ -1115,7 +1122,7 @@ body > footer nav a:not([aria-label]) svg {
     margin-bottom: 14px;
   }
   .identity h1 {
-    font-size: 76px;
+    font-size: 65px;
     line-height: 1.08;
   }
   .identity h1 {
@@ -1170,7 +1177,7 @@ body > footer nav a:not([aria-label]) svg {
     max-width: 240px;
   }
   .scene-heading h2 {
-    font-size: 48px;
+    font-size: 41px;
     max-width: 290px;
     margin-top: 18px;
   }
@@ -1242,7 +1249,7 @@ body > footer nav a:not([aria-label]) svg {
     justify-content: flex-start;
   }
   .paper-surface h2 {
-    font-size: 50px;
+    font-size: 43px;
     max-width: 100%;
     margin: 16px 0;
   }
@@ -1276,9 +1283,6 @@ body > footer nav a:not([aria-label]) svg {
   .study-heading {
     display: block;
     padding: 30px 0 40px;
-  }
-  .study-heading h2 {
-    font-size: 48px;
   }
   .study-heading > div {
     margin-top: 25px;
@@ -1390,7 +1394,7 @@ body > footer nav a:not([aria-label]) svg {
     padding-top: 45px;
   }
   .static-story .paper-surface h2 {
-    font-size: 50px;
+    font-size: 43px;
   }
   .static-story .subject {
     padding-top: 0;
@@ -1411,22 +1415,19 @@ body > footer nav a:not([aria-label]) svg {
     gap: 10px;
   }
   .identity h1 {
-    font-size: 67px;
+    font-size: 58px;
   }
   .identity-bottom p {
     font-size: 17px;
   }
   .scene-heading h2 {
-    font-size: 42px;
+    font-size: 36px;
   }
   .subject-number {
     font-size: clamp(40px, 30cqi, 53px);
   }
   .paper-surface h2 {
-    font-size: 43px;
-  }
-  .study-heading h2 {
-    font-size: 42px;
+    font-size: 37px;
   }
   .subject-top,
   .subject-summary {
@@ -1476,7 +1477,7 @@ body > footer nav a:not([aria-label]) svg {
     padding: 25px;
   }
   .identity h1 {
-    font-size: 60px;
+    font-size: 52px;
   }
   .subject {
     position: relative;
@@ -1496,10 +1497,12 @@ body > footer nav a:not([aria-label]) svg {
   .study {
     padding-top: 20px;
   }
-  .study-heading h2 {
-    font-size: 40px;
-  }
   .trace-layout {
     display: block;
   }
+}
+
+/* Icon placeholders inherit an italic serif before Lucide swaps in the SVG, which fetches an unused italic font. */
+[data-lucide] {
+  font-style: normal;
 }

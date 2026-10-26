@@ -11,7 +11,7 @@
     <meta name="theme-color" content="#f7f7f4" />
     <link rel="canonical" href="https://hansaeronwarde.github.io/notes/independent-failure.html" />
     <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
-    <link rel="preload" href="../assets/portfolio/fonts/Antonio-Variable.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="../assets/portfolio/fonts/InstrumentSerif-Regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="../assets/portfolio/fonts/Switzer-Variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="../assets/portfolio/study.css" />
     <link rel="stylesheet" href="../assets/portfolio/supporting.css" />
@@ -62,7 +62,7 @@
         <section class="field" aria-labelledby="claim-title">
           <span class="field-label" aria-hidden="true"><b>01</b>Claim</span>
           <div class="field-body">
-            <h2 id="claim-title">Different dependencies, different records.</h2>
+            <h2 id="claim-title" class="heading">Different dependencies, different records.</h2>
             <p>
               A SIM that works and a courier who is late are two facts. Stored
               as one status, the late courier hides the working SIM. On SIM
@@ -75,7 +75,7 @@
         <section class="field field-wide" aria-labelledby="model-title">
           <span class="field-label" aria-hidden="true"><b>02</b>Model</span>
           <div class="field-body">
-            <h2 id="model-title">What the customer can see.</h2>
+            <h2 id="model-title" class="heading">What the customer can see.</h2>
             <p>
               Take the logistics provider down, then switch between one record
               for the order and one record per service.
@@ -101,15 +101,15 @@
         <section class="field" aria-labelledby="pattern-title">
           <span class="field-label" aria-hidden="true"><b>03</b>Pattern</span>
           <div class="field-body">
-            <h2 id="pattern-title">One event, two owners.</h2>
+            <h2 id="pattern-title" class="heading">One event, two owners.</h2>
             <p>
               Each service subscribes to the same event and keeps its own
               record. Events can arrive twice, and a handler that throws gets
               its event again. So the record leaves <code>pending</code> only
-              after the work has started. It skips work already started, not
-              a duplicate that arrives at the same moment or a crash before the
-              update, so <code>start</code> must itself be idempotent on the
-              order id. <code>bus</code> and <code>records</code> stand for
+              after the work has started. A late duplicate finds the record
+              started and skips. That check misses two copies arriving at once,
+              or a crash between start and the update, so <code>start</code>
+              must itself be idempotent on the order id. <code>bus</code> and <code>records</code> stand for
               your event bus and store. The second block is the status a
               customer sees, read from both records.
             </p>
@@ -136,7 +136,7 @@ subscribe(bus, fulfillment);</code></pre>
         <section class="field" aria-labelledby="contract-title">
           <span class="field-label" aria-hidden="true"><b>04</b>Contract</span>
           <div class="field-body">
-            <h2 id="contract-title">What each layer can rely on.</h2>
+            <h2 id="contract-title" class="heading">What each layer can rely on.</h2>
             <dl class="layers delivery">
               <div><dt>Customer</dt><dd>Two statuses, each with its own reason when it waits</dd></div>
               <div><dt>Services</dt><dd>Each retries, scales and deploys without the other</dd></div>
@@ -149,7 +149,7 @@ subscribe(bus, fulfillment);</code></pre>
         <section class="field" aria-labelledby="failure-title">
           <span class="field-label" aria-hidden="true"><b>05</b>Tradeoffs</span>
           <div class="field-body">
-            <h2 id="failure-title">Two records can disagree.</h2>
+            <h2 id="failure-title" class="heading">Two records can disagree.</h2>
             <ul class="decisions">
               <li>Separate records need correlating and reconciling across the boundary. Plan the check before the first mismatch.</li>
               <li>Redelivered events must not start work twice. Make every consumer idempotent.</li>
@@ -161,7 +161,7 @@ subscribe(bus, fulfillment);</code></pre>
         <section class="field" aria-labelledby="operating-title">
           <span class="field-label" aria-hidden="true"><b>06</b>Operating</span>
           <div class="field-body">
-            <h2 id="operating-title">Prove each half finishes alone.</h2>
+            <h2 id="operating-title" class="heading">Prove each half finishes alone.</h2>
             <dl class="layers delivery">
               <div><dt>Test</dt><dd>Each service completes with the other&#x27;s dependency down; a duplicate event starts no second piece of work</dd></div>
               <div><dt>Deploy</dt><dd>Services release on their own pipelines</dd></div>
@@ -173,10 +173,10 @@ subscribe(bus, fulfillment);</code></pre>
         <section class="field" aria-labelledby="scope-title">
           <span class="field-label" aria-hidden="true"><b>07</b>Scope</span>
           <div class="field-body">
-            <h2 id="scope-title">General practice, not a client trace.</h2>
+            <h2 id="scope-title" class="heading">General practice, not a client trace.</h2>
             <p>
               The pattern and model are illustrative, not the client&#x27;s
-              implementation. The reported ~40% faster activation is on the
+              implementation. The reported ~40% shorter activation time is on the
               <a href="../work/sim-activation.html">SIM activation case</a>.
             </p>
           </div>

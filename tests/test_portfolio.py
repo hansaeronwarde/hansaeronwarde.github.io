@@ -370,7 +370,12 @@ class SiteTests(unittest.TestCase):
                 self.assertIsNone(home.search(path.read_text()))
 
     def test_embedded_asset_provenance(self):
-        for asset in ['fonts/Antonio-OFL.txt', 'fonts/Switzer-FFL.txt', 'vendor/LUCIDE-LICENSE', 'media/SOURCES.md', 'media/film-desktop.mp4', 'media/film-mobile.mp4']:
+        fonts = ROOT / 'assets/portfolio/fonts'
+        for font in [*fonts.glob('*.woff2'), *fonts.glob('*.ttf')]:
+            family = font.stem.split('-')[0]
+            with self.subTest(font=font.name):
+                self.assertTrue([*fonts.glob(f'{family}-OFL.txt'), *fonts.glob(f'{family}-FFL.txt')])
+        for asset in ['vendor/LUCIDE-LICENSE', 'media/SOURCES.md', 'media/film-desktop.mp4', 'media/film-mobile.mp4']:
             with self.subTest(asset=asset):
                 self.assertTrue((ROOT / 'assets/portfolio' / asset).is_file())
 

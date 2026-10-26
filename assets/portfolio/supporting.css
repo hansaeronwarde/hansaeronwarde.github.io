@@ -196,7 +196,9 @@
   border-top: 1px solid var(--ink);
 }
 .lane-origin strong {
-  font: 450 40px/1.1 Antonio, sans-serif;
+  font: 400 40px/1.1 var(--serif);
+  letter-spacing: -0.01em;
+  font-synthesis: none;
 }
 .service {
   display: flex;
@@ -210,7 +212,6 @@
   border-right: 1px solid var(--line);
 }
 .service-name h3 {
-  font-size: 22px;
   margin-top: 6px;
 }
 .service-state {
@@ -221,8 +222,9 @@
   min-height: 108px;
 }
 .service-state strong {
-  font: 450 56px/1.05 Antonio, sans-serif;
-  text-transform: uppercase;
+  font: 400 56px/1.05 var(--serif);
+  letter-spacing: -0.01em;
+  font-synthesis: none;
 }
 .service[data-state="activated"] .service-state strong,
 .service[data-state="fulfilled"] .service-state strong {
@@ -372,8 +374,9 @@
   background: white;
 }
 .ocr-box em {
-  font: 450 44px/1 Antonio, sans-serif;
-  font-style: normal;
+  font: 400 44px/1 var(--serif);
+  letter-spacing: -0.01em;
+  font-synthesis: none;
   color: var(--ink);
 }
 .ocr-box small {
@@ -391,7 +394,9 @@
   position: absolute;
   right: -10px;
   bottom: -18px;
-  font: 450 120px/1 Antonio, sans-serif;
+  font: 400 103px/1 var(--serif);
+  letter-spacing: -0.01em;
+  font-synthesis: none;
   color: #20232010;
   transform: rotate(-8deg);
   pointer-events: none;
@@ -411,8 +416,9 @@
   min-width: 0;
 }
 .review-state {
-  font: 450 64px/1.05 Antonio, sans-serif;
-  text-transform: uppercase;
+  font: 400 64px/1.05 var(--serif);
+  letter-spacing: -0.01em;
+  font-synthesis: none;
   margin-top: 14px;
   width: fit-content;
 }
@@ -488,7 +494,7 @@
   font-size: var(--type-min);
   color: var(--muted);
 }
-/* Switzer, not Antonio: Antonio draws O and 0 alike, which hides the correction. */
+/* Switzer, not the display serif: Switzer's O and 0 differ in both width and height, so the correction shows. */
 .review-diff dd {
   margin: 6px 0 0;
   font-size: 34px;
@@ -538,7 +544,9 @@
   gap: 10px;
 }
 .campaign-node strong {
-  font: 450 40px/1.1 Antonio, sans-serif;
+  font: 400 40px/1.1 var(--serif);
+  letter-spacing: -0.01em;
+  font-synthesis: none;
 }
 .send {
   display: flex;
@@ -621,8 +629,9 @@
   font-weight: 500;
 }
 .receipt-state {
-  font: 450 44px/1.05 Antonio, sans-serif;
-  text-transform: uppercase;
+  font: 400 44px/1.05 var(--serif);
+  letter-spacing: -0.01em;
+  font-synthesis: none;
 }
 .receipt[data-state="sent"] .receipt-state {
   color: var(--green);
@@ -759,9 +768,6 @@
   .service {
     padding: 14px 10px 0;
   }
-  .service-name h3 {
-    font-size: 18px;
-  }
   .service-state {
     margin-top: 16px;
     min-height: 124px;
@@ -806,7 +812,7 @@
     font-size: 36px;
   }
   .crop-mark {
-    font-size: 84px;
+    font-size: 72px;
   }
   .review {
     gap: 30px;

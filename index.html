@@ -19,7 +19,7 @@
     />
     <meta
       property="og:description"
-      content="Batch processing cut from 72 hours to 4. SIM activation ~40% faster for 100k+ active subscribers. $210k a year saved on claims intake. Open to lead roles and architecture consulting."
+      content="Batch processing cut from 72 hours to 4. SIM activation time ~40% shorter for 100k+ active subscribers. $210k a year saved on claims intake. Open to lead roles and architecture consulting."
     />
     <meta property="og:url" content="https://hansaeronwarde.github.io/" />
     <meta
@@ -34,13 +34,13 @@
     />
     <meta
       name="twitter:description"
-      content="Batch processing cut from 72 hours to 4. SIM activation ~40% faster for 100k+ active subscribers. $210k a year saved on claims intake. Open to lead roles and architecture consulting."
+      content="Batch processing cut from 72 hours to 4. SIM activation time ~40% shorter for 100k+ active subscribers. $210k a year saved on claims intake. Open to lead roles and architecture consulting."
     />
     <link
       rel="preload"
-      href="assets/portfolio/fonts/Antonio-Variable.ttf"
+      href="assets/portfolio/fonts/InstrumentSerif-Regular.woff2"
       as="font"
-      type="font/ttf"
+      type="font/woff2"
       crossorigin
     />
     <link
@@ -156,14 +156,14 @@
           <div class="identity">
             <span class="eyebrow">LEAD FULL-STACK ENGINEER / MANILA</span>
             <h1 id="name">
-              HANS<br />
-              AERON WARDE<span>.</span>
+              Hans Aeron<br />
+              Warde<span>.</span>
             </h1>
             <div class="identity-bottom">
               <p>
                 I rebuild the systems behind billing,<br class="desktop" />
                 SIM activation and insurance claims.
-                <span class="hero-result">One rebuild cut a 72&#160;h batch to&#160;4&#160;h.</span>
+                <span class="hero-result">On Delco, custom middleware cut a 72&#160;h batch to&#160;4&#160;h.</span>
               </p>
               <div class="arrival">
                 <nav class="arrival-index" aria-label="Case studies">
@@ -197,19 +197,19 @@
             </div>
             <div class="worker-tracks">
               <div class="lane">
-                <span>01 / WORKER</span><b data-worker="1">IDLE</b><i></i>
+                <span>01 / WORKER</span><b data-worker="1">Idle</b><i></i>
               </div>
               <div class="lane">
-                <span>02 / WORKER</span><b data-worker="2">IDLE</b><i></i>
+                <span>02 / WORKER</span><b data-worker="2">Idle</b><i></i>
               </div>
               <div class="lane">
-                <span>03 / WORKER</span><b data-worker="3">IDLE</b><i></i>
+                <span>03 / WORKER</span><b data-worker="3">Idle</b><i></i>
               </div>
               <div class="lane">
-                <span>04 / WORKER</span><b data-worker="4">IDLE</b><i></i>
+                <span>04 / WORKER</span><b data-worker="4">Idle</b><i></i>
               </div>
               <div class="lane">
-                <span>05 / WORKER</span><b data-worker="5">IDLE</b><i></i>
+                <span>05 / WORKER</span><b data-worker="5">Idle</b><i></i>
               </div>
             </div>
             <div class="scene-foot">
@@ -300,8 +300,8 @@
           <span>01 / ESC PARTNERS</span><span>INTEGRATION MIDDLEWARE / LEAD SOFTWARE ENGINEER</span>
         </div>
         <div class="study-heading">
-          <h2 id="study-title" tabindex="-1">
-            Accept the request.<br />Protect the service.
+          <h2 id="study-title" class="heading" tabindex="-1">
+            Accept the request. Protect the service.
           </h2>
           <div>
             <p>
@@ -313,7 +313,7 @@
               <div><dt>Services</dt><dd>Designed and wrote the request lifecycle, worker pool and batch pipeline in Node.js</dd></div>
               <div><dt>Data</dt><dd>Retained request state in MongoDB</dd></div>
               <div><dt>Infra</dt><dd>AWS, queue architecture</dd></div>
-              <div><dt>Team</dt><dd>Led four engineers; owned schema, service boundaries, cloud and production monitoring</dd></div>
+              <div><dt>Team</dt><dd>Across the ESC Partners role: led four engineers; owned schema, service boundaries, cloud and production monitoring</dd></div>
             </dl>
             <a href="work/integration-middleware.html"
               >Full case study
@@ -527,7 +527,7 @@
           <span>OPERATING PRINCIPLE</span><span>SYSTEMS / RECORDS / PEOPLE</span>
         </div>
         <div class="principle-body">
-          <h2 id="principle-heading">The people<br />downstream.</h2>
+          <h2 id="principle-heading" class="heading">The people downstream.</h2>
           <div>
             <p class="principle-lead">
               Most of what I build sits behind someone else&#x27;s job: a
@@ -567,10 +567,12 @@
         </div>
         <h2 id="systems-heading" class="sr-only">More selected systems</h2>
 
-        <article class="preview" id="telecom" aria-labelledby="telecom-title" data-preview data-ok="true">
-          <div class="preview-copy">
+        <article class="preview preview-lanes" id="telecom" aria-labelledby="telecom-title" data-preview data-ok="true">
+          <div class="preview-head">
             <span class="eyebrow">02 / CIRCLES.LIFE / TELECOM</span>
-            <h3 id="telecom-title" tabindex="-1">Activation<br />stands alone.</h3>
+            <h3 id="telecom-title" class="heading" tabindex="-1">Activation stands alone.</h3>
+          </div>
+          <div class="preview-copy">
             <p class="decision">
               <span class="eyebrow">THE DECISION</span>
               Run activation and fulfillment as separate services, so one can
@@ -607,16 +609,18 @@
           <div class="reported">
             <span class="eyebrow">REPORTED OUTCOME</span><strong>~40%</strong>
             <p>
-              Faster average SIM activation, on a platform serving 100k+ active
+              Shorter average SIM activation time, on a platform serving 100k+ active
               subscribers.
             </p>
           </div>
         </article>
 
-        <article class="preview" id="claims" aria-labelledby="claims-title" data-preview data-ok="true">
-          <div class="preview-copy">
+        <article class="preview preview-crop" id="claims" aria-labelledby="claims-title" data-preview data-ok="true">
+          <div class="preview-head">
             <span class="eyebrow">03 / MANULIFE / INSURANCE</span>
-            <h3 id="claims-title" tabindex="-1">Make room<br />for judgment.</h3>
+            <h3 id="claims-title" class="heading" tabindex="-1">Make room for judgment.</h3>
+          </div>
+          <div class="preview-copy">
             <p class="decision">
               <span class="eyebrow">THE DECISION</span>
               Automate extraction, and keep people responsible for checking it.
@@ -651,19 +655,10 @@
           </div>
         </article>
 
-        <article class="preview" id="campaigns" aria-labelledby="campaigns-title" data-preview data-ok="true">
-          <div class="preview-copy">
+        <article class="preview preview-fan" id="campaigns" aria-labelledby="campaigns-title" data-preview data-ok="true">
+          <div class="preview-head">
             <span class="eyebrow">04 / ESC PARTNERS / UTILITIES</span>
-            <h3 id="campaigns-title" tabindex="-1">One message.<br />Every channel.</h3>
-            <p class="decision">
-              <span class="eyebrow">THE DECISION</span>
-              Put every vendor behind one interface, but keep channel choice and
-              each delivery&#x27;s status.
-            </p>
-            <p class="owned"><span class="eyebrow">WHAT I OWNED</span> Architecture &#183; Interface &#183; Services &#183; Data</p>
-            <a class="case-link" href="work/campaign-delivery.html"
-              >Full case study <i data-lucide="arrow-right" aria-hidden="true"></i
-            ></a>
+            <h3 id="campaigns-title" class="heading" tabindex="-1">One message. Every channel.</h3>
           </div>
           <figure class="preview-model fan" aria-labelledby="campaigns-caption">
             <ol class="fan-receipts" aria-live="polite">
@@ -679,6 +674,17 @@
               SYNTHETIC CAMPAIGN. One sample message; it reaches no one.
             </figcaption>
           </figure>
+          <div class="preview-copy">
+            <p class="decision">
+              <span class="eyebrow">THE DECISION</span>
+              Put every vendor behind one interface, but keep channel choice and
+              each delivery&#x27;s status.
+            </p>
+            <p class="owned"><span class="eyebrow">WHAT I OWNED</span> Architecture &#183; Interface &#183; Services &#183; Data</p>
+            <a class="case-link" href="work/campaign-delivery.html"
+              >Full case study <i data-lucide="arrow-right" aria-hidden="true"></i
+            ></a>
+          </div>
           <div class="reported">
             <span class="eyebrow">REPORTED CONTEXT</span><strong>50,000+</strong>
             <p>
@@ -694,7 +700,7 @@
           <span>ENGINEERING NOTES</span><span>GENERAL PRACTICE / N1&#8211;N4</span>
         </div>
         <div class="notes-body">
-          <h2 id="notes-heading">Notes from<br />the work.</h2>
+          <h2 id="notes-heading" class="heading">Notes from the work.</h2>
           <ol class="note-list">
             <li>
               <a href="notes/bounded-concurrency.html"><span>N1</span><strong>Protecting downstream services with bounded concurrency</strong
@@ -734,13 +740,13 @@
         <div class="resume-intro">
           <div>
             <span class="eyebrow">HANS AERON WARDE</span>
-            <h2 id="resume-heading">Legacy<br />rebuilds,<br />measured.</h2>
+            <h2 id="resume-heading" class="heading">Legacy rebuilds, measured.</h2>
           </div>
           <div class="resume-description">
             <h3>Lead full-stack engineer.</h3>
             <p>
-              I lead teams that replace legacy systems, from schema design to
-              production monitoring.
+              I replace legacy systems, from schema design to production
+              monitoring.
             </p>
             <a class="arrow-link" href="mailto:haeronwarde@gmail.com"
               >haeronwarde@gmail.com
@@ -793,8 +799,8 @@
           <span>EXPERIENCE</span><span>MAY 2019 &#8211; NOV 2025</span>
         </div>
         <div class="section-intro">
-          <h2 class="section-heading" id="career-heading">
-            Where the<br />numbers<br />come from.
+          <h2 class="section-heading heading" id="career-heading">
+            Where the numbers come from.
           </h2>
           <p>
             From 2019 to 2025, across utilities, telecom, insurance, edtech and
@@ -817,10 +823,10 @@
               ><span class="career-dates"
                 ><time datetime="2023-05">May 2023</time> &#8211;
                 <time datetime="2025-11">Nov 2025</time> &#183; Remote &#183;
-                contract from <time datetime="2025-01">Jan 2025</time></span
+                Full-time, contract from <time datetime="2025-01">Jan 2025</time></span
               >
               <h3>Lead Software Engineer</h3>
-              <dl class="career-metric"><dt>72 h &#8594; 4 h</dt><dd>Batch processing time</dd></dl>
+              <dl class="career-metric"><dt>72 h <i data-lucide="arrow-right" aria-hidden="true"></i><span class="sr-only">to</span> 4 h</dt><dd>Batch processing time</dd></dl>
             </div>
             <div>
               <p>
@@ -852,7 +858,7 @@
                 Contract</span
               >
               <h3>Software Engineer</h3>
-              <dl class="career-metric"><dt>~40%</dt><dd>Faster average SIM activation</dd></dl>
+              <dl class="career-metric"><dt>~40%</dt><dd>Shorter average SIM activation time</dd></dl>
             </div>
             <div>
               <p>
@@ -880,14 +886,14 @@
                 Full-time</span
               >
               <h3>Software Engineer</h3>
-              <dl class="career-metric"><dt>40s &#8594; 90s</dt><dd>Lighthouse performance</dd></dl>
+              <dl class="career-metric"><dt>40s <i data-lucide="arrow-right" aria-hidden="true"></i><span class="sr-only">to</span> 90s</dt><dd>Lighthouse performance</dd></dl>
             </div>
             <div>
               <p>
                 I rebuilt the School Sites fundraising platform in Next.js:
                 initial load over 50% faster, Lighthouse performance from the
                 40s to the 90s. I replaced a tangle of legacy systems with
-                consolidated backend services, a one-time $50k saving in operational costs,
+                consolidated backend services, which saved a one-time $50k in operational costs,
                 and designed the team&#x27;s component library.
               </p>
             </div>
@@ -909,7 +915,7 @@
                 City</span
               >
               <h3>Software Engineer</h3>
-              <dl class="career-metric"><dt>$210k</dt><dd>Labor saved a year</dd></dl>
+              <dl class="career-metric"><dt>$210k</dt><dd>Labor cost saved a year</dd></dl>
             </div>
             <div>
               <p>
@@ -960,7 +966,7 @@
         <div class="dossier-grid">
           <div class="dossier-cell dossier-focus">
             <span class="eyebrow">ENGINEERING FOCUS</span>
-            <h3 id="engineering-focus">The hard parts<br />of delivery.</h3>
+            <h3 id="engineering-focus" class="heading">The hard parts of delivery.</h3>
             <ol class="dossier-focus-list">
               <li>Split legacy monoliths into services that deploy and fail on their own.</li>
               <li>Design event-driven systems that hold up under real concurrency.</li>
@@ -971,7 +977,7 @@
           </div>
           <div class="dossier-cell">
             <span class="eyebrow">STACK</span>
-            <h3 id="stack">What I<br />build with.</h3>
+            <h3 id="stack" class="heading">What I build with.</h3>
             <dl class="dossier-rows">
               <div><dt>LANGUAGES</dt><dd>TypeScript, JavaScript, Go, SQL</dd></div>
               <div><dt>FRONTEND</dt><dd>React, Next.js, React Native, Tailwind CSS</dd></div>
@@ -984,7 +990,7 @@
           </div>
           <div class="dossier-cell">
             <span class="eyebrow">CERTIFICATIONS</span>
-            <h3 id="certs">Certified on<br />Azure and AWS.</h3>
+            <h3 id="certs" class="heading">Certified on Azure and AWS.</h3>
             <div class="dossier-certs">
               <a href="https://www.credly.com/badges/08866e47-1eb3-418a-aa1c-9697304f689b" target="_blank" rel="noreferrer"
                 ><span class="issuer">Microsoft Azure</span><span>Fundamentals</span><time datetime="2021">2021</time
@@ -1003,7 +1009,7 @@
           </div>
           <div class="dossier-cell dossier-edu">
             <span class="eyebrow">EDUCATION</span>
-            <h3 id="education">
+            <h3 id="education" class="heading">
               <a href="https://www.pup.edu.ph/" target="_blank" rel="noreferrer"
                 >PUP Manila <i data-lucide="arrow-up-right" aria-hidden="true"></i
               ></a>

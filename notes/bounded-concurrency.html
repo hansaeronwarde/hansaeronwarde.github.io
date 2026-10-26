@@ -11,7 +11,7 @@
     <meta name="theme-color" content="#f7f7f4" />
     <link rel="canonical" href="https://hansaeronwarde.github.io/notes/bounded-concurrency.html" />
     <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
-    <link rel="preload" href="../assets/portfolio/fonts/Antonio-Variable.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="../assets/portfolio/fonts/InstrumentSerif-Regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="../assets/portfolio/fonts/Switzer-Variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="../assets/portfolio/study.css" />
     <link rel="stylesheet" href="../assets/portfolio/supporting.css" />
@@ -63,7 +63,7 @@
         <section class="field" aria-labelledby="claim-title">
           <span class="field-label" aria-hidden="true"><b>01</b>Claim</span>
           <div class="field-body">
-            <h2 id="claim-title">Cap the work you send, not the work you accept.</h2>
+            <h2 id="claim-title" class="heading">Cap the work you send, not the work you accept.</h2>
             <p>
               Acknowledge every request at once and give it a record. Then let
               a fixed number of calls reach the downstream at a time. Set that
@@ -77,7 +77,7 @@
         <section class="field field-wide" aria-labelledby="model-title">
           <span class="field-label" aria-hidden="true"><b>02</b>Model</span>
           <div class="field-body">
-            <h2 id="model-title">More workers stop helping at the cap.</h2>
+            <h2 id="model-title" class="heading">More workers stop helping at the cap.</h2>
             <p>
               24 synthetic requests, run to the end for 1 to 8 workers. Move
               the downstream capacity: below it, each extra worker finishes
@@ -118,7 +118,7 @@
         <section class="field" aria-labelledby="pattern-title">
           <span class="field-label" aria-hidden="true"><b>03</b>Pattern</span>
           <div class="field-body">
-            <h2 id="pattern-title">A semaphore and a bounded retry.</h2>
+            <h2 id="pattern-title" class="heading">A semaphore and a bounded retry.</h2>
             <p>
               Wrap the downstream call once. Callers queue in arrival order,
               and transient errors back off before trying again.
@@ -163,7 +163,7 @@ const callBilling = bounded(5, (id) =&gt; withRetry(() =&gt; billing.fetch(id)))
         <section class="field" aria-labelledby="contract-title">
           <span class="field-label" aria-hidden="true"><b>04</b>Contract</span>
           <div class="field-body">
-            <h2 id="contract-title">What each layer can rely on.</h2>
+            <h2 id="contract-title" class="heading">What each layer can rely on.</h2>
             <dl class="layers delivery">
               <div><dt>Caller</dt><dd>An immediate acknowledgement with a request id, not a held-open connection</dd></div>
               <div><dt>Service</dt><dd>Never more than the cap in flight to any one downstream</dd></div>
@@ -176,7 +176,7 @@ const callBilling = bounded(5, (id) =&gt; withRetry(() =&gt; billing.fetch(id)))
         <section class="field" aria-labelledby="failure-title">
           <span class="field-label" aria-hidden="true"><b>05</b>Tradeoffs</span>
           <div class="field-body">
-            <h2 id="failure-title">The wait moves; it does not disappear.</h2>
+            <h2 id="failure-title" class="heading">The wait moves; it does not disappear.</h2>
             <ul class="decisions">
               <li>A cap moves waiting from the downstream into your queue. Queue depth becomes the number to watch.</li>
               <li>Retries add load at the worst moment. Back off, cap the attempts, and retry only errors you know are transient.</li>
@@ -189,7 +189,7 @@ const callBilling = bounded(5, (id) =&gt; withRetry(() =&gt; billing.fetch(id)))
         <section class="field" aria-labelledby="operating-title">
           <span class="field-label" aria-hidden="true"><b>06</b>Operating</span>
           <div class="field-body">
-            <h2 id="operating-title">Test the cap. Watch the queue.</h2>
+            <h2 id="operating-title" class="heading">Test the cap. Watch the queue.</h2>
             <dl class="layers delivery">
               <div><dt>Test</dt><dd>A fake downstream that counts concurrent calls; the test fails if the count ever passes the limit</dd></div>
               <div><dt>Deploy</dt><dd>The limit and retry policy ship as configuration per dependency</dd></div>
@@ -201,7 +201,7 @@ const callBilling = bounded(5, (id) =&gt; withRetry(() =&gt; billing.fetch(id)))
         <section class="field" aria-labelledby="scope-title">
           <span class="field-label" aria-hidden="true"><b>07</b>Scope</span>
           <div class="field-body">
-            <h2 id="scope-title">General practice, not a client trace.</h2>
+            <h2 id="scope-title" class="heading">General practice, not a client trace.</h2>
             <p>
               The pattern and model are illustrative. They are not the
               client&#x27;s implementation, and the sweep measures nothing in
