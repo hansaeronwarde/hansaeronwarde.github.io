@@ -93,9 +93,10 @@
   white-space: nowrap;
 }
 .command:hover {
-  background: var(--red);
-  border-color: var(--red);
-  color: white;
+  background: var(--muted);
+  border-color: var(--muted);
+  color: var(--paper);
+  text-decoration: none;
 }
 .command svg {
   width: 18px;
@@ -106,7 +107,7 @@
   color: var(--ink);
 }
 .command.secondary:hover {
-  color: white;
+  color: var(--paper);
 }
 /* Pressable on purpose: it announces why instead of going inert. */
 .command[aria-disabled="true"] {
@@ -129,7 +130,7 @@
   cursor: pointer;
 }
 .checkbox input {
-  accent-color: var(--red);
+  accent-color: var(--ink);
   width: 18px;
   height: 18px;
   margin: 0;
@@ -427,7 +428,7 @@
 }
 /* Focus moves here after approval; keyboard users see where it went. */
 .review-state:focus-visible {
-  outline: 2px solid var(--red);
+  outline: 2px solid var(--ink);
   outline-offset: 5px;
 }
 .review-detail {

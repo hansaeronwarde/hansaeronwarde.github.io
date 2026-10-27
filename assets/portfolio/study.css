@@ -30,7 +30,17 @@
   --ink: #202320;
   --muted: #626a62;
   --line: #cccfca;
+  /* WCAG 1.4.11: 3.58:1 on paper, for a control whose boundary is its only edge. --line is 1.5:1. */
+  --line-strong: #7d847d;
+  --line-on-band: #bfc9bd;
+  --line-on-dark: #ffffff60;
+  --tint: #e9eee8;
   --red: #cc3828;
+  /* --red is 3.97:1 on the stage (#050905); the name period needs this lighter red to reach 5.65:1. */
+  --red-on-film: #ef5140;
+  --chip-done: #dce7dc;
+  --chip-fail: #f1d7d1;
+  --chip-fail-text: #8e261a;
   --type-min: 11px;
   --type-link: 12px;
   --green: #24392e;
@@ -90,7 +100,24 @@ a {
 }
 a:hover,
 button:hover {
-  color: var(--red);
+  text-decoration: underline 1px;
+  text-underline-offset: 5px;
+}
+/* Ink links inside running text need a cue at rest; colour alone would be none (WCAG 1.4.1). */
+main :is(p, dd) > a:not([class]) {
+  text-decoration: underline 1px;
+  text-underline-offset: 5px;
+}
+main :is(p, dd) > a:not([class]):hover {
+  text-decoration-thickness: 2px;
+}
+/* Links that already sit on a rule darken it instead of drawing a second line under it. */
+:is(.case-link, .study-heading a, .subject-bottom a, .identity-bottom a, #resume .arrow-link, #contact .email):hover {
+  text-decoration: none;
+  border-bottom-color: currentColor;
+}
+.icon:hover {
+  background: color-mix(in srgb, currentColor 10%, transparent);
 }
 button:disabled {
   opacity: 0.45;
@@ -104,7 +131,7 @@ a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 select:focus-visible {
-  outline: 2px solid var(--red);
+  outline: 2px solid var(--ink);
   outline-offset: 5px;
 }
 h1,
@@ -176,6 +203,8 @@ video {
   clip-path: none;
   background: var(--paper);
   z-index: 200;
+  /* At the usual 5px offset the ink ring crosses the ink logo beneath the box. */
+  outline-offset: 0;
 }
 ::selection {
   background: var(--red);
@@ -191,7 +220,7 @@ header {
   display: flex;
   align-items: center;
   gap: 48px;
-  border-bottom: 1px solid #ffffff55;
+  border-bottom: 1px solid var(--line-on-dark);
   color: white;
   transition: color var(--quick) var(--ease);
 }
@@ -216,17 +245,11 @@ header.paper::before {
   z-index: -1;
   background: #050905;
 }
-/* Red on footage measures 2.2–3.2:1, under the 3:1 that 1.4.11 asks of a focus ring. */
+/* An ink ring disappears on footage; 1.4.11 asks 3:1 of a focus ring. */
 header:not(.paper) :focus-visible,
 .identity :focus-visible,
 .film-tools:not(.on-paper) :focus-visible {
   outline-color: white;
-}
-header:not(.paper) a:hover,
-header:not(.paper) button:hover {
-  color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 5px;
 }
 .signature {
   font-size: 32px;
@@ -346,7 +369,7 @@ nav .icon {
   font-synthesis: none;
 }
 .identity h1 > span {
-  color: #ef5140;
+  color: var(--red-on-film);
 }
 /* The case index takes its own column beside the name and lede, so it grows
    upward without pushing the name up and cannot overlap it at any text size. */
@@ -370,7 +393,7 @@ nav .icon {
   align-items: center;
   gap: 24px;
   padding: 10px 0 9px;
-  border-bottom: 1px solid #ffffff6b;
+  border-bottom: 1px solid var(--line-on-dark);
   font-size: 19px;
 }
 .identity-bottom .eyebrow + a {
@@ -427,16 +450,16 @@ nav .icon {
   bottom: 105px;
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  border-top: 1px solid #ffffff70;
+  border-top: 1px solid var(--line-on-dark);
 }
 .lane {
   position: relative;
-  border-left: 1px solid #ffffff55;
+  border-left: 1px solid var(--line-on-dark);
   padding: 16px 14px;
   overflow: hidden;
 }
 .lane:last-child {
-  border-right: 1px solid #ffffff55;
+  border-right: 1px solid var(--line-on-dark);
 }
 .lane > span {
   font-size: var(--type-min);
@@ -516,9 +539,6 @@ nav .icon {
   align-items: center;
   justify-content: space-between;
   padding: 14px 0;
-}
-.subject-number span {
-  color: var(--red);
 }
 .subject-number svg {
   width: 30px;
@@ -627,7 +647,7 @@ nav .icon {
   display: flex;
   gap: 36px;
   align-items: center;
-  border-top: 1px solid #ffffff55;
+  border-top: 1px solid var(--line-on-dark);
   color: white;
 }
 /* Mid-dissolve neither white (fails past paper 0.35) nor bare ink (passes from 0.55) reaches 4.5:1. */
@@ -721,8 +741,10 @@ footer {
   font-size: 14px;
 }
 .segmented button[aria-selected="true"] {
-  color: var(--red);
-  border-color: var(--red);
+  border-color: var(--ink);
+}
+.segmented sup {
+  color: var(--muted);
 }
 @media (forced-colors: active) {
   .segmented button[aria-selected="false"] {
@@ -767,7 +789,7 @@ footer {
 }
 .trace-identity select {
   border: 0;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--line-strong);
   padding: 8px;
   background: transparent;
   font-size: 13px;
@@ -844,7 +866,7 @@ footer {
 .lab-controls input[type="range"] {
   width: 100%;
   grid-column: 1/-1;
-  accent-color: var(--red);
+  accent-color: var(--ink);
 }
 .lab-controls .checkbox {
   display: flex;
@@ -887,8 +909,8 @@ footer {
 }
 #requests button {
   height: 68px;
-  background: #edefe9;
-  border: 1px solid var(--line);
+  background: var(--tint);
+  border: 1px solid var(--line-strong);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -905,11 +927,11 @@ footer {
 }
 #requests button[data-state="retrying"],
 #requests button[data-state="failed"] {
-  background: #f1d7d1;
-  color: #8e261a;
+  background: var(--chip-fail);
+  color: var(--chip-fail-text);
 }
 #requests button[data-state="completed"] {
-  background: #dce7dc;
+  background: var(--chip-done);
   color: var(--green);
 }
 #experiment-panel {

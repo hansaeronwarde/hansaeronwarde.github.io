@@ -16,12 +16,6 @@ svg:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focu
   font-weight: inherit;
 }
 :is(#resume, #work, #engineering-focus, #stack, #certs, #education, #about, #contact) {
-  --paper: #f7f7f4;
-  --ink: #202320;
-  --accent: var(--red);
-  --line: #cccfca;
-  --muted: #626a62;
-  --green: #24392e;
   --gutter: 40px;
   --type-min: 11px;
   --type-link: 12px;
@@ -39,14 +33,6 @@ button:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-f
 a:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *) {
   -webkit-tap-highlight-color: transparent;
 }
-a:hover:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *) {
-  color: var(--accent);
-}
-a:focus-visible:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *),
-button:focus-visible:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *) {
-  outline: 2px solid var(--accent);
-  outline-offset: 5px;
-}
 .profile :focus-visible:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *) {
   outline-color: currentcolor;
 }
@@ -58,9 +44,6 @@ img:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focu
   height: 36px;
   place-items: center;
   padding: 7px;
-}
-.icon:hover:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *) {
-  background: rgba(130, 140, 125, 0.1);
 }
 .section-label a:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *) {
   font-size: var(--type-link);
@@ -158,7 +141,7 @@ img:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focu
   line-height: 1.5;
 }
 .focus:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *) {
-  background: rgb(233, 238, 232);
+  background: var(--tint);
 }
 .focus .section-intro > p:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *) {
   max-width: 540px;
@@ -172,7 +155,7 @@ img:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focu
   display: grid;
   grid-template-columns: 35px 1fr;
   gap: 20px;
-  border-top: 1px solid rgb(191, 201, 189);
+  border-top: 1px solid var(--line-on-band);
   padding: 23px 0px;
   font-size: 20px;
   counter-increment: focus 1;
@@ -183,7 +166,7 @@ img:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focu
   padding-top: 6px;
 }
 .focus-list li:last-child:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *) {
-  border-bottom: 1px solid rgb(191, 201, 189);
+  border-bottom: 1px solid var(--line-on-band);
 }
 .toolbox-grid:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *) {
   display: grid;
@@ -241,7 +224,7 @@ img:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focu
 }
 .profile:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *) {
   background: var(--green);
-  color: rgb(244, 247, 242);
+  color: var(--paper);
 }
 .profile-layout:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *) {
   display: grid;
@@ -457,7 +440,7 @@ img:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focu
   align-items: center;
   height: 24px;
   flex-shrink: 0;
-  color: var(--accent);
+  color: var(--red);
 }
 .practice-mark i:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *) {
   background: currentcolor;
@@ -502,7 +485,7 @@ main > .profile:is(#resume, #resume *, #work, #work *, #engineering-focus, #engi
   top: 35px;
   width: 5px;
   height: 22px;
-  background: var(--accent);
+  background: var(--ink);
 }
 .career-company:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *) {
   font-size: 23px;
@@ -521,7 +504,7 @@ main > .profile:is(#resume, #resume *, #work, #work *, #engineering-focus, #engi
   position: absolute;
   top: 27px;
   left: 0px;
-  background: var(--accent);
+  background: var(--ink);
 }
 .profile figure:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *) {
   margin-left: 0px;
@@ -531,7 +514,7 @@ main > .profile:is(#resume, #resume *, #work, #work *, #engineering-focus, #engi
 .profile figcaption:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *) {
   display: flex;
   justify-content: space-between;
-  border-top: 1px solid rgba(255, 255, 255, 0.376);
+  border-top: 1px solid var(--line-on-dark);
   padding-top: 14px;
 }
 .profile figcaption:is(#resume, #resume *, #work, #work *, #engineering-focus, #engineering-focus *, #stack, #stack *, #certs, #certs *, #education, #education *, #about, #about *, #contact, #contact *)::after {
